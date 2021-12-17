@@ -3,8 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/manue/Documents/NetBeansProjects/Semestral-DS4/Semestral_DS4g/src/java/procesos/Registrar.java</file>
+            <file>file:/C:/Users/manue/Documents/NetBeansProjects/Semestral-DS4/Semestral_DS4g/src/java/servlet/Controlador.java</file>
             <file>file:/C:/Users/manue/Documents/NetBeansProjects/Semestral-DS4/Semestral_DS4g/src/java/procesos/Conectar.java</file>
+            <file>file:/C:/Users/manue/Documents/NetBeansProjects/Semestral-DS4/Semestral_DS4g/src/java/Entidades/Usuario.java</file>
+            <file>file:/C:/Users/manue/Documents/NetBeansProjects/Semestral-DS4/Semestral_DS4g/src/java/procesos/Sesion.java</file>
         </group>
     </open-files>
 </project-private>

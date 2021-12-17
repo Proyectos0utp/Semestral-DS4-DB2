@@ -44,7 +44,7 @@ public class Controlador extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         String accion = request.getParameter("accion");
-        String ventanaAMostrar = "", mensajeAviso = "";
+        String ventanaAMostrar = "", mensajeAviso = "", correo = "", pass = "";
         
         //contacto.jsp
         if (accion.equals("Contactar")) {
@@ -90,6 +90,38 @@ public class Controlador extends HttpServlet {
             
             request.setAttribute("avisoRegistro", mensajeAviso);
             ventanaAMostrar = "registro.jsp";
+        }
+        
+        //iniciarsesion.jsp
+        if (accion.equals("Iniciar Sesion")) {
+            
+            correo = request.getParameter("correo");
+            pass = request.getParameter("pass");
+            
+            if (!correo.equals("") && !pass.equals("")) {
+                
+                usuarioLogeado = Sesion.iniciar(correo, pass);
+                
+                if (usuarioLogeado != null) {
+                    
+                    if (usuarioLogeado.esProfesor()) {
+                        ventanaAMostrar = "perfil.jsp";
+                    } else {
+                        ventanaAMostrar = "perfil.jsp";
+                    }
+                    
+                    
+                } else {
+                    mensajeAviso = "Credenciales incorrectas. Reintente.";
+                    ventanaAMostrar = "iniciarsesion.jsp";
+                }
+                
+            } else {
+                mensajeAviso = "Rellene todos los campos. Reintente.";
+                ventanaAMostrar = "iniciarsesion.jsp";
+            }
+            
+            request.setAttribute("avisoSesion", mensajeAviso);
         }
         
         RequestDispatcher ventana = request.getRequestDispatcher(ventanaAMostrar);

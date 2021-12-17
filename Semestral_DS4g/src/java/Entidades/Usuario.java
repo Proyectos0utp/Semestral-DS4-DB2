@@ -8,6 +8,7 @@ public class Usuario {
     private String nombre;
     private String apellido;
     private String grupo;
+    private boolean esProfesor;
 
     public String getCedula() {
         return cedula;
@@ -55,6 +56,20 @@ public class Usuario {
 
     public void setGrupo(String grupo) {
         this.grupo = grupo;
+    }
+
+    /**
+     * @return the esProfesor
+     */
+    public boolean esProfesor() {
+        return esProfesor;
+    }
+
+    /**
+     * @param esProfesor the esProfesor to set
+     */
+    public void setEsProfesor(boolean esProfesor) {
+        this.esProfesor = esProfesor;
     }
 
     

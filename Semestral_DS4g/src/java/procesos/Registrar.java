@@ -42,7 +42,7 @@ public class Registrar {
             Connection conn = Conectar.conectar();
             Statement stmt = conn.createStatement();
             String query = "SELECT * FROM Usuario WHERE "
-                    + "correo='" + correo + "' or cedula='" + cedula+"';";
+                    + "correo='" + correo + "' or cedula='" + cedula+"'";
             
             ResultSet rs = stmt.executeQuery(query);
             
