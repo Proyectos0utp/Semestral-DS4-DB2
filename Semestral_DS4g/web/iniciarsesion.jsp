@@ -23,7 +23,7 @@
     <div id="wrapper">
         <nav class="navbar navbar-light align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
             <div class="container-fluid d-flex flex-column p-0">
-                <hr style="color: rgba(255,255,255,0);"><a class="navbar-brand text-center d-flex justify-content-center align-items-center sidebar-brand m-0" href="#"><img class="img-fluid" src="http://via.placeholder.com/50x50"></a>
+                <hr style="color: rgba(255,255,255,0);"><a class="navbar-brand text-center d-flex justify-content-center align-items-center sidebar-brand m-0" href="#"><img class="img-fluid" src="assets/img/utp_logo_small.png"></a>
                 <hr class="sidebar-divider my-0">
                 <ul class="navbar-nav text-light" id="accordionSidebar">
                     <li class="nav-item"><a class="nav-link" href="index.html"><span class="text-dark" style="font-size: 20px;">Inicio</span></a></li>
@@ -48,12 +48,12 @@
                             <form method="post" action="procesosJSP/iniciar.jsp">
                                 <label class="form-label" for="correo" style="margin-right: 12em;">Correo</label>
                                 <input type="email" style="margin-bottom: 20px;width: 300px;" name="correo">
-                                <label class="form-label" for="pass" style="margin-right: 12em;">Contraseña</label>
+                                <label class="form-label" for="pass" style="margin-right: 9.9em;">Contraseña</label>
                                 <input type="password" style="width: 300px;margin-bottom: 20px;" name="pass">
                                 <button class="btn btn-primary text-center border rounded-pill border-dark" type="submit" style="color: rgb(0,0,0);background: rgba(255,255,255,0);width: 150px;height: 50px;margin-right: 10em;">Iniciar Sesión</button>
                             </form>
                         </div>
-                        <div class="col-auto col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 align-self-center mb-4"><img class="img-fluid" src="http://via.placeholder.com/500x500"></div>
+                        <div class="col-auto col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 align-self-center mb-4"><img class="img-fluid" src="assets/img/utp_logo_big.png"></div>
                     </div>
                 </div>
             </div>
