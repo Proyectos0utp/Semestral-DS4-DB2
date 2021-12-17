@@ -53,7 +53,7 @@ public class Registrar {
         try {
             Statement stmt = Conectar.conectar().createStatement();
             String query = "SELECT * FROM Usuario WHERE "
-                    + "correo=" + correo + " or cedula=" + cedula;
+                    + "correo='" + correo + "' or cedula='" + cedula+"'";
             
             ResultSet rs = stmt.executeQuery(query);
             
@@ -66,7 +66,7 @@ public class Registrar {
             rs.close();
             
         } catch (SQLException ex) {
-            System.out.println("Error al registrar el driver de SQLSERVER: " + ex);
+            System.out.println("Error: " + ex);
             Logger.getLogger(Registrar.class.getName()).log(Level.SEVERE, null, ex);
         }
         

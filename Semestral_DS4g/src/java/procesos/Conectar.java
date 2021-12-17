@@ -3,6 +3,7 @@ package procesos;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import com.microsoft.sqlserver.jdbc.SQLServerDriver;
 /**
  * @author Polar
  */
@@ -12,15 +13,11 @@ public class Conectar {
         Connection conn = null;
         try {
             
-            // CLASE DRIVER SQL
-            String url = "jdbc:sqlserver://localhost\\localhost;databaseName=EducacionVirtual";
-            String user = "db2_admin";
-            String pass = "1234";
             
-            // CADENA DE CONEXION
-            conn = DriverManager.getConnection(url,user,pass);
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver").newInstance();
+            conn = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=EducacionVirtual", "db2_admin", "1234");
             
-        } catch (SQLException ex) {
+        } catch (SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
             System.out.println("Error:");
             ex.printStackTrace();
         } 
