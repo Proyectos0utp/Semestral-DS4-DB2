@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import entidades.*;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import procesos.*;
 
@@ -23,7 +26,7 @@ import procesos.*;
 public class Controlador extends HttpServlet {
     
     public static Usuario usuarioLogeado = new Usuario();
-    private Registrar registrar = new Registrar();
+    
     private Usuario usuario = new Usuario();
     
 
@@ -41,17 +44,18 @@ public class Controlador extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         String accion = request.getParameter("accion");
-        String ventanaAMostrar = "";
+        String ventanaAMostrar = "", mensajeAviso = "";
         
         //contacto.jsp
         if (accion.equals("Contactar")) {
            
             if (!request.getParameter("nombre").equals("") && !request.getParameter("correo").equals("") && !request.getParameter("mensaje").equals("")) {
-                request.setAttribute("avisoContacto", "Mensaje Enviado!");
+                mensajeAviso = "Mensaje Enviado!";
             } else {
-                request.setAttribute("avisoContacto", "Llene todos los campos antes de enviar el mensaje");
+                mensajeAviso = "Llene todos los campos antes de enviar el mensaje";
             }
             
+            request.setAttribute("avisoContacto", mensajeAviso);
             ventanaAMostrar = "contacto.jsp";
         }
         
@@ -67,19 +71,25 @@ public class Controlador extends HttpServlet {
             
             if (!usuario.getCorreo().equals("") && !usuario.getPassword().equals("") && !usuario.getNombre().equals("") && !usuario.getApellido().equals("") && !usuario.getCedula().equals("")) {
                 
-                if (registrar.revisarExistencia(usuario.getCorreo(),usuario.getCedula())) {
-                    request.setAttribute("avisoRegistro", "El correo ingresado o la cedula ingresada ya tiene un usuario. Reintente.");
+                if (Registrar.revisarExistencia(usuario.getCorreo(),usuario.getCedula())) {
+                    mensajeAviso = "El correo ingresado o la cedula ingresada ya tiene un usuario. Reintente.";
                 } else {
-                    registrar.insertarUsuario(usuario);
-                    request.setAttribute("avisoRegistro", "Se ha registrado exitosamente.");
+                    
+                    try {
+                        Registrar.insertarUsuario(usuario);
+                        mensajeAviso = "Se ha registrado exitosamente.";
+                    } catch (SQLException ex) {
+                        mensajeAviso = "Error al registrar.\nValide que la cedula sigue un formato adecuado y el correo tambien.";
+                    }
+                    
                 }
                 
             } else {
-                request.setAttribute("avisoRegistro", "Llene todos los campos.");
+                mensajeAviso = "Llene todos los campos.";
             }
             
+            request.setAttribute("avisoRegistro", mensajeAviso);
             ventanaAMostrar = "registro.jsp";
-            
         }
         
         RequestDispatcher ventana = request.getRequestDispatcher(ventanaAMostrar);
