@@ -105,9 +105,9 @@ public class Controlador extends HttpServlet {
                 if (usuarioLogeado != null) {
                     
                     if (usuarioLogeado.esProfesor()) {
-                        ventanaAMostrar = "perfil.jsp";
+                        ventanaAMostrar = "adminProf.jsp";
                     } else {
-                        ventanaAMostrar = "perfil.jsp";
+                        ventanaAMostrar = "adminEst.jsp";
                     }
                     
                     

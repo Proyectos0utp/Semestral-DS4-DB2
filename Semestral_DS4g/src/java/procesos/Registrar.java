@@ -46,7 +46,7 @@ public class Registrar {
             
             ResultSet rs = stmt.executeQuery(query);
             
-            if(rs.getString("cedula").equals("") || rs.getString("correo").equals("")){
+            if(rs.next()){
                 resultado = true;
             }
             

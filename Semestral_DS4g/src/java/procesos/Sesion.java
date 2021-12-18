@@ -24,7 +24,7 @@ public class Sesion {
             String query = "SELECT * FROM Usuario WHERE correo = '" + correo + "' AND contraseña = '" + pass + "'";
             ResultSet rs1 = stmt1.executeQuery(query);
             
-            if (!rs1.getString("correo").equals("")) {
+            if (rs1.next()) {
                 
                 usuario = new Usuario();
                 usuario.setCorreo(correo);
@@ -40,13 +40,16 @@ public class Sesion {
                 query = "SELECT * FROM Maestro WHERE correo_usuario = '" + correo +"'";
                 ResultSet rs2 = stmt2.executeQuery(query);
                 
-                if (!rs2.getString("correo").equals("")) {
+                if (rs2.next()) {
                     Connection conn3 = Conectar.conectar();
                     Statement stmt3 = conn3.createStatement();
                     query = "SELECT * FROM Grupo WHERE correo_maestro = '" + correo +"'";
                     ResultSet rs3 = stmt3.executeQuery(query);
-                    usuario.setGrupo(rs3.getString("cod_grupo"));
-                    usuario.setEsProfesor(true);
+                    
+                    if (rs3.next()) {
+                        usuario.setGrupo(rs3.getString("cod_grupo"));
+                        usuario.setEsProfesor(true);
+                    }
                     
                     rs3.close();
                     stmt3.close();
@@ -57,8 +60,11 @@ public class Sesion {
                     Statement stmt4 = conn4.createStatement();
                     query = "SELECT * FROM Estudiante WHERE correo_usuario = '" + correo +"'";
                     ResultSet rs4 = stmt4.executeQuery(query);
-                    usuario.setGrupo(rs4.getString("cod_grupo"));
-                    usuario.setEsProfesor(false);
+                    
+                    if (rs4.next()) {
+                        usuario.setGrupo(rs4.getString("cod_grupo"));
+                        usuario.setEsProfesor(false);
+                    }
                     
                     rs4.close();
                     stmt4.close();
