@@ -17,7 +17,7 @@ IF NOT EXISTS(SELECT 1 FROM msdb.dbo.sysmail_profile WHERE name = 'Notificacione
 		@profile_name = 'Notificaciones',  
 		@description = 'Perfil usado para mandar emails a traves de Gmail' ;
 
-	-- Otorgar permisos
+	-- Otorgar permisos al perfil creado
 	EXECUTE msdb.dbo.sysmail_add_principalprofile_sp  
 		@profile_name = 'Notificaciones',  
 		@principal_name = 'public',  
@@ -43,8 +43,8 @@ IF NOT EXISTS(SELECT 1 FROM msdb.dbo.sysmail_profile WHERE name = 'Notificacione
 
 	END
 GO
--- Creacion de base de datos
 
+-- Creacion de base de datos
 CREATE DATABASE EducacionVirtual
 GO
 USE EducacionVirtual
@@ -230,12 +230,12 @@ BEGIN
 	SELECT @respuesta=[respuesta] FROM Respuesta 
 	WHERE cod_pregunta = @pregunta AND ident_opcion = @letra
 
-	IF EXISTS (SELECT 1 FROM Contestan WHERE correo_est = @correo AND puntos_obtenidos = 0)
+	IF EXISTS (SELECT 1 FROM Contestan WHERE correo_est = @correo AND puntos_obtenidos = 0 AND cod_pregunta = @pregunta)
 		BEGIN
 		IF (@respuesta = 'Correcto')
 			BEGIN
 			DELETE FROM Contestan
-			WHERE correo_est = @correo AND puntos_obtenidos = 0
+			WHERE correo_est = @correo AND puntos_obtenidos = 0 AND cod_pregunta = @pregunta
 
 			INSERT INTO Contestan(correo_est, cod_pregunta, puntos_obtenidos)
 			VALUES (@correo, @pregunta, 1)
@@ -245,7 +245,7 @@ BEGIN
 		ELSE
 			BEGIN
 			DELETE FROM Contestan
-			WHERE correo_est = @correo AND puntos_obtenidos = 0
+			WHERE correo_est = @correo AND puntos_obtenidos = 0 AND cod_pregunta = @pregunta
 
 			INSERT INTO Contestan(correo_est, cod_pregunta, puntos_obtenidos)
 			VALUES (@correo, @pregunta, -2)
@@ -344,29 +344,6 @@ GO
 -- INSERCION DE DATOS
 
 USE EducacionVirtual
-
-INSERT INTO Usuario(cedula,correo,contraseña,nombre,apellido)
-VALUES('1-111-1111','maestro1@gmail.com','12345678','Maestro','1'),
-('2-222-2222','maestro2@gmail.com','12345678','Maestro','2'),
-('3-333-3333','maestro3@gmail.com','12345678','Maestro','3'),
-('4-444-4444','estudiante1@gmail.com','12345678','Estudiante','1'),
-('5-555-5555','estudiante2@gmail.com','12345678','Estudiante','2'),
-('6-666-6666','estudiante3@gmail.com','12345678','Estudiante','3');
-
-INSERT INTO Maestro(correo_usuario,estud_didact)
-VALUES('maestro1@gmail.com','no'),
-('maestro2@gmail.com','no'),
-('maestro3@gmail.com','si');
-
-INSERT INTO Grupo(cod_grupo,correo_maestro,nivel)
-VALUES('01','maestro1@gmail.com',1),
-('02','maestro2@gmail.com',2),
-('03','maestro3@gmail.com',3);
-
-INSERT INTO Estudiante(correo_usuario,cod_grupo)
-VALUES('estudiante1@gmail.com','01'),
-('estudiante2@gmail.com','02'),
-('estudiante3@gmail.com','03');
 
 INSERT INTO Tema(cod_tema,tema,imagen,Contenido )
 VALUES('TCN01-1','Sistema Digestivo',
