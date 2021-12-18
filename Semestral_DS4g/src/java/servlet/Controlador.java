@@ -124,6 +124,14 @@ public class Controlador extends HttpServlet {
             request.setAttribute("avisoSesion", mensajeAviso);
         }
         
+        //Cerrar Sesion
+        if (accion.equals("Cerrar Sesion")) {
+            
+            Sesion.cerrar(usuarioLogeado);
+            ventanaAMostrar = "iniciarsesion.jsp";
+        }
+        
+        
         RequestDispatcher ventana = request.getRequestDispatcher(ventanaAMostrar);
         ventana.forward(request, response);
         
