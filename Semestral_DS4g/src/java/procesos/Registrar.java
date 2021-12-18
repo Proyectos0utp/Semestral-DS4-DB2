@@ -28,8 +28,7 @@ public class Registrar {
             
             resultado = stmt.executeUpdate(query);
             
-            stmt.close();
-            conn.close();
+        Conectar.cerrarConexiones(conn, stmt);
         
         return resultado;
     }
@@ -37,26 +36,29 @@ public class Registrar {
     public static boolean revisarExistencia(String correo, String cedula){
     
         boolean resultado = false;
-    
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        
         try {
-            Connection conn = Conectar.conectar();
-            Statement stmt = conn.createStatement();
+            conn = Conectar.conectar();
+            stmt = conn.createStatement();
             String query = "SELECT * FROM Usuario WHERE "
                     + "correo='" + correo + "' or cedula='" + cedula+"'";
             
-            ResultSet rs = stmt.executeQuery(query);
+            rs = stmt.executeQuery(query);
             
             if(rs.next()){
                 resultado = true;
             }
             
-            rs.close();
-            stmt.close();
-            conn.close();
+
             
         } catch (SQLException ex) {
             System.out.println("Error: " + ex);
         }
+        
+        Conectar.cerrarConexiones(conn, stmt, rs);
         
         return resultado;
     }

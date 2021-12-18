@@ -3,7 +3,7 @@
     Created on : Dec 13, 2021, 6:13:08 PM
     Author     : Administrator
 --%>
-
+<%@page import="entidades.Grupo"%>
 <%@page import="servlet.Controlador"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -49,11 +49,11 @@
                             <div class="row row-cols-2">
                                 <div class="col-4">
                                     <h1 style="color: rgb(0,0,0);">Grupo</h1>
-                                    <p><strong><% session.getAttribute("Grupo"); %></strong></p>
+                                    <p><strong><%=Controlador.usuarioLogeado.getGrupo()%></strong></p>
                                 </div>
                                 <div class="col-8">
                                     <h1 style="color: rgb(0,0,0);">Maestro/a</h1>
-                                    <p><strong>.</strong></p>
+                                    <p><strong><%=Grupo.buscarProfesor(Controlador.usuarioLogeado.getGrupo())%></strong></p>
                                 </div>
                             </div>
                         </div>
