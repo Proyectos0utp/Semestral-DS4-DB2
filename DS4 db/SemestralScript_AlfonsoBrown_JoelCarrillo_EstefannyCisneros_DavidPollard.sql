@@ -345,6 +345,29 @@ GO
 
 USE EducacionVirtual
 
+INSERT INTO Usuario(cedula,correo,contraseña,nombre,apellido)
+VALUES('1-111-1111','maestro1@gmail.com','12345678','Maestro','1'),
+('2-222-2222','maestro2@gmail.com','12345678','Maestro','2'),
+('3-333-3333','maestro3@gmail.com','12345678','Maestro','3'),
+('4-444-4444','estudiante1@gmail.com','12345678','Estudiante','1'),
+('5-555-5555','estudiante2@gmail.com','12345678','Estudiante','2'),
+('6-666-6666','estudiante3@gmail.com','12345678','Estudiante','3');
+
+INSERT INTO Maestro(correo_usuario,estud_didact)
+VALUES('maestro1@gmail.com','no'),
+('maestro2@gmail.com','no'),
+('maestro3@gmail.com','si');
+
+INSERT INTO Grupo(cod_grupo,correo_maestro,nivel)
+VALUES('01','maestro1@gmail.com',1),
+('02','maestro2@gmail.com',2),
+('03','maestro3@gmail.com',3);
+
+INSERT INTO Estudiante(correo_usuario,cod_grupo)
+VALUES('estudiante1@gmail.com','01'),
+('estudiante2@gmail.com','02'),
+('estudiante3@gmail.com','03');
+
 INSERT INTO Tema(cod_tema,tema,imagen,Contenido )
 VALUES('TCN01-1','Sistema Digestivo',
 	'https://drive.google.com/uc?export=view&id=1ow-bMg7f9P2nW5jJ2f8cW7XuxFUZTfXO',

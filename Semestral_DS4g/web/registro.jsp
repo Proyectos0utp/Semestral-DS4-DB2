@@ -30,7 +30,7 @@
                 <ul class="navbar-nav text-light" id="accordionSidebar">
                     <li class="nav-item"><a class="nav-link" href="index.html"><span class="text-dark" style="font-size: 20px;">Inicio</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="acerca_de.html"><span class="text-dark" style="font-size: 20px;">Acerca de</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="contacto.html"><span class="text-dark" style="font-size: 20px;">Contacto</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="contacto.jsp"><span class="text-dark" style="font-size: 20px;">Contacto</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="iniciarsesion.jsp"><span class="text-dark" style="font-size: 20px;">Iniciar Sesión</span></a></li>
                     <li class="nav-item"><a class="nav-link active" href="registro.jsp"><span class="text-dark" style="font-size: 20px;">Registro</span></a></li>
                 </ul>
@@ -47,7 +47,7 @@
                     <hr style="color: rgba(255,255,255,0);">
                     <div class="row row-cols-1 text-center text-dark">
                         <div class="col-auto col-sm-12 col-md-12 col-lg-12 col-xl-6 col-xxl-6 text-start mb-4">
-                            <form method="post" action="procesosJSP/registrar.jsp">
+                            <form action="Controlador">
                                 <label class="form-label" for="correo" style="margin-right: 12em;">Correo</label><br>
                                 <input type="email" style="margin-bottom: 20px; width: 300px;" name="correo"><br>
                                 <label class="form-label" for="pass" style="margin-right: 12em;">Contraseña</label><br>
@@ -58,8 +58,10 @@
                                 <input type="text" style="margin-bottom: 20px;width: 300px;" name="apellido"><br>
                                 <label class="form-label" for="cedula" style="margin-right: 12em;">Cédula</label><br>
                                 <input type="text" style="margin-bottom: 20px;width: 300px;" name="cedula"><br>
-                                <button class="btn btn-primary text-center border rounded-pill border-dark" type="submit" style="color: rgb(0,0,0);background: rgba(255,255,255,0);width: 100px;height: 50px;margin-right: 10em;">Registrarse</button>
+                                <input class="btn btn-primary text-center border rounded-pill border-dark" name="accion" type="submit" style="color: rgb(0,0,0);background: rgba(255,255,255,0);width: 100px;height: 50px;margin-right: 10em;" value="Registrarse">
                             </form>
+                            <br>
+                            ${avisoRegistro}
                         </div>
                         <div class="col-auto col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 align-self-center mb-4">
                             <img class="img-fluid" src="assets/img/utp_logo_big.png">

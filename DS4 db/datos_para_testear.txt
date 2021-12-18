@@ -1,0 +1,47 @@
+SELECT * FROM Pregunta
+SELECT * FROM Respuesta
+SELECT * FROM Contestan
+SELECT * FROM Estudiante
+
+SELECT * FROM msdb.dbo.sysmail_account
+SELECT * FROM msdb.dbo.sysmail_principalprofile
+SELECT * FROM msdb.dbo.sysmail_profile
+SELECT * FROM msdb.dbo.sysmail_profileaccount
+
+EXECUTE msdb.dbo.sysmail_delete_profileaccount_sp @profile_name = 'Notificaciones'
+EXECUTE msdb.dbo.sysmail_delete_principalprofile_sp @profile_name = 'Notificaciones'
+EXECUTE msdb.dbo.sysmail_delete_account_sp @account_name = 'Gmail'
+EXECUTE msdb.dbo.sysmail_delete_profile_sp @profile_name = 'Notificaciones'
+
+exec msdb.dbo.sp_send_dbmail 
+@profile_name = 'Notifications', 
+@recipients = 'proyectos0utp@gmail.com', 
+@subject = 'ola dabyt', 
+@body = 'tomto', 
+@body_format = 'text'
+
+INSERT INTO Usuario (cedula, correo, contraseña, nombre, apellido)
+VALUES ('7-777-7771', 'test1@gmail.com', 'micontrajiji', 'Andres', 'Perez'),
+('7-777-7772', 'test2@gmail.com', 'micontrajiji', 'Zander', 'Castillo'),
+('7-777-7773', 'test3@gmail.com', 'micontrajiji', 'Esteban', 'Dido'),
+('7-777-7777', 'joel.carrillo.pa@gmail.com', 'micontrajiji', 'Joel', 'Carrillo')
+
+INSERT INTO Estudiante (correo_usuario, cod_grupo)
+VALUES('test1@gmail.com', '01'),
+('test2@gmail.com', '01'),
+('test3@gmail.com', '01'),
+('joel.carrillo.pa@gmail.com', '01')
+
+EXEC validar_respuesta 'joel.carrillo.pa@gmail.com', 101, 'B'
+EXEC validar_respuesta 'joel.carrillo.pa@gmail.com', 102, 'B'
+EXEC validar_respuesta 'joel.carrillo.pa@gmail.com', 102, 'A'
+EXEC validar_respuesta 'joel.carrillo.pa@gmail.com', 103, 'A'
+EXEC validar_respuesta 'joel.carrillo.pa@gmail.com', 104, 'C'
+EXEC validar_respuesta 'joel.carrillo.pa@gmail.com', 105, 'B'
+EXEC validar_respuesta 'joel.carrillo.pa@gmail.com', 105, 'C'
+
+EXEC listar_puntajes '01'
+
+SELECT * FROM Pregunta
+SELECT * FROM Respuesta
+SELECT * FROM Contestan
