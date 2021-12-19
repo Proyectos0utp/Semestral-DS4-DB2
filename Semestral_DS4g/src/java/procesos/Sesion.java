@@ -24,7 +24,7 @@ public class Sesion {
         ResultSet rs1 = null, rs2 = null, rs3 = null, rs4 = null; 
         
         try {
-            conn1 = Conectar.conectar();
+            conn1 = BaseDeDatos.conectar();
             stmt1 = conn1.createStatement();
             String query = "SELECT * FROM Usuario WHERE correo = '" + correo + "' AND contraseña = '" + pass + "'";
             rs1 = stmt1.executeQuery(query);
@@ -41,7 +41,7 @@ public class Sesion {
                 
                 //Una vez es encontrado el usuario, se busca si es profesor o estudiante
                 try {
-                    conn2 = Conectar.conectar();
+                    conn2 = BaseDeDatos.conectar();
                     stmt2 = conn2.createStatement();
                     query = "SELECT * FROM Maestro WHERE correo_usuario = '" + correo +"'";
                     rs2 = stmt2.executeQuery(query);
@@ -49,7 +49,7 @@ public class Sesion {
                     if (rs2.next()) {
                         
                         try {
-                            conn3 = Conectar.conectar();
+                            conn3 = BaseDeDatos.conectar();
                             stmt3 = conn3.createStatement();
                             query = "SELECT * FROM Grupo WHERE correo_maestro = '" + correo +"'";
                             rs3 = stmt3.executeQuery(query);
@@ -62,13 +62,13 @@ public class Sesion {
                         } catch (Exception e) {
                             System.out.println(e.getMessage());
                         } finally {
-                            Conectar.cerrarConexiones(conn3, stmt3, rs3);
+                            BaseDeDatos.cerrarConexiones(conn3, stmt3, rs3);
                         }
                         
                     } else {
                         
                         try {
-                            conn4 = Conectar.conectar();
+                            conn4 = BaseDeDatos.conectar();
                             stmt4 = conn4.createStatement();
                             query = "SELECT * FROM Estudiante WHERE correo_usuario = '" + correo +"'";
                             rs4 = stmt4.executeQuery(query);
@@ -82,7 +82,7 @@ public class Sesion {
                         } catch (Exception e) {
                             System.out.println(e.getMessage());
                         } finally {
-                            Conectar.cerrarConexiones(conn4, stmt4, rs4);
+                            BaseDeDatos.cerrarConexiones(conn4, stmt4, rs4);
                         }
                         
                     }
@@ -91,7 +91,7 @@ public class Sesion {
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                 } finally {
-                    Conectar.cerrarConexiones(conn2, stmt2, rs2);
+                    BaseDeDatos.cerrarConexiones(conn2, stmt2, rs2);
                 }
                 
             }
@@ -99,7 +99,7 @@ public class Sesion {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
-            Conectar.cerrarConexiones(conn1, stmt1, rs1);
+            BaseDeDatos.cerrarConexiones(conn1, stmt1, rs1);
         }
         
         return usuario;

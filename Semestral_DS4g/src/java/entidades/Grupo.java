@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import procesos.Conectar;
+import procesos.BaseDeDatos;
 
 /**
  *
@@ -27,7 +27,7 @@ public class Grupo {
 
         try {
 
-            conn = Conectar.conectar();
+            conn = BaseDeDatos.conectar();
             stmt = conn.createStatement();
             String query = "SELECT * FROM Estudiante WHERE cod_grupo ='" + codGrupo + "'";
             rs = stmt.executeQuery(query);
@@ -39,7 +39,7 @@ public class Grupo {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
-            Conectar.cerrarConexiones(conn, stmt, rs);
+            BaseDeDatos.cerrarConexiones(conn, stmt, rs);
         }
 
         return lista;
@@ -53,7 +53,7 @@ public class Grupo {
 
         try {
 
-            conn = Conectar.conectar();
+            conn = BaseDeDatos.conectar();
             stmt = conn.createStatement();
             String query = "SELECT * FROM Grupo WHERE cod_grupo ='" + codGrupo + "'";
             rs = stmt.executeQuery(query);
@@ -61,7 +61,7 @@ public class Grupo {
             if (rs.next()) {
 
                 try {
-                    conn2 = Conectar.conectar();
+                    conn2 = BaseDeDatos.conectar();
                     stmt2 = conn2.createStatement();
                     query = "SELECT * FROM Usuario WHERE correo='" + rs.getString("correo_maestro") + "'";
                     rs2 = stmt2.executeQuery(query);
@@ -73,7 +73,7 @@ public class Grupo {
                 } catch (SQLException e) {
                     System.out.println(e.getMessage());
                 } finally {
-                    Conectar.cerrarConexiones(conn2, stmt2, rs2);
+                    BaseDeDatos.cerrarConexiones(conn2, stmt2, rs2);
                 }
 
             }
@@ -81,7 +81,7 @@ public class Grupo {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
-            Conectar.cerrarConexiones(conn, stmt, rs);
+            BaseDeDatos.cerrarConexiones(conn, stmt, rs);
         }
 
         return nombre;
@@ -95,7 +95,7 @@ public class Grupo {
 
         try {
 
-            conn = Conectar.conectar();
+            conn = BaseDeDatos.conectar();
             stmt = conn.createStatement();
             String query = "SELECT * FROM Grupo WHERE cod_grupo ='" + codGrupo + "'";
             rs = stmt.executeQuery(query);
@@ -107,7 +107,7 @@ public class Grupo {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
-            Conectar.cerrarConexiones(conn, stmt, rs);
+            BaseDeDatos.cerrarConexiones(conn, stmt, rs);
         }
 
         return nivel;
@@ -121,7 +121,7 @@ public class Grupo {
 
         try {
 
-            conn = Conectar.conectar();
+            conn = BaseDeDatos.conectar();
             stmt = conn.createStatement();
             String query, codTema, tableRows = "";
             Tema tema = new Tema();
@@ -133,7 +133,7 @@ public class Grupo {
                     rs = stmt.executeQuery(query);
                     while (rs.next()) {
                         tema.setCodTema(codTema);
-                        tema.setTema(rs.getString("tema"));
+                        tema.setTitulo(rs.getString("tema"));
                         tema.setImagen(rs.getString("imagen"));
                         tema.setContenido(rs.getString("Contenido"));
                         lista.add(tema);
@@ -146,7 +146,7 @@ public class Grupo {
                     rs = stmt.executeQuery(query);
                     while (rs.next()) {
                         tema.setCodTema(codTema);
-                        tema.setTema(rs.getString("tema"));
+                        tema.setTitulo(rs.getString("tema"));
                         tema.setImagen(rs.getString("imagen"));
                         tema.setContenido(rs.getString("Contenido"));
                         lista.add(tema);
@@ -155,9 +155,9 @@ public class Grupo {
             }
 
             for (int i = 0; i < lista.size(); i++) {
-                tableRows += (lista.get(i)) + "<tr><td style=\"color: rgb(0,0,0);\">" + lista.get(i).getTema() + "</td><td><button class=\"btn btn-primary border rounded-0\" type=\"button\" style=\"color: rgb(0,0,0);background: rgba(255,255,255,0);border-color: rgb(0,0,0);width: 150px;margin-bottom: 30px;\">Administrar</button></td></tr>";
+                tableRows += (lista.get(i)) + "<tr><td style=\"color: rgb(0,0,0);\">" + lista.get(i).getTitulo() + "</td><td><button class=\"btn btn-primary border rounded-0\" type=\"button\" style=\"color: rgb(0,0,0);background: rgba(255,255,255,0);border-color: rgb(0,0,0);width: 150px;margin-bottom: 30px;\">Administrar</button></td></tr>";
             }
-
+            
             /*
             switch (codGrupo) {
                 case "01":
@@ -167,7 +167,7 @@ public class Grupo {
                         rs = stmt.executeQuery(query);
                         while (rs.next()) {
                             tema.setCodTema(codTema);
-                            tema.setTema(rs.getString("tema"));
+                            tema.setTitulo(rs.getString("tema"));
                             tema.setImagen(rs.getString("imagen"));
                             tema.setContenido(rs.getString("Contenido"));
                             lista.add(tema);
@@ -175,7 +175,7 @@ public class Grupo {
                     }
 
                     for (int i = 0; i < lista.size(); i++) {
-                        tableRows += (lista.get(i)) + "<tr><td style=\"color: rgb(0,0,0);\">" + lista.get(i).getTema() + "</td><td><button class=\"btn btn-primary border rounded-0\" type=\"button\" style=\"color: rgb(0,0,0);background: rgba(255,255,255,0);border-color: rgb(0,0,0);width: 150px;margin-bottom: 30px;\">Administrar</button></td></tr>";
+                        tableRows += (lista.get(i)) + "<tr><td style=\"color: rgb(0,0,0);\">" + lista.get(i).getTitulo() + "</td><td><button class=\"btn btn-primary border rounded-0\" type=\"button\" style=\"color: rgb(0,0,0);background: rgba(255,255,255,0);border-color: rgb(0,0,0);width: 150px;margin-bottom: 30px;\">Administrar</button></td></tr>";
                     }
                     break;
                 case "02":
@@ -185,7 +185,7 @@ public class Grupo {
                         rs = stmt.executeQuery(query);
                         while (rs.next()) {
                             tema.setCodTema(codTema);
-                            tema.setTema(rs.getString("tema"));
+                            tema.setTitulo(rs.getString("tema"));
                             tema.setImagen(rs.getString("imagen"));
                             tema.setContenido(rs.getString("Contenido"));
                             lista.add(tema);
@@ -199,7 +199,7 @@ public class Grupo {
                         rs = stmt.executeQuery(query);
                         while (rs.next()) {
                             tema.setCodTema(codTema);
-                            tema.setTema(rs.getString("tema"));
+                            tema.setTitulo(rs.getString("tema"));
                             tema.setImagen(rs.getString("imagen"));
                             tema.setContenido(rs.getString("Contenido"));
                             lista.add(tema);
@@ -237,33 +237,39 @@ public class Grupo {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
-            Conectar.cerrarConexiones(conn, stmt, rs);
+            BaseDeDatos.cerrarConexiones(conn, stmt, rs);
         }
 
         return lista;
     }
 
-    public static List<Tema> busqueda(String Busqueda) {
+    public static List<Tema> buscarTemasEst(String Busqueda) {
         List<Tema> lista = new ArrayList<>();
+        Tema tema;
         Connection conn = null;
         Statement stmt = null;
         ResultSet rs = null;
 
         try {
 
-            conn = Conectar.conectar();
+            conn = BaseDeDatos.conectar();
             stmt = conn.createStatement();
             String query = "SELECT * FROM Tema WHERE tema ='" + Busqueda + "'";
             rs = stmt.executeQuery(query);
 
             while (rs.next()) {
-
+                tema = new Tema();
+                tema.setCodTema(rs.getString("cod_tema"));
+                tema.setContenido(rs.getString("Contenido"));
+                tema.setImagen(rs.getString("imagen"));
+                tema.setTitulo(rs.getString("tema"));
+                lista.add(tema);
             }
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
-            Conectar.cerrarConexiones(conn, stmt, rs);
+            BaseDeDatos.cerrarConexiones(conn, stmt, rs);
         }
 
         return lista;

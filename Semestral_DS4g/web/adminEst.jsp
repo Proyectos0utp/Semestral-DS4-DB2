@@ -63,6 +63,9 @@
                         <div class="col-12 mb-4">
                             <div class="row row-cols-2">
                                 <div class="col-4 text-center align-self-center order-first"><img class="img-fluid" src="http://via.placeholder.com/150x150"></div>
+                                
+                                
+                                
                                 <div class="col-8">
                                     <h1 style="color: rgb(0,0,0);">Nombre tema</h1>
                                     <p><strong>Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.<br></p><button class="btn btn-primary border rounded-0" type="button" style="color: rgb(0,0,0);background: rgba(255,255,255,0);border-color: rgb(0,0,0);width: 150px;">Ingresar</button><span style="margin-left: 2em;">completado</span><span><span><i class="fa fa-check-circle" style="margin-right: 0.5em;margin-left: 0.5em;"></i></span>25 pts</span>

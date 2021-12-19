@@ -3,7 +3,7 @@ package entidades;
 public class Tema {
     
     private String codTema;
-    private String tema;
+    private String titulo;
     private String imagen;
     private String contenido;
 
@@ -15,12 +15,12 @@ public class Tema {
         this.codTema = codTema;
     }
 
-    public String getTema() {
-        return tema;
+    public String getTitulo() {
+        return titulo;
     }
 
-    public void setTema(String tema) {
-        this.tema = tema;
+    public void setTitulo(String tema) {
+        this.titulo = tema;
     }
 
     public String getImagen() {

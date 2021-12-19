@@ -17,7 +17,7 @@ public class Registrar {
         
         int resultado = 0;
         
-        Connection conn = Conectar.conectar();
+        Connection conn = BaseDeDatos.conectar();
             Statement stmt = conn.createStatement();
             String query = "INSERT INTO Usuario(cedula,correo,contraseña,nombre,apellido) VALUES ('"
                     + usuario.getCedula() + "','"
@@ -28,7 +28,7 @@ public class Registrar {
             
             resultado = stmt.executeUpdate(query);
             
-        Conectar.cerrarConexiones(conn, stmt);
+        BaseDeDatos.cerrarConexiones(conn, stmt);
         
         return resultado;
     }
@@ -41,7 +41,7 @@ public class Registrar {
         ResultSet rs = null;
         
         try {
-            conn = Conectar.conectar();
+            conn = BaseDeDatos.conectar();
             stmt = conn.createStatement();
             String query = "SELECT * FROM Usuario WHERE "
                     + "correo='" + correo + "' or cedula='" + cedula+"'";
@@ -58,7 +58,7 @@ public class Registrar {
             System.out.println("Error: " + ex);
         }
         
-        Conectar.cerrarConexiones(conn, stmt, rs);
+        BaseDeDatos.cerrarConexiones(conn, stmt, rs);
         
         return resultado;
     }
