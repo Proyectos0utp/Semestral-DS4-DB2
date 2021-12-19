@@ -242,8 +242,58 @@ public class Grupo {
 
         return lista;
     }
+    
+        public static List<Tema> generarListaTemasEst(String codGrupo) {
+        List<Tema> lista = new ArrayList<>();
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
 
-    public static List<Tema> buscarTemasEst(String Busqueda) {
+        try {
+
+            conn = BaseDeDatos.conectar();
+            stmt = conn.createStatement();
+            String query, codTema;
+            Tema tema = new Tema();
+
+            if (codGrupo.equals("01") || codGrupo.equals("02") || codGrupo.equals("03") || codGrupo.equals("04") || codGrupo.equals("05") || codGrupo.equals("06") || codGrupo.equals("07") || codGrupo.equals("08") || codGrupo.equals("09")) {
+                for (int i = 0; i < 4; i++) {
+                    codTema = "TCN" + codGrupo + "-" + (i + 1);
+                    query = "SELECT * FROM Tema WHERE cod_tema = '" + codTema + "'";
+                    rs = stmt.executeQuery(query);
+                    while (rs.next()) {
+                        tema.setCodTema(codTema);
+                        tema.setTitulo(rs.getString("tema"));
+                        tema.setImagen(rs.getString("imagen"));
+                        tema.setContenido(rs.getString("Contenido"));
+                        lista.add(tema);
+                    }
+                }
+            } else {
+                for (int i = 0; i < 4; i++) {
+                    codTema = "TCS" + codGrupo + "-" + (i + 1);
+                    query = "SELECT * FROM Tema WHERE cod_tema = '" + codTema + "'";
+                    rs = stmt.executeQuery(query);
+                    while (rs.next()) {
+                        tema.setCodTema(codTema);
+                        tema.setTitulo(rs.getString("tema"));
+                        tema.setImagen(rs.getString("imagen"));
+                        tema.setContenido(rs.getString("Contenido"));
+                        lista.add(tema);
+                    }
+                }
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            BaseDeDatos.cerrarConexiones(conn, stmt, rs);
+        }
+
+        return lista;
+    }
+
+    public static List<Tema> buscarTemasEst(String titulo) {
         List<Tema> lista = new ArrayList<>();
         Tema tema;
         Connection conn = null;
@@ -254,7 +304,7 @@ public class Grupo {
 
             conn = BaseDeDatos.conectar();
             stmt = conn.createStatement();
-            String query = "SELECT * FROM Tema WHERE tema ='" + Busqueda + "'";
+            String query = "SELECT * FROM Tema WHERE tema ='" + titulo + "'";
             rs = stmt.executeQuery(query);
 
             while (rs.next()) {
