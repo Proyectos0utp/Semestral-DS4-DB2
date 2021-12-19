@@ -113,4 +113,102 @@ public class Grupo {
         return nivel;
     }
     
+    public static List<Tema> generarListaTemas(String codGrupo){
+        List<Tema> lista = new ArrayList<>();
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        
+        try {
+            
+            conn = Conectar.conectar();
+            stmt = conn.createStatement();
+            String query, codTema, tableRows="";
+            Tema tema = new Tema();
+            
+            switch (codGrupo) {
+                case "01":
+                    for(int i=0; i<4; i++){
+                        codTema = "TCN01-"+(i+1);
+                        query = "SELECT * FROM Tema WHERE cod_tema = '" + codTema + "'";
+                        rs = stmt.executeQuery(query);
+                        while (rs.next()) {    
+                            tema.setCodTema(codTema);
+                            tema.setTema(rs.getString("tema"));
+                            tema.setImagen(rs.getString("imagen"));
+                            tema.setContenido(rs.getString("Contenido"));
+                            lista.add(tema);
+                        }
+                    }
+                    
+                    for (int i = 0; i < lista.size(); i++) {
+                        tableRows += (lista.get(i)) + "<tr><td style=\"color: rgb(0,0,0);\">"+lista.get(i).getTema()+"</td><td><button class=\"btn btn-primary border rounded-0\" type=\"button\" style=\"color: rgb(0,0,0);background: rgba(255,255,255,0);border-color: rgb(0,0,0);width: 150px;margin-bottom: 30px;\">Administrar</button></td></tr>";
+                    }
+                    break;
+                case "02":
+                    break;
+                case "03":
+                    break;
+                case "04":
+                    break;
+                case "05":
+                    break;
+                case "06":
+                    break;
+                case "07":
+                    break;
+                case "08":
+                    break;
+                case "09":
+                    break;
+                case "10":
+                    break;
+                case "11":
+                    break;
+                case "12":
+                    break;
+                case "13":
+                    break;
+                case "14":
+                    break;
+                case "15":
+                    break;
+                default:
+                    break;
+            }
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            Conectar.cerrarConexiones(conn, stmt, rs);
+        }
+        
+        return lista;
+    }
+    
+    public static List<Tema> busqueda(String Busqueda){
+        List<Tema> lista = new ArrayList<>();
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        
+        try {
+            
+            conn = Conectar.conectar();
+            stmt = conn.createStatement();
+            String query = "SELECT * FROM Tema WHERE tema ='" + Busqueda + "'";
+            rs = stmt.executeQuery(query);
+            
+            while (rs.next()) {                
+                
+            }
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            Conectar.cerrarConexiones(conn, stmt, rs);
+        }
+        
+        return lista;
+    }
 }
