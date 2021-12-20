@@ -40,7 +40,7 @@
                         <div class="col-auto col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 text-start order-first mb-4"><input type="text" placeholder="Codigo de tema..." style="margin-bottom: 20px;width: 300px;"><input type="text" placeholder="Nombre de tema..." style="margin-bottom: 20px;width: 300px;"><textarea placeholder="Contenido..." style="margin-bottom: 20px;width: 300px;" rows="10" cols="30"></textarea><input type="url" placeholder="Inserte el link HTML de la imagen..." style="margin-bottom: 20px;width: 300px;"></div>
                         <div class="col-auto col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 align-self-center mb-4"><img class="img-fluid" src="http://via.placeholder.com/500x500" alt="imagen ya cargada si existe, si no aparece placeholder"></div>
                         <div class="col-12 align-self-center order-last mb-4" style="text-align: center;">
-                            <h3 class="text-center">Preguntas</h3><span>(marque el check de la respuesta correcta)<br></span>
+                            <h3 class="text-center">Preguntas</h3><span>(marque el check de la respuesta correcta)<br></span><button class="btn btn-primary text-center border rounded-pill border-dark" type="button" style="color: rgb(0,0,0);background: rgba(255,255,255,0);width: 200px;height: 50px;">Insertar nueva pregunta</button>
                             <div class="table-responsive border rounded-0">
                                 <table class="table">
                                     <thead>
