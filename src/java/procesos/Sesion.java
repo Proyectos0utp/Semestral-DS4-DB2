@@ -123,6 +123,7 @@ public class Sesion {
                     + "<li class=\"nav-item\"><a class=\"nav-link\" href=\"iniciarsesion.jsp\"><span class=\"text-dark\" style=\"font-size: 20px;\">Busqueda</span></a></li>"
                     + "<li class=\"nav-item\"><a class=\"nav-link\" href=\"acerca_de.jsp\"><span class=\"text-dark\" style=\"font-size: 20px;\">Acerca de</span></a></li>"
                     + "<li class=\"nav-item\"><a class=\"nav-link\" href=\"contacto.jsp\"><span class=\"text-dark\" style=\"font-size: 20px;\">Contacto</span></a></li>"
+                    + "<li class=\"nav-item\"><a class=\"nav-link\" href=\"reportar.jsp\"><span class=\"text-dark\" style=\"font-size: 20px;\">Reportar</span></a></li>"
                     + "<li class=\"nav-item\"><a class=\"nav-link\" href=\"Controlador?accion=Cerrar Sesion\"><span class=\"text-dark\" style=\"font-size: 20px;\">Salir</span></a></li>"
                     + "</ul>"
                     + "</div>"
@@ -142,6 +143,7 @@ public class Sesion {
                     + "<li class=\"nav-item\"><a class=\"nav-link\" href=\"contacto.jsp\"><span class=\"text-dark\" style=\"font-size: 20px;\">Contacto</span></a></li>"
                     + "<li class=\"nav-item\"><a class=\"nav-link\" href=\"iniciarsesion.jsp\"><span class=\"text-dark\" style=\"font-size: 20px;\">Iniciar Sesion</span></a></li>"
                     + "<li class=\"nav-item\"><a class=\"nav-link\" href=\"registro.jsp\"><span class=\"text-dark\" style=\"font-size: 20px;\">Registro</span></a></li>"
+                    + "<li class=\"nav-item\"><a class=\"nav-link\" href=\"reportar.jsp\"><span class=\"text-dark\" style=\"font-size: 20px;\">Reportar</span></a></li>"
                     + "</ul>"
                     + "</div>"
                     + "</nav>";

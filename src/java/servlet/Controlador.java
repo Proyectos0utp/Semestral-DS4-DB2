@@ -58,7 +58,20 @@ public class Controlador extends HttpServlet {
             request.setAttribute("avisoContacto", mensajeAviso);
             ventanaAMostrar = "contacto.jsp";
         }
+        
+        //reportar.jsp
+        if (accion.equals("Reportar")) {
 
+            if (!request.getParameter("nombre").equals("") && !request.getParameter("correo").equals("") && !request.getParameter("mensaje").equals("")) {
+                mensajeAviso = "Reporte Enviado!";
+            } else {
+                mensajeAviso = "Llene todos los campos antes de enviar el reporte";
+            }
+
+            request.setAttribute("avisoReporte", mensajeAviso);
+            ventanaAMostrar = "reportar.jsp";
+        }
+        
         //registro.jsp
         if (accion.equals("Registrarse")) {
 

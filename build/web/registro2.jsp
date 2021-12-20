@@ -71,7 +71,7 @@
                                         if (i < 10) {
                                             out.print("<option selected=\"\" value=\"0" + i + "\">0" + i + "</option>");
                                         } else {
-                                            out.print("<option value=\"" + i + "\">" + i + "</option>");
+                                            out.print("<option selected=\"\" value=\"" + i + "\">" + i + "</option>");
                                         }
 
                                     }
