@@ -8,12 +8,14 @@ import entidades.Tema;
 import entidades.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -79,9 +81,7 @@ public class Controlador extends HttpServlet {
                     mensajeAviso = "El correo ingresado o la cedula ingresada ya tiene un usuario. Reintente.";
                     ventanaAMostrar = "registro.jsp";
                 } else {
-
                     ventanaAMostrar = "registro2.jsp";
-
                 }
 
             } else {
@@ -92,14 +92,60 @@ public class Controlador extends HttpServlet {
 
         //Registrar2
         if (accion.equals("Finalizar")) {
-
+            String query;
             try {
-                System.out.println(request.getParameter("seleccion"));
-                mensajeAviso = "Se ha registrado exitosamente.";
-            } catch (Exception ex) {
+                
+                Registrar.insertarUsuario(usuario);
+                
+                if (usuario.esProfesor()) {
+                    Connection cn = null;
+                    Statement stmt = null;
+                    try {
+
+                        cn = BaseDeDatos.conectar();
+                        stmt = cn.createStatement();
+                        query = "INSERT INTO Maestro VALUES ('"
+                                + usuario.getCorreo() + "','"
+                                + request.getParameter("seleccion") + "')";
+                        
+                        stmt.executeUpdate(query);
+                        
+                    } catch (SQLException e) {
+                        System.out.println("Error: " + e);
+                        mensajeAviso = e.getMessage();
+                        ventanaAMostrar = "registro.jsp";
+                    } finally {
+                        BaseDeDatos.cerrarConexiones(cn, stmt);
+                    }
+
+                } else {
+                    Connection cn = null;
+                    Statement stmt = null;
+                    try {
+                        cn = BaseDeDatos.conectar();
+                        stmt = cn.createStatement();
+                        query = "INSERT INTO Estudiante VALUES ('"
+                                + usuario.getCorreo() + "','"
+                                + request.getParameter("seleccion") + "')";
+                        
+                        stmt.executeUpdate(query);
+                        
+                    } catch (SQLException e) {
+                        System.out.println("Error: " + e);
+                        mensajeAviso = e.getMessage();
+                        ventanaAMostrar = "registro.jsp";
+                    } finally {
+                        BaseDeDatos.cerrarConexiones(cn, stmt);
+                    }
+
+                }
+                mensajeAviso = "Usuario registrado exitosamente.";
+            } catch (SQLException ex) {
                 mensajeAviso = "Error al registrar.\nValide que la cedula sigue un formato adecuado y el correo tambien.";
             }
 
+            request.setAttribute("avisoRegistro", mensajeAviso);
+            ventanaAMostrar = "registro.jsp";
         }
 
         //iniciarsesion.jsp
