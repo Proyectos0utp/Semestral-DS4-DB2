@@ -25,12 +25,11 @@ import procesos.*;
  */
 @WebServlet(name = "Controlador", urlPatterns = {"/Controlador"})
 public class Controlador extends HttpServlet {
-    
+
     public static Usuario usuarioLogeado = null;
     public static Tema temaIngresado = null;
-    
+
     private Usuario usuario = new Usuario();
-    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,115 +43,118 @@ public class Controlador extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
         String accion = request.getParameter("accion");
         String ventanaAMostrar = "", mensajeAviso = "", correo = "", pass = "";
-        
+
         //contacto.jsp
         if (accion.equals("Contactar")) {
-           
+
             if (!request.getParameter("nombre").equals("") && !request.getParameter("correo").equals("") && !request.getParameter("mensaje").equals("")) {
                 mensajeAviso = "Mensaje Enviado!";
             } else {
                 mensajeAviso = "Llene todos los campos antes de enviar el mensaje";
             }
-            
+
             request.setAttribute("avisoContacto", mensajeAviso);
             ventanaAMostrar = "contacto.jsp";
         }
-        
+
         //registro.jsp
         if (accion.equals("Registrarse")) {
-            
+
             usuario.setCorreo(request.getParameter("correo"));
             usuario.setCedula(request.getParameter("cedula"));
             usuario.setPassword(request.getParameter("pass"));
             usuario.setNombre(request.getParameter("nombre"));
             usuario.setApellido(request.getParameter("apellido"));
-            
+
             if (request.getParameter("seleccion").equals("maestro")) {
                 usuario.setEsProfesor(true);
-            } 
-            
-            
+            }
+
             if (!usuario.getCorreo().equals("") && !usuario.getPassword().equals("") && !usuario.getNombre().equals("") && !usuario.getApellido().equals("") && !usuario.getCedula().equals("")) {
-                
-                if (Registrar.revisarExistencia(usuario.getCorreo(),usuario.getCedula())) {
+
+                if (Registrar.revisarExistencia(usuario.getCorreo(), usuario.getCedula())) {
                     mensajeAviso = "El correo ingresado o la cedula ingresada ya tiene un usuario. Reintente.";
+                    ventanaAMostrar = "registro.jsp";
                 } else {
-                    
-                    try {
-                        Registrar.insertarUsuario(usuario);
-                        mensajeAviso = "Se ha registrado exitosamente.";
-                    } catch (SQLException ex) {
-                        mensajeAviso = "Error al registrar.\nValide que la cedula sigue un formato adecuado y el correo tambien.";
-                    }
-                    
+
+                    ventanaAMostrar = "registro2.jsp";
+
                 }
-                
+
             } else {
                 mensajeAviso = "Llene todos los campos.";
             }
-            
             request.setAttribute("avisoRegistro", mensajeAviso);
-            ventanaAMostrar = "registro2.jsp";
         }
-        
+
+        //Registrar2
+        if (accion.equals("Finalizar")) {
+
+            try {
+                System.out.println(request.getParameter("seleccion"));
+                mensajeAviso = "Se ha registrado exitosamente.";
+            } catch (Exception ex) {
+                mensajeAviso = "Error al registrar.\nValide que la cedula sigue un formato adecuado y el correo tambien.";
+            }
+
+        }
+
         //iniciarsesion.jsp
         if (accion.equals("Iniciar Sesion")) {
-            
+
             correo = request.getParameter("correo");
             pass = request.getParameter("pass");
-            
+
             if (!correo.equals("") && !pass.equals("")) {
-                
+
                 usuarioLogeado = Sesion.iniciar(correo, pass);
-                
+
                 if (usuarioLogeado != null) {
-                    
+
                     if (usuarioLogeado.esProfesor()) {
                         ventanaAMostrar = "adminProf.jsp";
                     } else {
                         ventanaAMostrar = "adminEst.jsp";
                     }
-                    
-                    
+
                 } else {
                     mensajeAviso = "Credenciales incorrectas. Reintente.";
                     ventanaAMostrar = "iniciarsesion.jsp";
                 }
-                
+
             } else {
                 mensajeAviso = "Rellene todos los campos. Reintente.";
                 ventanaAMostrar = "iniciarsesion.jsp";
             }
-            
+
             request.setAttribute("avisoSesion", mensajeAviso);
         }
-        
+
         //Cerrar Sesion
         if (accion.equals("Cerrar Sesion")) {
-            
+
             usuarioLogeado = null;
             ventanaAMostrar = "index.jsp";
         }
-        
+
         //Ingresar_Tema
         if (accion.contains("Ingresar")) {
-            
+
             temaIngresado = Tema.buscarPorCodigo(request.getParameter("cod_tema"));
             ventanaAMostrar = "descripcion.jsp";
         }
-        
-     
+
         //Aprendizaje
         if (accion.contains("Aprender")) {
             ventanaAMostrar = "aprendizaje.jsp";
         }
-        
+
         RequestDispatcher ventana = request.getRequestDispatcher(ventanaAMostrar);
         ventana.forward(request, response);
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
