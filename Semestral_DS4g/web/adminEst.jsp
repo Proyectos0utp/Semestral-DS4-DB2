@@ -69,12 +69,17 @@
                             <div class="col-12 mb-4">
                                 <div class="row row-cols-2">
                                     <div class="col-auto col-sm-12 col-md-4">
+                                        <br>
                                         <h2 style="color: rgb(0,0,0);">Medallas</h2>
                                     </div>
-                                    <div class="col-auto col-sm-12 col-md-8">
+                                    <div class="col-auto col-sm-12 col-md-8"><br>
                                         <%
-                                            for(int i = 0; i < medallas; i++){
-                                                out.print("<img class=\"img-fluid\" src=\"https://i.ibb.co/HqJS4nH/medalla.png\" width=\"70\" height=\"70\">");
+                                            if (medallas == 0) {
+                                                out.print("<h5>Sin Medallas</h5>");
+                                            } else {
+                                                for(int i = 0; i < medallas; i++){
+                                                    out.print("<img class=\"img-fluid\" src=\"https://i.ibb.co/HqJS4nH/medalla.png\" width=\"70\" height=\"70\">");
+                                                }
                                             }
                                         %>
                                     </div>
@@ -94,16 +99,18 @@
                                         out.print("<div class=\"col-8\">");
                                         out.print("<h1 style=\"color: rgb(0,0,0);\">" + tema.getTitulo() + "</h1>");
                                 %>
-                                <form action="Controlador">
-                                    <input type="hidden" name="cod_tema" value="<%=tema.getCodTema()%>">
+                                
                                     <%
+                                            out.print("<form action=\"Controlador\">");
+                                            out.print("<input type=\"hidden\" name=\"cod_tema\" value=\"" + tema.getCodTema() + "\">");
                                             out.print("<p>" + tema.getContenido().substring(0, 40) + "...<br></p>" + "<input class=\"btn btn-primary text-center border rounded-pill border-dark\" name=\"accion\" type=\"submit\" style=\"color: rgb(0,0,0);background: rgba(255,255,255,0);width: 100px;height: 50px;margin-right: 10em;\" value=\"Ingresar\"");
                                             out.print(Tema.estatus(tema.getCodTema(), Controlador.usuarioLogeado.getCorreo()));
                                             out.print("</div>");
                                             out.print("</div><br>");
+                                            out.print("</form>");
                                         }
                                     %>
-                                </form>
+                                
                             </div>
                         </div>
                     </div>

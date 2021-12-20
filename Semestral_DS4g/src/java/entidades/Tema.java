@@ -632,6 +632,15 @@ public class Tema {
         return tag;
     }
     
+    public String cargarImagenes(){
+    
+        String tag = "<br><br><br><br><br>"
+                + "<div class=\"col-auto col-sm-12 col-md-6 text-center order-2\"><img class=\"img-fluid\" src=\"assets//img//temas//" + this.getCodTema() + "-A.png\" width=\"350\" height=\"350\"></div>"
+                + "<div class=\"col-auto col-sm-12 col-md-6 text-center order-2\"><img class=\"img-fluid\" src=\"assets//img//temas//" + this.getCodTema() + "-B.png\" width=\"350\" height=\"350\"></div>";
+    
+        return tag;
+    }
+    
     /**
      * @return the completado
      */

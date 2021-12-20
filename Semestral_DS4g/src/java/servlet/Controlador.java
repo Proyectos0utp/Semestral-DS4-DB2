@@ -136,8 +136,8 @@ public class Controlador extends HttpServlet {
         //Ingresar_Tema
         if (accion.contains("Ingresar")) {
             
-            temaIngresado = Tema.buscarPorCodigo(request.getParameter("cod_Tema"));
-            ventanaAMostrar = "";
+            temaIngresado = Tema.buscarPorCodigo(request.getParameter("cod_tema"));
+            ventanaAMostrar = "descripcion.jsp";
         }
         
         
