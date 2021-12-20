@@ -34,11 +34,11 @@
 
     <body id="page-top">
         <div id="wrapper">
-            
+
             <%
                 out.print(Sesion.generarMenuHTML(Controlador.usuarioLogeado));
             %>
-            
+
             <div class="d-flex flex-column" id="content-wrapper">
                 <div id="content" style="margin-top: 15;">
                     <nav class="navbar navbar-light navbar-expand-md bg-white shadow d-print-none d-md-none d-lg-none d-xl-none d-xxl-none mb-4 topbar static-top">
@@ -48,23 +48,34 @@
                         <hr style="color: rgba(255,255,255,0);">
                         <h1 style="color: rgb(0,0,0);">¡Bienvenido <%=usuario%>!</h1>
                         <div class="row row-cols-1 text-start text-dark">
+                            
                             <div class="col-12 mb-4">
                                 <div class="row row-cols-2">
-                                    <div class="col-4">
+                                    <div class="col-auto col-sm-12 col-md-4">
                                         <h1 style="color: rgb(0,0,0);">Grupo</h1>
-                                        <p><strong><%=grupo%></strong></p>
+                                        <p><strong>.</strong></p>
                                     </div>
-                                    <div class="col-8">
+                                    <div class="col-auto col-sm-12 col-md-8">
                                         <h1 style="color: rgb(0,0,0);">Maestro/a</h1>
-                                        <p><strong><%=nombreProf%></strong></p>
+                                        <p><strong>.</strong></p>
                                     </div>
                                 </div>
                             </div>
+                            
+                            <div class="col-12 mb-4">
+                                <div class="row row-cols-2">
+                                    <div class="col-auto col-sm-12 col-md-4">
+                                        <h1 style="color: rgb(0,0,0);">Medallas</h1>
+                                    </div>
+                                    <div class="col-auto col-sm-12 col-md-8"><img class="img-fluid" src="https://i.ibb.co/HqJS4nH/medalla.png" width="100" height="100"><img class="img-fluid" src="https://i.ibb.co/HqJS4nH/medalla.png" width="100" height="100"><img class="img-fluid" src="https://i.ibb.co/HqJS4nH/medalla.png" width="100" height="100"><img class="img-fluid" src="https://i.ibb.co/HqJS4nH/medalla.png" width="100" height="100"></div>
+                                </div>
+                            </div>
+                            
                             <div class="col">
                                 <h1 class="text-start" style="color: rgb(0,0,0);">Temas</h1>
                             </div>
                             <div class="col-12 mb-4">
-                                
+
                                 <%
                                     for (Tema tema : lista) {
                                         out.print("<div class=\"row row-cols-2\">");
@@ -74,13 +85,13 @@
                                 %>
                                 <form action="Controlador">
                                     <input type="hidden" name="cod_tema" value="<%=tema.getCodTema()%>">
-                                <%
-                                        out.print("<p>" + tema.getContenido().substring(0,40) + "<br></p>" + "<input class=\"btn btn-primary text-center border rounded-pill border-dark\" name=\"accion\" type=\"submit\" style=\"color: rgb(0,0,0);background: rgba(255,255,255,0);width: 100px;height: 50px;margin-right: 10em;\" value=\"Ingresar\"");
-                                        out.print(Tema.estatus(tema.getCodTema(), Controlador.usuarioLogeado.getCorreo()));
-                                        out.print("</div>");
-                                        out.print("</div><br>");
-                                    }
-                                %>
+                                    <%
+                                            out.print("<p>" + tema.getContenido().substring(0, 40) + "<br></p>" + "<input class=\"btn btn-primary text-center border rounded-pill border-dark\" name=\"accion\" type=\"submit\" style=\"color: rgb(0,0,0);background: rgba(255,255,255,0);width: 100px;height: 50px;margin-right: 10em;\" value=\"Ingresar\"");
+                                            out.print(Tema.estatus(tema.getCodTema(), Controlador.usuarioLogeado.getCorreo()));
+                                            out.print("</div>");
+                                            out.print("</div><br>");
+                                        }
+                                    %>
                                 </form>
                             </div>
                         </div>
