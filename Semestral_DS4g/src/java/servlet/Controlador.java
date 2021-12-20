@@ -4,6 +4,7 @@
  */
 package servlet;
 
+import entidades.Tema;
 import entidades.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -26,6 +27,7 @@ import procesos.*;
 public class Controlador extends HttpServlet {
     
     public static Usuario usuarioLogeado = null;
+    public static Tema temaIngresado = null;
     
     private Usuario usuario = new Usuario();
     
@@ -129,6 +131,13 @@ public class Controlador extends HttpServlet {
             
             usuarioLogeado = null;
             ventanaAMostrar = "index.jsp";
+        }
+        
+        //Ingresar_Tema
+        if (accion.contains("Ingresar")) {
+            
+            temaIngresado = Tema.buscarPorCodigo(request.getParameter("cod_Tema"));
+            ventanaAMostrar = "";
         }
         
         

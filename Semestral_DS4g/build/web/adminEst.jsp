@@ -18,7 +18,7 @@
             String usuario = Controlador.usuarioLogeado.getNombre();
             String grupo = Controlador.usuarioLogeado.getGrupo();
             String nombreProf = Grupo.buscarProfesor(grupo);
-            List<Tema> lista = Grupo.generarListaTemasEst(grupo);
+            List<Tema> lista = Tema.generarListaTemasEst(grupo);
         %>
 
         <meta charset="utf-8">
@@ -71,12 +71,17 @@
                                         out.print("<div class=\"col-4 text-center align-self-center order-first\">" + "<img class=\"img-fluid\" src=\"" + tema.getImagen() + "\">" + "</div>");
                                         out.print("<div class=\"col-8\">");
                                         out.print("<h1 style=\"color: rgb(0,0,0);\">" + tema.getTitulo() + "</h1>");
-                                        out.print("<p>" + tema.getContenido().substring(0,123) + "<br></p>" + "<button class=\"btn btn-primary border rounded-0\" type=\"button\" style=\"color: rgb(0,0,0);background: rgba(255,255,255,0);border-color: rgb(0,0,0);width: 150px;\">Ingresar</button><span style=\"margin-left: 2em;\">completado</span><span><span><i class=\"fa fa-check-circle\" style=\"margin-right: 0.5em;margin-left: 0.5em;\"></i></span>25 pts</span>");
+                                %>
+                                <form action="Controlador">
+                                    <input type="hidden" name="cod_tema" value="<%=tema.getCodTema()%>">
+                                <%
+                                        out.print("<p>" + tema.getContenido().substring(0,40) + "<br></p>" + "<input class=\"btn btn-primary text-center border rounded-pill border-dark\" name=\"accion\" type=\"submit\" style=\"color: rgb(0,0,0);background: rgba(255,255,255,0);width: 100px;height: 50px;margin-right: 10em;\" value=\"Ingresar\"");
+                                        out.print(Tema.estatus(tema.getCodTema(), Controlador.usuarioLogeado.getCorreo()));
                                         out.print("</div>");
                                         out.print("</div><br>");
                                     }
                                 %>
-                                
+                                </form>
                             </div>
                         </div>
                     </div>
