@@ -19,6 +19,10 @@
             String grupo = Controlador.usuarioLogeado.getGrupo();
             String nombreProf = Grupo.buscarProfesor(grupo);
             List<Tema> lista = Tema.generarListaTemasEst(grupo);
+            Integer medallas = 0;
+            for(Tema tema : lista){
+                Tema.calcularMedallas(tema.getCodTema(), Controlador.usuarioLogeado.getCorreo(), medallas);
+            }
         %>
 
         <meta charset="utf-8">
@@ -53,11 +57,11 @@
                                 <div class="row row-cols-2">
                                     <div class="col-auto col-sm-12 col-md-4">
                                         <h1 style="color: rgb(0,0,0);">Grupo</h1>
-                                        <p><strong>.</strong></p>
+                                        <h3><strong><%=grupo%></strong></h3>
                                     </div>
                                     <div class="col-auto col-sm-12 col-md-8">
                                         <h1 style="color: rgb(0,0,0);">Maestro/a</h1>
-                                        <p><strong>.</strong></p>
+                                        <h3><strong><%=nombreProf%></strong></h3>
                                     </div>
                                 </div>
                             </div>
@@ -65,12 +69,19 @@
                             <div class="col-12 mb-4">
                                 <div class="row row-cols-2">
                                     <div class="col-auto col-sm-12 col-md-4">
-                                        <h1 style="color: rgb(0,0,0);">Medallas</h1>
+                                        <h2 style="color: rgb(0,0,0);">Medallas</h2>
                                     </div>
-                                    <div class="col-auto col-sm-12 col-md-8"><img class="img-fluid" src="https://i.ibb.co/HqJS4nH/medalla.png" width="100" height="100"><img class="img-fluid" src="https://i.ibb.co/HqJS4nH/medalla.png" width="100" height="100"><img class="img-fluid" src="https://i.ibb.co/HqJS4nH/medalla.png" width="100" height="100"><img class="img-fluid" src="https://i.ibb.co/HqJS4nH/medalla.png" width="100" height="100"></div>
+                                    <div class="col-auto col-sm-12 col-md-8">
+                                        <%
+                                            for(int i = 0; i < medallas; i++){
+                                                out.print("<img class=\"img-fluid\" src=\"https://i.ibb.co/HqJS4nH/medalla.png\" width=\"70\" height=\"70\">");
+                                            }
+                                        %>
+                                    </div>
                                 </div>
                             </div>
                             
+                            <br>
                             <div class="col">
                                 <h1 class="text-start" style="color: rgb(0,0,0);">Temas</h1>
                             </div>
@@ -86,7 +97,7 @@
                                 <form action="Controlador">
                                     <input type="hidden" name="cod_tema" value="<%=tema.getCodTema()%>">
                                     <%
-                                            out.print("<p>" + tema.getContenido().substring(0, 40) + "<br></p>" + "<input class=\"btn btn-primary text-center border rounded-pill border-dark\" name=\"accion\" type=\"submit\" style=\"color: rgb(0,0,0);background: rgba(255,255,255,0);width: 100px;height: 50px;margin-right: 10em;\" value=\"Ingresar\"");
+                                            out.print("<p>" + tema.getContenido().substring(0, 40) + "...<br></p>" + "<input class=\"btn btn-primary text-center border rounded-pill border-dark\" name=\"accion\" type=\"submit\" style=\"color: rgb(0,0,0);background: rgba(255,255,255,0);width: 100px;height: 50px;margin-right: 10em;\" value=\"Ingresar\"");
                                             out.print(Tema.estatus(tema.getCodTema(), Controlador.usuarioLogeado.getCorreo()));
                                             out.print("</div>");
                                             out.print("</div><br>");
