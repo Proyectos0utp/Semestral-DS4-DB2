@@ -200,7 +200,7 @@ public class Controlador extends HttpServlet {
         
         //Hacer Examen
         if (accion.equals("Hacer Examen")) {
-            
+            ventanaAMostrar = "jugabilidad.jsp";
         }
 
         RequestDispatcher ventana = request.getRequestDispatcher(ventanaAMostrar);

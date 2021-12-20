@@ -49,7 +49,7 @@
                     <br><br>
                     <div class="row row-cols-1 text-start text-dark">
                         <div class="col-auto col-sm-12 col-md-8 order-first" style="margin-bottom: 1em;">
-                            <p><strong><%=tema.getContenido().substring(0,6)%></strong>&nbsp;<%=tema.getContenido().substring(7)%><br></p>
+                            <p><strong><%=tema.getContenido().split("\\s")[0]%></strong>&nbsp;<%=tema.getContenido().replaceAll(tema.getContenido().split("\\s")[0],"")%><br></p>
                         </div>
                         <div class="col-auto col-sm-12 col-md-4 text-center order-1" style="margin-bottom: 1em;">
                             <form action="Controlador">

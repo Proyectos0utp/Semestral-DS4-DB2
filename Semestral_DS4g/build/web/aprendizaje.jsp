@@ -48,12 +48,12 @@
                                 <div class="row row-cols-2">
                                     <div class="col-auto col-sm-12 col-md-8 order-first" style="margin-bottom: 1em;">
                                         <h1 style="color: rgb(0,0,0);"><%=tema.getTitulo()%></h1>
-                                        <p><strong><%=tema.getContenido().substring(0,6)%></strong>&nbsp;<%=tema.getContenido().substring(6)%><br></p>
+                                        <p><strong><%=tema.getContenido().split("\\s")[0]%></strong>&nbsp;<%=tema.getContenido().replaceAll(tema.getContenido().split("\\s")[0],"")%><br></p>
                                     </div>
                                         <div class="col-auto col-sm-12 col-md-4 text-center align-self-center order-first" style="margin-bottom: 1em;"><img class="img-fluid" src="assets/img/temas/<%=tema.getCodTema().concat("-A.png")%>"></div>
                                     <div class="col-auto col-sm-12 col-md-8 order-first" style="margin-bottom: 1em;">
                                         <h1 style="color: rgb(0,0,0);"><%=tema.getTitulo()%></h1>
-                                        <p><strong><%=tema.getContenido().substring(0,6)%></strong>&nbsp;<%=tema.getContenido().substring(6)%><br></p>
+                                        <p><strong><%=tema.getContenido().split("\\s")[0]%></strong>&nbsp;<%=tema.getContenido().replaceAll(tema.getContenido().split("\\s")[0],"")%><br></p>
                                     </div>
                                     <div class="col-auto col-sm-12 col-md-4 text-center align-self-center order-first" style="margin-bottom: 1em;"><img class="img-fluid" src="assets/img/temas/<%=tema.getCodTema().concat("-B.png")%>"></div>
                                 </div>
