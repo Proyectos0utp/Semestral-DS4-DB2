@@ -15,6 +15,17 @@
 
         <%
             Tema tema = Controlador.temaIngresado;
+            if (Controlador.usuarioLogeado.getNombre().equals("")) {
+                RequestDispatcher ventana = request.getRequestDispatcher("iniciarsesion.jsp");
+                request.setAttribute("avisoSesion", "Inicie sesion.");
+                ventana.forward(request, response);
+            } else {
+
+                if (tema.getCodTema().equals("")) {
+                    RequestDispatcher ventana = request.getRequestDispatcher("adminEst.jsp");
+                    ventana.forward(request, response);
+                }
+            }
         %>
 
         <meta charset="utf-8">
@@ -30,9 +41,9 @@
 
     <body id="page-top">
         <div id="wrapper">
-        <%
-            out.print(Sesion.generarMenuHTML(Controlador.usuarioLogeado));
-        %>
+            <%
+                out.print(Sesion.generarMenuHTML(Controlador.usuarioLogeado));
+            %>
             <div class="d-flex flex-column" id="content-wrapper">
                 <div id="content" style="margin-top: 15;">
                     <nav class="navbar navbar-light navbar-expand-md bg-white shadow d-print-none d-md-none d-lg-none d-xl-none d-xxl-none mb-4 topbar static-top">
@@ -41,19 +52,19 @@
                     <div class="container-fluid">
                         <hr style="color: rgba(255,255,255,0);">
                         <h1 style="color: rgb(0,0,0);"><%=tema.getTitulo()%></h1>
-                        
+
                         <br><br><br>
                         <div class="row row-cols-1 text-start text-dark">
                             <div class="col-12 mb-4">
                                 <div class="row row-cols-2">
                                     <div class="col-auto col-sm-12 col-md-8 order-first" style="margin-bottom: 1em;">
                                         <h2 style="color: rgb(0,0,0);"><%=tema.getTitulo()%></h2>
-                                        <p><strong><%=tema.getContenido().split("\\s")[0]%></strong>&nbsp;<%=tema.getContenido().replaceAll(tema.getContenido().split("\\s")[0],"")%><br></p>
+                                        <p><strong><%=tema.getContenido().split("\\s")[0]%></strong>&nbsp;<%=tema.getContenido().replaceAll(tema.getContenido().split("\\s")[0], "")%><br></p>
                                     </div>
-                                        <div class="col-auto col-sm-12 col-md-4 text-center align-self-center order-first" style="margin-bottom: 1em;"><img class="img-fluid" src="assets/img/temas/<%=tema.getCodTema().concat("-A.png")%>"></div>
+                                    <div class="col-auto col-sm-12 col-md-4 text-center align-self-center order-first" style="margin-bottom: 1em;"><img class="img-fluid" src="assets/img/temas/<%=tema.getCodTema().concat("-A.png")%>"></div>
                                     <div class="col-auto col-sm-12 col-md-8 order-first" style="margin-bottom: 1em;">
                                         <h2 style="color: rgb(0,0,0);"><%=tema.getTitulo()%></h2>
-                                        <p><strong><%=tema.getContenido().split("\\s")[0]%></strong>&nbsp;<%=tema.getContenido().replaceAll(tema.getContenido().split("\\s")[0],"")%><br></p>
+                                        <p><strong><%=tema.getContenido().split("\\s")[0]%></strong>&nbsp;<%=tema.getContenido().replaceAll(tema.getContenido().split("\\s")[0], "")%><br></p>
                                     </div>
                                     <div class="col-auto col-sm-12 col-md-4 text-center align-self-center order-first" style="margin-bottom: 1em;"><img class="img-fluid" src="assets/img/temas/<%=tema.getCodTema().concat("-B.png")%>"></div>
                                 </div>

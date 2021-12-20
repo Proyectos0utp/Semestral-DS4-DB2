@@ -14,7 +14,7 @@
 <html>
 
     <%
-        String nomProf, codGrupo, seleccion = request.getParameter("seleccion");
+        String nomProf, seleccion = request.getParameter("seleccion");
         List<Grupo> lista = Grupo.listarGrupos();
     %>
 

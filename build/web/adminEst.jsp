@@ -19,7 +19,7 @@
             
             if (usuario.equals("")) {
                 RequestDispatcher ventana = request.getRequestDispatcher("iniciarsesion.jsp");
-                request.setAttribute("avisoSesion", "Se cerro la sesion.");
+                request.setAttribute("avisoSesion", "Inicie sesion.");
                 ventana.forward(request, response);
             }
             
