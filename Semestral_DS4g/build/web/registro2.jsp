@@ -4,6 +4,10 @@
     Author     : Polar
 --%>
 
+<%@page import="java.util.List"%>
+<%@page import="entidades.Grupo"%>
+<%@page import="servlet.Controlador"%>
+<%@page import="procesos.Sesion"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
@@ -25,19 +29,12 @@
 
     <body id="page-top">
         <div id="wrapper">
-            <nav class="navbar navbar-light align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
-                <div class="container-fluid d-flex flex-column p-0">
-                    <hr style="color: rgba(255,255,255,0);"><a class="navbar-brand text-center d-flex justify-content-center align-items-center sidebar-brand m-0" href="#"><img class="img-fluid" src="http://via.placeholder.com/50x50"></a>
-                    <hr class="sidebar-divider my-0">
-                    <ul class="navbar-nav text-light" id="accordionSidebar">
-                        <li class="nav-item"><a class="nav-link" href="perfil.html"><span class="text-dark" style="font-size: 20px;">Inicio</span></a></li>
-                        <li class="nav-item"><a class="nav-link" href="iniciarsesion.html"><span class="text-dark" style="font-size: 20px;">Busqueda</span></a></li>
-                        <li class="nav-item"><a class="nav-link" href="acerca_de.html"><span class="text-dark" style="font-size: 20px;">Acerca de</span></a></li>
-                        <li class="nav-item"><a class="nav-link" href="contacto.html"><span class="text-dark" style="font-size: 20px;">Contacto</span></a></li>
-                        <li class="nav-item"><a class="nav-link" href="registro.html"><span class="text-dark" style="font-size: 20px;">Salir</span></a></li>
-                    </ul>
-                </div>
-            </nav>
+
+            <%
+                out.print(Sesion.generarMenuHTML(Controlador.usuarioLogeado));
+                List<Grupo> lista = Grupo.listarGrupos();
+            %>
+
             <div class="d-flex flex-column" id="content-wrapper">
                 <div id="content" style="margin-top: 15;">
                     <nav class="navbar navbar-light navbar-expand-md bg-white shadow d-print-none d-md-none d-lg-none d-xl-none d-xxl-none mb-4 topbar static-top">
@@ -51,13 +48,30 @@
                             <%
                                 if (seleccion.contains("estudiante")) {
                                     out.print("<div class=\"col-12 order-first\">");
-                                    out.print("<h3>Seleccione su maestro y grupo</h3>");
+                                    out.print("<br><br><h3>Seleccione su Grupo</h3>");
                                     out.print("<div class=\"table-responsive border rounded-0\">");
                                     out.print("<table class=\"table\">");
-                                    out.print("<thead><tr><th style=\"color: rgb(0,0,0);\">Maestro</th><th style=\"color: rgb(0,0,0);\">Grupos</th></tr></thead>");
+                                    out.print("<thead><tr><th style=\"color: rgb(0,0,0);\">Maestro</th><th style=\"color: rgb(0,0,0);\">Grupo</th></tr></thead>");
                                     out.print("<tbody><tr>");
-                                    out.print("<td style=\"color: rgb(0,0,0);\">nombre apellido</td>");
-                                    out.print("td><select class=\"form-select\" style=\"width: 100px;height: 30px;\"><optgroup label=\"grupos\"><option value=\"1\" selected=\"\">01</option><option value=\"2\">02</option></optgroup></select></td>");
+                                    
+                                    for (Grupo grupo : lista) {
+                                        out.print("<td style=\"color: rgb(0,0,0);\">" + Grupo.buscarProfesor(grupo.getCorreo_maestro()) + "</td>");
+                                        out.print("<select class=\"form-select\" style=\"width: 100px;height: 30px;\"><optgroup label=\"grupos\">");
+                                        
+                                        for (int i = 1; i <= 15; i++) {
+                                            
+                                            if (i < 10) {
+                                                out.print("<option value=\"0" + i + "\" selected=\"\">0" + i + "</option>");
+                                            } else {
+                                                out.print("<option value=\"" + i + "\" selected=\"\">" + i + "</option>");
+                                            }
+                                            
+                                        }
+                                        
+                                        out.print("</optgroup></select></td>");
+                                        
+                                    }
+                                    
                                     out.print("</tr></tbody>");
                                     out.print("</table>");
                                     out.print("</div>");

@@ -70,6 +70,10 @@ public class Controlador extends HttpServlet {
             usuario.setNombre(request.getParameter("nombre"));
             usuario.setApellido(request.getParameter("apellido"));
             
+            if (request.getParameter("seleccion").equals("maestro")) {
+                usuario.setEsProfesor(true);
+            } 
+            
             
             if (!usuario.getCorreo().equals("") && !usuario.getPassword().equals("") && !usuario.getNombre().equals("") && !usuario.getApellido().equals("") && !usuario.getCedula().equals("")) {
                 
@@ -91,7 +95,7 @@ public class Controlador extends HttpServlet {
             }
             
             request.setAttribute("avisoRegistro", mensajeAviso);
-            ventanaAMostrar = "registro.jsp";
+            ventanaAMostrar = "registro2.jsp";
         }
         
         //iniciarsesion.jsp
