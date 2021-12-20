@@ -53,9 +53,9 @@
                         </div>
                         <div class="col-auto col-sm-12 col-md-4 text-center order-1" style="margin-bottom: 1em;">
                             <form action="Controlador">
-                                <input class="btn btn-primary text-center border rounded-pill border-dark" name="accion" type="submit" style="color: rgb(0,0,0);background: rgba(255,255,255,0);width: 160px;height: 50px;margin-right: 10em;" value="Aprender">
-                                <input class="btn btn-primary text-center border rounded-pill border-dark" name="accion" type="submit" style="color: rgb(0,0,0);background: rgba(255,255,255,0);width: 160px;height: 50px;margin-right: 10em;" value="Hacer Examen">
-                                <input class="btn btn-primary text-center border rounded-pill border-dark" name="accion" type="submit" style="color: rgb(0,0,0);background: rgba(255,255,255,0);width: 100px;height: 50px;margin-right: 10em;" value="Rankings">
+                                <input class="btn btn-primary text-center border rounded-pill border-dark" name="accion" type="submit" style="color: rgb(0,0,0);background: rgba(255,255,255,0);width: 160px;height: 50px;margin-right: 10em;" value="Aprender"><br><br>
+                                <input class="btn btn-primary text-center border rounded-pill border-dark" name="accion" type="submit" style="color: rgb(0,0,0);background: rgba(255,255,255,0);width: 160px;height: 50px;margin-right: 10em;" value="Hacer Examen"><br><br>
+                                <input class="btn btn-primary text-center border rounded-pill border-dark" name="accion" type="submit" style="color: rgb(0,0,0);background: rgba(255,255,255,0);width: 160px;height: 50px;margin-right: 10em;" value="Rankings"><br><br>
                             </form>
                         </div>
                         <%

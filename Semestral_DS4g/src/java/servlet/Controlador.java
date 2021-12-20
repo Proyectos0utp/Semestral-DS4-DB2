@@ -197,6 +197,11 @@ public class Controlador extends HttpServlet {
         if (accion.contains("Aprender")) {
             ventanaAMostrar = "aprendizaje.jsp";
         }
+        
+        //Hacer Examen
+        if (accion.equals("Hacer Examen")) {
+            
+        }
 
         RequestDispatcher ventana = request.getRequestDispatcher(ventanaAMostrar);
         ventana.forward(request, response);
