@@ -71,7 +71,7 @@
                                         out.print("<div class=\"col-4 text-center align-self-center order-first\">" + "<img class=\"img-fluid\" src=\"" + tema.getImagen() + "\">" + "</div>");
                                         out.print("<div class=\"col-8\">");
                                         out.print("<h1 style=\"color: rgb(0,0,0);\">" + tema.getTitulo() + "</h1>");
-                                        out.print("<p>" + tema.getContenido() + "<br></p>" + "<button class=\"btn btn-primary border rounded-0\" type=\"button\" style=\"color: rgb(0,0,0);background: rgba(255,255,255,0);border-color: rgb(0,0,0);width: 150px;\">Ingresar</button><span style=\"margin-left: 2em;\">completado</span><span><span><i class=\"fa fa-check-circle\" style=\"margin-right: 0.5em;margin-left: 0.5em;\"></i></span>25 pts</span>");
+                                        out.print("<p>" + tema.getContenido().substring(0,123) + "<br></p>" + "<button class=\"btn btn-primary border rounded-0\" type=\"button\" style=\"color: rgb(0,0,0);background: rgba(255,255,255,0);border-color: rgb(0,0,0);width: 150px;\">Ingresar</button><span style=\"margin-left: 2em;\">completado</span><span><span><i class=\"fa fa-check-circle\" style=\"margin-right: 0.5em;margin-left: 0.5em;\"></i></span>25 pts</span>");
                                         out.print("</div>");
                                         out.print("</div><br>");
                                     }

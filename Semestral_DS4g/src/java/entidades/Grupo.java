@@ -266,7 +266,9 @@ public class Grupo {
                     tema.setContenido(rs.getString("Contenido"));
                     lista.add(tema);
                 }
-            } else if (codGrupo.contains("02")) {
+            } 
+            
+            if (codGrupo.contains("02")) {
                 query = "SELECT * FROM Tema WHERE cod_tema LIKE 'TCN02%'";
                 rs = stmt.executeQuery(query);
                 while (rs.next()) {
@@ -277,7 +279,9 @@ public class Grupo {
                     tema.setContenido(rs.getString("Contenido"));
                     lista.add(tema);
                 }
-            } else if (codGrupo.contains("03")) {
+            }
+            
+            if (codGrupo.contains("03")) {
                 query = "SELECT * FROM Tema WHERE cod_tema LIKE 'TCN03%'";
                 rs = stmt.executeQuery(query);
                 while (rs.next()) {
@@ -288,7 +292,9 @@ public class Grupo {
                     tema.setContenido(rs.getString("Contenido"));
                     lista.add(tema);
                 }
-            } else if (codGrupo.contains("04")) {
+            }
+            
+            if (codGrupo.contains("04")) {
                 query = "SELECT * FROM Tema WHERE cod_tema LIKE 'TCN04%'";
                 rs = stmt.executeQuery(query);
                 while (rs.next()) {
@@ -299,7 +305,9 @@ public class Grupo {
                     tema.setContenido(rs.getString("Contenido"));
                     lista.add(tema);
                 }
-            } else if (codGrupo.contains("05")) {
+            }
+            
+            if (codGrupo.contains("05")) {
                 query = "SELECT * FROM Tema WHERE cod_tema LIKE 'TCN05%'";
                 rs = stmt.executeQuery(query);
                 while (rs.next()) {
@@ -310,7 +318,9 @@ public class Grupo {
                     tema.setContenido(rs.getString("Contenido"));
                     lista.add(tema);
                 }
-            } else if (codGrupo.contains("06")) {
+            }
+            
+            if (codGrupo.contains("06")) {
                 query = "SELECT * FROM Tema WHERE cod_tema LIKE 'TCN06%'";
                 rs = stmt.executeQuery(query);
                 while (rs.next()) {
@@ -321,7 +331,9 @@ public class Grupo {
                     tema.setContenido(rs.getString("Contenido"));
                     lista.add(tema);
                 }
-            } else if (codGrupo.contains("07")) {
+            } 
+            
+            if (codGrupo.contains("07")) {
                 query = "SELECT * FROM Tema WHERE cod_tema LIKE 'TCN07%'";
                 rs = stmt.executeQuery(query);
                 while (rs.next()) {
@@ -332,7 +344,9 @@ public class Grupo {
                     tema.setContenido(rs.getString("Contenido"));
                     lista.add(tema);
                 }
-            } else if (codGrupo.contains("08")) {
+            }
+            
+            if (codGrupo.contains("08")) {
                 query = "SELECT * FROM Tema WHERE cod_tema LIKE 'TCN08%'";
                 rs = stmt.executeQuery(query);
                 while (rs.next()) {
@@ -343,7 +357,9 @@ public class Grupo {
                     tema.setContenido(rs.getString("Contenido"));
                     lista.add(tema);
                 }
-            } else if (codGrupo.contains("09")) {
+            }
+            
+            if (codGrupo.contains("09")) {
                 query = "SELECT * FROM Tema WHERE cod_tema LIKE 'TCN09%'";
                 rs = stmt.executeQuery(query);
                 while (rs.next()) {
@@ -354,7 +370,9 @@ public class Grupo {
                     tema.setContenido(rs.getString("Contenido"));
                     lista.add(tema);
                 }
-            } else if (codGrupo.contains("10")) {
+            }
+            
+            if (codGrupo.contains("10")) {
                 query = "SELECT * FROM Tema WHERE cod_tema LIKE 'TCS10%'";
                 rs = stmt.executeQuery(query);
                 while (rs.next()) {
@@ -365,7 +383,9 @@ public class Grupo {
                     tema.setContenido(rs.getString("Contenido"));
                     lista.add(tema);
                 }
-            } else if (codGrupo.contains("11")) {
+            }
+            
+            if (codGrupo.contains("11")) {
                 query = "SELECT * FROM Tema WHERE cod_tema LIKE 'TCS11%'";
                 rs = stmt.executeQuery(query);
                 while (rs.next()) {
@@ -376,7 +396,9 @@ public class Grupo {
                     tema.setContenido(rs.getString("Contenido"));
                     lista.add(tema);
                 }
-            } else if (codGrupo.contains("12")) {
+            }
+            
+            if (codGrupo.contains("12")) {
                 query = "SELECT * FROM Tema WHERE cod_tema LIKE 'TCS12%'";
                 rs = stmt.executeQuery(query);
                 while (rs.next()) {
@@ -387,7 +409,9 @@ public class Grupo {
                     tema.setContenido(rs.getString("Contenido"));
                     lista.add(tema);
                 }
-            } else if (codGrupo.contains("13")) {
+            }
+            
+            if (codGrupo.contains("13")) {
                 query = "SELECT * FROM Tema WHERE cod_tema LIKE 'TCS13%'";
                 rs = stmt.executeQuery(query);
                 while (rs.next()) {
@@ -398,7 +422,9 @@ public class Grupo {
                     tema.setContenido(rs.getString("Contenido"));
                     lista.add(tema);
                 }
-            } else if (codGrupo.contains("14")) {
+            }
+            
+            if (codGrupo.contains("14")) {
                 query = "SELECT * FROM Tema WHERE cod_tema LIKE 'TCS14%'";
                 rs = stmt.executeQuery(query);
                 while (rs.next()) {
@@ -409,7 +435,9 @@ public class Grupo {
                     tema.setContenido(rs.getString("Contenido"));
                     lista.add(tema);
                 }
-            } else {
+            }
+            
+            if (codGrupo.contains("15")){
                 query = "SELECT * FROM Tema WHERE cod_tema LIKE 'TCS15%'";
                 rs = stmt.executeQuery(query);
                 while (rs.next()) {
