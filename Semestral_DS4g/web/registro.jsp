@@ -50,6 +50,15 @@
                                 <input type="text" style="margin-bottom: 20px;width: 300px;" name="apellido"><br>
                                 <label class="form-label" for="cedula" style="margin-right: 12em;">Cédula</label><br>
                                 <input type="text" style="margin-bottom: 20px;width: 300px;" name="cedula"><br>
+                                <h4>Seleccione si es estudiante o profesor</h4>
+                                <div class="form-check" style="margin-bottom: 20px;">
+                                    <input class="form-check-input" type="radio" id="formCheck-1" name="seleccion" value="estudiante" checked="">
+                                    <label class="form-check-label" for="formCheck-1">Estudiante</label>
+                                </div>
+                                <div class="form-check" style="margin-bottom: 20px;">
+                                    <input class="form-check-input" type="radio" id="formCheck-2" name="seleccion" value="maestro">
+                                    <label class="form-check-label" for="formCheck-2">Maestro</label>
+                                </div>
                                 <input class="btn btn-primary text-center border rounded-pill border-dark" name="accion" type="submit" style="color: rgb(0,0,0);background: rgba(255,255,255,0);width: 100px;height: 50px;margin-right: 10em;" value="Registrarse">
                             </form>
                             <br>
