@@ -21,7 +21,7 @@
             List<Tema> lista = Tema.generarListaTemasEst(grupo);
             Integer medallas = 0;
             for(Tema tema : lista){
-                Tema.calcularMedallas(tema.getCodTema(), Controlador.usuarioLogeado.getCorreo(), medallas);
+                Controlador.usuarioLogeado.calcularMedallas(tema.getCodTema(), medallas);
             }
         %>
 
@@ -81,7 +81,7 @@
                                 </div>
                             </div>
                             
-                            <br>
+                            <br><br>
                             <div class="col">
                                 <h1 class="text-start" style="color: rgb(0,0,0);">Temas</h1>
                             </div>
