@@ -15,6 +15,16 @@ public class Usuario {
     private String apellido;
     private String grupo;
     private boolean esProfesor;
+    
+    public Usuario(){
+        this.cedula = "";
+        this.correo =  "";
+        this.password = "";
+        this.nombre = "";
+        this.apellido = "";
+        this.grupo = "";
+        this.esProfesor = false;
+    }
 
     public String getCedula() {
         return cedula;
