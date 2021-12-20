@@ -126,7 +126,7 @@ public class Grupo {
             String query, codTema, tableRows = "";
             Tema tema = new Tema();
 
-            if (codGrupo.equals("01") || codGrupo.equals("02") || codGrupo.equals("03") || codGrupo.equals("04") || codGrupo.equals("05") || codGrupo.equals("06") || codGrupo.equals("07") || codGrupo.equals("08") || codGrupo.equals("09")) {
+            if (codGrupo.contains("01") || codGrupo.contains("02") || codGrupo.contains("03") || codGrupo.contains("04") || codGrupo.contains("05") || codGrupo.contains("06") || codGrupo.contains("07") || codGrupo.contains("08") || codGrupo.contains("09")) {
                 for (int i = 0; i < 4; i++) {
                     codTema = "TCN" + codGrupo + "-" + (i + 1);
                     query = "SELECT * FROM Tema WHERE cod_tema = '" + codTema + "'";
@@ -157,7 +157,7 @@ public class Grupo {
             for (int i = 0; i < lista.size(); i++) {
                 tableRows += (lista.get(i)) + "<tr><td style=\"color: rgb(0,0,0);\">" + lista.get(i).getTitulo() + "</td><td><button class=\"btn btn-primary border rounded-0\" type=\"button\" style=\"color: rgb(0,0,0);background: rgba(255,255,255,0);border-color: rgb(0,0,0);width: 150px;margin-bottom: 30px;\">Administrar</button></td></tr>";
             }
-            
+
             /*
             switch (codGrupo) {
                 case "01":
@@ -242,8 +242,8 @@ public class Grupo {
 
         return lista;
     }
-    
-        public static List<Tema> generarListaTemasEst(String codGrupo) {
+
+    public static List<Tema> generarListaTemasEst(String codGrupo) {
         List<Tema> lista = new ArrayList<>();
         Connection conn = null;
         Statement stmt = null;
@@ -253,34 +253,172 @@ public class Grupo {
 
             conn = BaseDeDatos.conectar();
             stmt = conn.createStatement();
-            String query, codTema;
-            Tema tema = new Tema();
+            String query;
 
-            if (codGrupo.equals("01") || codGrupo.equals("02") || codGrupo.equals("03") || codGrupo.equals("04") || codGrupo.equals("05") || codGrupo.equals("06") || codGrupo.equals("07") || codGrupo.equals("08") || codGrupo.equals("09")) {
-                for (int i = 0; i < 4; i++) {
-                    codTema = "TCN" + codGrupo + "-" + (i + 1);
-                    query = "SELECT * FROM Tema WHERE cod_tema = '" + codTema + "'";
-                    rs = stmt.executeQuery(query);
-                    while (rs.next()) {
-                        tema.setCodTema(codTema);
-                        tema.setTitulo(rs.getString("tema"));
-                        tema.setImagen(rs.getString("imagen"));
-                        tema.setContenido(rs.getString("Contenido"));
-                        lista.add(tema);
-                    }
+            if (codGrupo.contains("01")) {
+                query = "SELECT * FROM Tema WHERE cod_tema LIKE 'TCN01%'";
+                rs = stmt.executeQuery(query);
+                while (rs.next()) {
+                    Tema tema = new Tema();
+                    tema.setCodTema(rs.getString("cod_tema"));
+                    tema.setTitulo(rs.getString("tema"));
+                    tema.setImagen(rs.getString("imagen"));
+                    tema.setContenido(rs.getString("Contenido"));
+                    lista.add(tema);
+                }
+            } else if (codGrupo.contains("02")) {
+                query = "SELECT * FROM Tema WHERE cod_tema LIKE 'TCN02%'";
+                rs = stmt.executeQuery(query);
+                while (rs.next()) {
+                    Tema tema = new Tema();
+                    tema.setCodTema(rs.getString("cod_tema"));
+                    tema.setTitulo(rs.getString("tema"));
+                    tema.setImagen(rs.getString("imagen"));
+                    tema.setContenido(rs.getString("Contenido"));
+                    lista.add(tema);
+                }
+            } else if (codGrupo.contains("03")) {
+                query = "SELECT * FROM Tema WHERE cod_tema LIKE 'TCN03%'";
+                rs = stmt.executeQuery(query);
+                while (rs.next()) {
+                    Tema tema = new Tema();
+                    tema.setCodTema(rs.getString("cod_tema"));
+                    tema.setTitulo(rs.getString("tema"));
+                    tema.setImagen(rs.getString("imagen"));
+                    tema.setContenido(rs.getString("Contenido"));
+                    lista.add(tema);
+                }
+            } else if (codGrupo.contains("04")) {
+                query = "SELECT * FROM Tema WHERE cod_tema LIKE 'TCN04%'";
+                rs = stmt.executeQuery(query);
+                while (rs.next()) {
+                    Tema tema = new Tema();
+                    tema.setCodTema(rs.getString("cod_tema"));
+                    tema.setTitulo(rs.getString("tema"));
+                    tema.setImagen(rs.getString("imagen"));
+                    tema.setContenido(rs.getString("Contenido"));
+                    lista.add(tema);
+                }
+            } else if (codGrupo.contains("05")) {
+                query = "SELECT * FROM Tema WHERE cod_tema LIKE 'TCN05%'";
+                rs = stmt.executeQuery(query);
+                while (rs.next()) {
+                    Tema tema = new Tema();
+                    tema.setCodTema(rs.getString("cod_tema"));
+                    tema.setTitulo(rs.getString("tema"));
+                    tema.setImagen(rs.getString("imagen"));
+                    tema.setContenido(rs.getString("Contenido"));
+                    lista.add(tema);
+                }
+            } else if (codGrupo.contains("06")) {
+                query = "SELECT * FROM Tema WHERE cod_tema LIKE 'TCN06%'";
+                rs = stmt.executeQuery(query);
+                while (rs.next()) {
+                    Tema tema = new Tema();
+                    tema.setCodTema(rs.getString("cod_tema"));
+                    tema.setTitulo(rs.getString("tema"));
+                    tema.setImagen(rs.getString("imagen"));
+                    tema.setContenido(rs.getString("Contenido"));
+                    lista.add(tema);
+                }
+            } else if (codGrupo.contains("07")) {
+                query = "SELECT * FROM Tema WHERE cod_tema LIKE 'TCN07%'";
+                rs = stmt.executeQuery(query);
+                while (rs.next()) {
+                    Tema tema = new Tema();
+                    tema.setCodTema(rs.getString("cod_tema"));
+                    tema.setTitulo(rs.getString("tema"));
+                    tema.setImagen(rs.getString("imagen"));
+                    tema.setContenido(rs.getString("Contenido"));
+                    lista.add(tema);
+                }
+            } else if (codGrupo.contains("08")) {
+                query = "SELECT * FROM Tema WHERE cod_tema LIKE 'TCN08%'";
+                rs = stmt.executeQuery(query);
+                while (rs.next()) {
+                    Tema tema = new Tema();
+                    tema.setCodTema(rs.getString("cod_tema"));
+                    tema.setTitulo(rs.getString("tema"));
+                    tema.setImagen(rs.getString("imagen"));
+                    tema.setContenido(rs.getString("Contenido"));
+                    lista.add(tema);
+                }
+            } else if (codGrupo.contains("09")) {
+                query = "SELECT * FROM Tema WHERE cod_tema LIKE 'TCN09%'";
+                rs = stmt.executeQuery(query);
+                while (rs.next()) {
+                    Tema tema = new Tema();
+                    tema.setCodTema(rs.getString("cod_tema"));
+                    tema.setTitulo(rs.getString("tema"));
+                    tema.setImagen(rs.getString("imagen"));
+                    tema.setContenido(rs.getString("Contenido"));
+                    lista.add(tema);
+                }
+            } else if (codGrupo.contains("10")) {
+                query = "SELECT * FROM Tema WHERE cod_tema LIKE 'TCS10%'";
+                rs = stmt.executeQuery(query);
+                while (rs.next()) {
+                    Tema tema = new Tema();
+                    tema.setCodTema(rs.getString("cod_tema"));
+                    tema.setTitulo(rs.getString("tema"));
+                    tema.setImagen(rs.getString("imagen"));
+                    tema.setContenido(rs.getString("Contenido"));
+                    lista.add(tema);
+                }
+            } else if (codGrupo.contains("11")) {
+                query = "SELECT * FROM Tema WHERE cod_tema LIKE 'TCS11%'";
+                rs = stmt.executeQuery(query);
+                while (rs.next()) {
+                    Tema tema = new Tema();
+                    tema.setCodTema(rs.getString("cod_tema"));
+                    tema.setTitulo(rs.getString("tema"));
+                    tema.setImagen(rs.getString("imagen"));
+                    tema.setContenido(rs.getString("Contenido"));
+                    lista.add(tema);
+                }
+            } else if (codGrupo.contains("12")) {
+                query = "SELECT * FROM Tema WHERE cod_tema LIKE 'TCS12%'";
+                rs = stmt.executeQuery(query);
+                while (rs.next()) {
+                    Tema tema = new Tema();
+                    tema.setCodTema(rs.getString("cod_tema"));
+                    tema.setTitulo(rs.getString("tema"));
+                    tema.setImagen(rs.getString("imagen"));
+                    tema.setContenido(rs.getString("Contenido"));
+                    lista.add(tema);
+                }
+            } else if (codGrupo.contains("13")) {
+                query = "SELECT * FROM Tema WHERE cod_tema LIKE 'TCS13%'";
+                rs = stmt.executeQuery(query);
+                while (rs.next()) {
+                    Tema tema = new Tema();
+                    tema.setCodTema(rs.getString("cod_tema"));
+                    tema.setTitulo(rs.getString("tema"));
+                    tema.setImagen(rs.getString("imagen"));
+                    tema.setContenido(rs.getString("Contenido"));
+                    lista.add(tema);
+                }
+            } else if (codGrupo.contains("14")) {
+                query = "SELECT * FROM Tema WHERE cod_tema LIKE 'TCS14%'";
+                rs = stmt.executeQuery(query);
+                while (rs.next()) {
+                    Tema tema = new Tema();
+                    tema.setCodTema(rs.getString("cod_tema"));
+                    tema.setTitulo(rs.getString("tema"));
+                    tema.setImagen(rs.getString("imagen"));
+                    tema.setContenido(rs.getString("Contenido"));
+                    lista.add(tema);
                 }
             } else {
-                for (int i = 0; i < 4; i++) {
-                    codTema = "TCS" + codGrupo + "-" + (i + 1);
-                    query = "SELECT * FROM Tema WHERE cod_tema = '" + codTema + "'";
-                    rs = stmt.executeQuery(query);
-                    while (rs.next()) {
-                        tema.setCodTema(codTema);
-                        tema.setTitulo(rs.getString("tema"));
-                        tema.setImagen(rs.getString("imagen"));
-                        tema.setContenido(rs.getString("Contenido"));
-                        lista.add(tema);
-                    }
+                query = "SELECT * FROM Tema WHERE cod_tema LIKE 'TCS15%'";
+                rs = stmt.executeQuery(query);
+                while (rs.next()) {
+                    Tema tema = new Tema();
+                    tema.setCodTema(rs.getString("cod_tema"));
+                    tema.setTitulo(rs.getString("tema"));
+                    tema.setImagen(rs.getString("imagen"));
+                    tema.setContenido(rs.getString("Contenido"));
+                    lista.add(tema);
                 }
             }
 
@@ -293,7 +431,7 @@ public class Grupo {
         return lista;
     }
 
-    public static List<Tema> buscarTemasEst(String titulo) {
+    public static List<Tema> buscarTema(String titulo) {
         List<Tema> lista = new ArrayList<>();
         Tema tema;
         Connection conn = null;
