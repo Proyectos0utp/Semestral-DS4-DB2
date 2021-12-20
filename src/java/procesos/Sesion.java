@@ -8,6 +8,7 @@ package procesos;
 import entidades.Usuario;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
@@ -17,7 +18,7 @@ import java.sql.Statement;
 public class Sesion {
 
     public static Usuario iniciar(String correo, String pass) {
-        Usuario usuario = null;
+        Usuario usuario = new Usuario();
         
         Connection conn1 = null, conn2 = null, conn3 = null, conn4 = null;
         Statement stmt1 = null, stmt2 = null, stmt3 = null, stmt4 = null;
@@ -31,7 +32,6 @@ public class Sesion {
             
             if (rs1.next()) {
                 
-                usuario = new Usuario();
                 usuario.setCorreo(correo);
                 usuario.setCedula(rs1.getString("cedula"));
                 usuario.setNombre(rs1.getString("nombre"));
@@ -59,7 +59,7 @@ public class Sesion {
                                 usuario.setEsProfesor(true);
                             }
     
-                        } catch (Exception e) {
+                        } catch (SQLException e) {
                             System.out.println(e.getMessage());
                         } finally {
                             BaseDeDatos.cerrarConexiones(conn3, stmt3, rs3);
@@ -88,7 +88,7 @@ public class Sesion {
                     }
 
                         
-                } catch (Exception e) {
+                } catch (SQLException e) {
                     System.out.println(e.getMessage());
                 } finally {
                     BaseDeDatos.cerrarConexiones(conn2, stmt2, rs2);
@@ -96,7 +96,7 @@ public class Sesion {
                 
             }
             
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
             BaseDeDatos.cerrarConexiones(conn1, stmt1, rs1);
@@ -109,7 +109,7 @@ public class Sesion {
         
         String html, inicio;
         
-        if(usuario != null){
+        if(!usuario.getApellido().equals("")){
         
             inicio = (usuario.esProfesor()) ? "adminProfCRUD.jsp" : "adminEst.jsp";
             

@@ -624,10 +624,10 @@ public class Tema {
         }
         
         if (respuestas == cantPreg) {
-            estatus = "<span style=\\\"margin-left: 2em;\\\">   Completado</span>";
+            estatus = "<span style=\\\"margin-left: 2em;\\\">   Completado</span>" + "<span><span><i class=\\\"fa fa-check-circle\\\" style=\\\"margin-right: 0.5em;margin-left: 0.5em;\\\"></i></span>   " + cantPreg + " pts</span>";
         } 
         
-        tag = estatus + "<span><span><i class=\\\"fa fa-check-circle\\\" style=\\\"margin-right: 0.5em;margin-left: 0.5em;\\\"></i></span>   " + cantPreg + " pts</span>";
+        tag = estatus;
 
         return tag;
     }

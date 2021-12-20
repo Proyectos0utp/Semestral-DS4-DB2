@@ -7,7 +7,6 @@ package servlet;
 import entidades.Tema;
 import entidades.Usuario;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,8 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import procesos.*;
 
@@ -28,8 +25,8 @@ import procesos.*;
 @WebServlet(name = "Controlador", urlPatterns = {"/Controlador"})
 public class Controlador extends HttpServlet {
 
-    public static Usuario usuarioLogeado = null;
-    public static Tema temaIngresado = null;
+    public static Usuario usuarioLogeado = new Usuario();
+    public static Tema temaIngresado = new Tema();
 
     private Usuario usuario = new Usuario();
 
@@ -158,7 +155,7 @@ public class Controlador extends HttpServlet {
 
                 usuarioLogeado = Sesion.iniciar(correo, pass);
 
-                if (usuarioLogeado != null) {
+                if (!usuarioLogeado.getApellido().equals("")) {
 
                     if (usuarioLogeado.esProfesor()) {
                         ventanaAMostrar = "adminProf.jsp";
@@ -182,7 +179,7 @@ public class Controlador extends HttpServlet {
         //Cerrar Sesion
         if (accion.equals("Cerrar Sesion")) {
 
-            usuarioLogeado = null;
+            usuarioLogeado = new Usuario();
             ventanaAMostrar = "index.jsp";
         }
 

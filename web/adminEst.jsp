@@ -16,6 +16,13 @@
 
         <%
             String usuario = Controlador.usuarioLogeado.getNombre();
+            
+            if (usuario.equals("")) {
+                RequestDispatcher ventana = request.getRequestDispatcher("iniciarsesion.jsp");
+                request.setAttribute("avisoSesion", "Se cerro la sesion.");
+                ventana.forward(request, response);
+            }
+            
             String grupo = Controlador.usuarioLogeado.getGrupo();
             String nombreProf = Grupo.buscarProfesor(grupo);
             List<Tema> lista = Tema.generarListaTemasEst(grupo);
