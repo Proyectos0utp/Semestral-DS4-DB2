@@ -43,11 +43,21 @@
                 <div class="container-fluid">
                     <hr style="color: rgba(255,255,255,0);">
                     <h1 style="color: rgb(0,0,0);"><%=tema.getTitulo()%></h1>
+                    <%
+                        out.print(Tema.estatus(tema.getCodTema(), Controlador.usuarioLogeado.getCorreo()));
+                    %>
+                    <br><br>
                     <div class="row row-cols-1 text-start text-dark">
                         <div class="col-auto col-sm-12 col-md-8 order-first" style="margin-bottom: 1em;">
-                            <p><%=tema.getContenido()%><br></p>
+                            <p><strong><%=tema.getContenido().substring(0,6)%></strong>&nbsp;<%=tema.getContenido().substring(7)%><br></p>
                         </div>
-                        <div class="col-auto col-sm-12 col-md-4 text-center order-1" style="margin-bottom: 1em;"><button class="btn btn-primary border rounded-0" type="button" style="color: rgb(0,0,0);background: rgba(255,255,255,0);border-color: rgb(0,0,0);width: 150px;margin-bottom: 30px;">Aprender</button><button class="btn btn-primary disabled border rounded-0" type="button" style="color: rgb(0,0,0);background: rgba(255,255,255,0);border-color: rgb(0,0,0);width: 150px;margin-bottom: 30px;" disabled="">Hacer examen</button><button class="btn btn-primary border rounded-0" type="button" style="color: rgb(0,0,0);background: rgba(255,255,255,0);border-color: rgb(0,0,0);width: 150px;">Rankings</button></div>
+                        <div class="col-auto col-sm-12 col-md-4 text-center order-1" style="margin-bottom: 1em;">
+                            <form action="Controlador">
+                                <input class="btn btn-primary text-center border rounded-pill border-dark" name="accion" type="submit" style="color: rgb(0,0,0);background: rgba(255,255,255,0);width: 160px;height: 50px;margin-right: 10em;" value="Aprender">
+                                <input class="btn btn-primary text-center border rounded-pill border-dark" name="accion" type="submit" style="color: rgb(0,0,0);background: rgba(255,255,255,0);width: 160px;height: 50px;margin-right: 10em;" value="Hacer Examen">
+                                <input class="btn btn-primary text-center border rounded-pill border-dark" name="accion" type="submit" style="color: rgb(0,0,0);background: rgba(255,255,255,0);width: 100px;height: 50px;margin-right: 10em;" value="Rankings">
+                            </form>
+                        </div>
                         <%
                             out.print(tema.cargarImagenes());
                         %>
