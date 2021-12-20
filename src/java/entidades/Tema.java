@@ -602,19 +602,22 @@ public class Tema {
         Connection conn3 = null;
         Statement stmt3 = null;
         ResultSet rs3 = null;
+        
         try {
+            
+            conn3 = BaseDeDatos.conectar();
+            stmt3 = conn3.createStatement();
+            query = "SELECT * FROM Contestan WHERE correo_est='" + correoEstudiante + "'";
+            rs3 = stmt3.executeQuery(query);
 
-            for (j = 0; j < cantPreg; j++) {
-
-                conn3 = BaseDeDatos.conectar();
-                stmt3 = conn3.createStatement();
-                query = "SELECT * FROM Contestan WHERE cod_pregunta ='" + puntos[j] + "' and correo_est='" + correoEstudiante + "'";
-                rs3 = stmt3.executeQuery(query);
-
-                while (rs3.next()) {
-                    respuestas++;
+            while (rs3.next()) {
+               
+                for (j = 0; j < cantPreg; j++) {
+                    if(rs3.getString("cod_pregunta").equals(String.valueOf(puntos[j]))){
+                        respuestas++;
+                    }
                 }
-
+                
             }
 
         } catch (SQLException e) {
@@ -623,7 +626,7 @@ public class Tema {
             BaseDeDatos.cerrarConexiones(conn3, stmt3, rs3);
         }
         
-        if (respuestas == cantPreg) {
+        if (respuestas >= 0) {
             estatus = "<span style=\\\"margin-left: 2em;\\\">   Completado</span>" + "<span><span><i class=\\\"fa fa-check-circle\\\" style=\\\"margin-right: 0.5em;margin-left: 0.5em;\\\"></i></span>   " + cantPreg + " pts</span>";
         } 
         
