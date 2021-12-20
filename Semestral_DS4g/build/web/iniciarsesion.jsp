@@ -4,6 +4,8 @@
     Author     : Polar
 --%>
 
+<%@page import="servlet.Controlador"%>
+<%@page import="procesos.Sesion"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="es">
@@ -21,19 +23,9 @@
 
 <body id="page-top">
     <div id="wrapper">
-        <nav class="navbar navbar-light align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
-            <div class="container-fluid d-flex flex-column p-0">
-                <hr style="color: rgba(255,255,255,0);"><a class="navbar-brand text-center d-flex justify-content-center align-items-center sidebar-brand m-0" href="#"><img class="img-fluid" src="assets/img/utp_logo_small.png"></a>
-                <hr class="sidebar-divider my-0">
-                <ul class="navbar-nav text-light" id="accordionSidebar">
-                    <li class="nav-item"><a class="nav-link" href="index.html"><span class="text-dark" style="font-size: 20px;">Inicio</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="acerca_de.html"><span class="text-dark" style="font-size: 20px;">Acerca de</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="contacto.jsp"><span class="text-dark" style="font-size: 20px;">Contacto</span></a></li>
-                    <li class="nav-item"><a class="nav-link active" href="iniciarsesion.jsp"><span class="text-dark" style="font-size: 20px;">Iniciar Sesión</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="registro.jsp"><span class="text-dark" style="font-size: 20px;">Registro</span></a></li>
-                </ul>
-            </div>
-        </nav>
+            <%
+                out.print(Sesion.generarMenuHTML(Controlador.usuarioLogeado));
+            %>
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
                 <nav class="navbar navbar-light navbar-expand-md bg-white shadow d-print-none d-md-none d-lg-none d-xl-none d-xxl-none mb-4 topbar static-top">

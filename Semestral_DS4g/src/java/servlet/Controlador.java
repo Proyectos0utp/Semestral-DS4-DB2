@@ -25,7 +25,7 @@ import procesos.*;
 @WebServlet(name = "Controlador", urlPatterns = {"/Controlador"})
 public class Controlador extends HttpServlet {
     
-    public static Usuario usuarioLogeado = new Usuario();
+    public static Usuario usuarioLogeado = null;
     
     private Usuario usuario = new Usuario();
     
@@ -127,8 +127,8 @@ public class Controlador extends HttpServlet {
         //Cerrar Sesion
         if (accion.equals("Cerrar Sesion")) {
             
-            Sesion.cerrar(usuarioLogeado);
-            ventanaAMostrar = "iniciarsesion.jsp";
+            usuarioLogeado = null;
+            ventanaAMostrar = "index.jsp";
         }
         
         
