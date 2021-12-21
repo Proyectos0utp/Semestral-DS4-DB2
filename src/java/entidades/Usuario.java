@@ -7,7 +7,7 @@ import java.sql.Statement;
 import procesos.BaseDeDatos;
 
 public class Usuario {
-    
+
     private String cedula;
     private String correo;
     private String password;
@@ -15,10 +15,10 @@ public class Usuario {
     private String apellido;
     private String grupo;
     private boolean esProfesor;
-    
-    public Usuario(){
+
+    public Usuario() {
         this.cedula = "";
-        this.correo =  "";
+        this.correo = "";
         this.password = "";
         this.nombre = "";
         this.apellido = "";
@@ -88,10 +88,16 @@ public class Usuario {
         this.esProfesor = esProfesor;
     }
 
-        public void calcularMedallas(String codTema, Integer medallas) {
+    public int calcularMedallas(String codTema,String corr_est) {
 
         String query;
-        int i = 0, j, cantPreg = 0, puntos[], respuestas = 0;
+        int i = 0, puntos = 0;
+
+        Examen examen = new Examen();
+        examen.setCod_tema(codTema);
+        examen.setCorr_est(corr_est);
+        examen.cargarPreguntas();
+        Object cod_preguntas[] = examen.getPreguntas().keySet().toArray();
 
         Connection conn1 = null;
         Statement stmt1 = null;
@@ -101,68 +107,30 @@ public class Usuario {
 
             conn1 = BaseDeDatos.conectar();
             stmt1 = conn1.createStatement();
-            query = "SELECT * FROM Pregunta WHERE cod_tema ='" + codTema + "'";
+            query = "SELECT * FROM Contestan";
             rs1 = stmt1.executeQuery(query);
 
             while (rs1.next()) {
-                cantPreg++;
-            }
 
+                for (i = 0; i < cod_preguntas.length; i++) {
+                    
+                    if (cod_preguntas[i].toString().contains(rs1.getString("cod_pregunta"))) {
+                        puntos += rs1.getInt("puntos_obtenidos");
+                    }
+
+                }
+
+            }
+            
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
             BaseDeDatos.cerrarConexiones(conn1, stmt1, rs1);
         }
-
-        puntos = new int[cantPreg];
-
-        Connection conn2 = null;
-        Statement stmt2 = null;
-        ResultSet rs2 = null;
-        try {
-
-            conn2 = BaseDeDatos.conectar();
-            stmt2 = conn2.createStatement();
-            query = "SELECT * FROM Pregunta WHERE cod_tema ='" + codTema + "'";
-            rs2 = stmt2.executeQuery(query);
-
-            while (rs2.next()) {
-                puntos[i] = rs2.getInt("cod_pregunta");
-                i++;
-            }
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        } finally {
-            BaseDeDatos.cerrarConexiones(conn2, stmt2, rs2);
-        }
-
-        Connection conn3 = null;
-        Statement stmt3 = null;
-        ResultSet rs3 = null;
-        try {
-
-            for (j = 0; j < cantPreg; j++) {
-
-                conn3 = BaseDeDatos.conectar();
-                stmt3 = conn3.createStatement();
-                query = "SELECT * FROM Contestan WHERE cod_pregunta ='" + puntos[j] + "' and correo_est='" + this.getCorreo() + "'";
-                rs3 = stmt3.executeQuery(query);
-
-                while (rs3.next()) {
-                    respuestas++;
-                }
-
-            }
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        } finally {
-            BaseDeDatos.cerrarConexiones(conn3, stmt3, rs3);
-        }
         
-        if (respuestas == cantPreg) {
-            medallas++;
+        if (puntos > 0) {
+            return 1;
         } 
+        return (puntos>0) ? 1 : 0;
     }
 }

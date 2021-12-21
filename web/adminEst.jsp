@@ -28,7 +28,7 @@
             List<Tema> lista = Tema.generarListaTemasEst(grupo);
             Integer medallas = 0;
             for(Tema tema : lista){
-                Controlador.usuarioLogeado.calcularMedallas(tema.getCodTema(), medallas);
+                medallas += Controlador.usuarioLogeado.calcularMedallas(tema.getCodTema(),Controlador.usuarioLogeado.getCorreo());
             }
         %>
 
