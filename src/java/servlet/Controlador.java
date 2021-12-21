@@ -10,7 +10,6 @@ import entidades.Tema;
 import entidades.Usuario;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,9 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import javax.servlet.RequestDispatcher;
 import procesos.*;
@@ -35,8 +33,8 @@ public class Controlador extends HttpServlet {
 
     public static Usuario usuarioLogeado = new Usuario();
     public static Tema temaIngresado = new Tema();
-    long millis=System.currentTimeMillis();  
-    Date dt = new Date(millis);  
+    LocalDate dt = LocalDate.now();  
+    LocalTime lt = LocalTime.now();
 
     private Usuario usuario = new Usuario();
 
@@ -239,11 +237,13 @@ public class Controlador extends HttpServlet {
             mensajeAviso = "Retroalimentacion<br>";
             while (i < cod_preguntas.length) {
                 String cod_pregunta = cod_preguntas[i].toString();
+             
+                String date = dt.format(DateTimeFormatter.ISO_DATE) + "T" + lt;
                 
                 if(respuestas.get(cod_pregunta).getIdent_opcion().equals(request.getParameter("respuesta" + cod_pregunta))) {
-                    Examen.subirIntento(usuarioLogeado.getCorreo(), cod_pregunta, "1", dt.toString());
+                    Examen.subirIntento(usuarioLogeado.getCorreo(), cod_pregunta, "1", date);
                 } else {
-                    Examen.subirIntento(usuarioLogeado.getCorreo(), cod_pregunta, "0", dt.toString());
+                    Examen.subirIntento(usuarioLogeado.getCorreo(), cod_pregunta, "0", date);
                 }
                 r = Examen.buscarRespuesta(cod_pregunta, request.getParameter("respuesta" + cod_pregunta));
                 mensajeAviso += "Pregunta " + (i+1) + ": " + r.getRetroalimentacion() + "<br>";

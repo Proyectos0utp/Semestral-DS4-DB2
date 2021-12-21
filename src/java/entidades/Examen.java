@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -242,7 +243,7 @@ public class Examen {
 
                 examenHTML += "<div class=\"col-auto col-sm-12 order-last\" style=\"margin-bottom: 0.5em;\">"
                         + "<div class=\"form-check\" style=\"margin-bottom: 0.5em;\">"
-                        + "<input class=\"form-check-input\" type=\"radio\" checked=\"\" value=\"" + respuesta.getRespuesta() + "\" name=\"respuesta" + pregunta.getCod_pregunta() + "\">"
+                        + "<input class=\"form-check-input\" type=\"radio\" checked=\"\" value=\"" + respuesta.getIdent_opcion()+ "\" name=\"respuesta" + pregunta.getCod_pregunta() + "\">"
                         + "<label class=\"form-check-label\" for=\"formCheck-1\">" + respuesta.getIdent_opcion() + ")&nbsp;" + respuesta.getOpcion_resp() + "</label>"
                         + "</div>"
                         + "</div>";
@@ -262,26 +263,25 @@ public class Examen {
 
     public static Respuesta buscarRespuesta(String cod_pregunta,String ident_opcion) {
         Respuesta respuesta = new Respuesta();
-
+        List<Respuesta> lista = new ArrayList<>();
         Connection cn = null;
         Statement stmt = null;
         ResultSet rs = null;
-        String query = "SELECT * FROM Respuesta WHERE cod_pregunta='" + cod_pregunta + "' and ident_opcion='" + ident_opcion + "'";
+        String query = "SELECT * FROM Respuesta";
 
         try {
 
             cn = BaseDeDatos.conectar();
             stmt = cn.createStatement();
             rs = stmt.executeQuery(query);
-            System.out.println(cod_pregunta);
-            System.out.println(ident_opcion);
-            System.out.println(rs.next());
-            if (rs.next()) {
+            while (rs.next()) {
+                respuesta = new Respuesta();
                 respuesta.setCod_pregunta(rs.getString("cod_pregunta"));
                 respuesta.setIdent_opcion(rs.getString("ident_opcion"));
                 respuesta.setOpcion_resp(rs.getString("opcion_resp"));
                 respuesta.setRespuesta(rs.getString("respuesta"));
                 respuesta.setRetroalimentacion(rs.getString("retroalimentacion"));
+                lista.add(respuesta);
             }
 
         } catch (SQLException e) {
@@ -290,6 +290,12 @@ public class Examen {
             BaseDeDatos.cerrarConexiones(cn, stmt, rs);
         }
 
+        for(Respuesta res : lista){
+            if(res.getCod_pregunta().equals(cod_pregunta) && res.getIdent_opcion().equals(ident_opcion)){
+                respuesta = res;
+            }
+        }
+        
         return respuesta;
     }
 
