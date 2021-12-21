@@ -88,6 +88,35 @@ public class Usuario {
         this.esProfesor = esProfesor;
     }
 
+    public static String buscarNombreUsuario(String correo_usuario){
+        Usuario usuario = new Usuario();
+        
+        Connection cn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        String query;
+        
+        try {
+            
+            cn = BaseDeDatos.conectar();
+            stmt = cn.createStatement();
+            query = "SELECT nombre,apellido FROM Usuario WHERE correo='" + correo_usuario + "'";
+            rs = stmt.executeQuery(query);
+            
+            if(rs.next()){
+                usuario.setNombre(rs.getString("nombre"));
+                usuario.setApellido(rs.getString("apellido"));
+            }
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            BaseDeDatos.cerrarConexiones(cn, stmt, rs);
+        }
+        
+        return usuario.getNombre() + " " + usuario.getApellido();
+    }
+    
     public int calcularMedallas(String codTema,String corr_est) {
 
         String query;

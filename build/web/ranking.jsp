@@ -18,6 +18,17 @@
     <head>
         <%
             Tema tema = Controlador.temaIngresado;
+            if (Controlador.usuarioLogeado.getNombre().equals("")) {
+                RequestDispatcher ventana = request.getRequestDispatcher("iniciarsesion.jsp");
+                request.setAttribute("avisoSesion", "Inicie sesion.");
+                ventana.forward(request, response);
+            } else {
+
+                if (tema.getCodTema().equals("")) {
+                    RequestDispatcher ventana = request.getRequestDispatcher("adminEst.jsp");
+                    ventana.forward(request, response);
+                }
+            }
         %>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
@@ -49,6 +60,7 @@
                             </div>
                             <div class="col-12 text-center order-last">
                                 <div class="table-responsive">
+                                    <br><br>
                                     <table class="table table-borderless">
                                         <thead>
                                             <tr>
@@ -57,25 +69,9 @@
                                                 <th style="color: rgb(0,0,0);">Puntaje</th>
                                             </tr>
                                         </thead>
-                                        <%
-                                            String usuario = Controlador.usuarioLogeado.getNombre();
-                                            String grupo = Controlador.usuarioLogeado.getGrupo();
-                                            List<Usuario> estudiantes = Grupo.generarListaEstudiantes(grupo);
-                                            List<Ranking> ranking = Ranking.generarRanking(estudiantes);
-                                            /*for (Tema tema : lista) {
-                                                    Controlador.usuarioLogeado.calcularMedallas(tema.getCodTema(), medallas);
-                                                }*/
-                                        %>
                                         <tbody>
                                             <%
-                                                for (int i=0; i<ranking.size(); i++) {
-                                            %>
-                                            <tr>
-                                                <td>#<%= i %></td>
-                                                <td><%= ranking.get(i).getEstudiante() %></td>
-                                                <td><%= ranking.get(i).getPuntaje() %></td>
-                                            </tr>
-                                            <% }
+                                                out.print(Ranking.generarRanking(tema.getCodTema()));
                                             %>
                                         </tbody>
                                     </table>

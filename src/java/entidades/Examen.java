@@ -10,7 +10,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Queue;
 import procesos.BaseDeDatos;
 
 /**
@@ -133,92 +132,6 @@ public class Examen {
             this.getRespuestas().put(next, buscarRespuestas(next));
         }
 
-    }
-
-    public int obtenerPonderacion() {
-        int ponderacion = 0;
-
-        String query;
-        int i = 0, j, cantPreg = 0, puntos[], aux = 0;
-
-        Connection conn1 = null;
-        Statement stmt1 = null;
-        ResultSet rs1 = null;
-
-        try {
-
-            conn1 = BaseDeDatos.conectar();
-            stmt1 = conn1.createStatement();
-            query = "SELECT * FROM Pregunta WHERE cod_tema ='" + this.getCod_tema() + "'";
-            rs1 = stmt1.executeQuery(query);
-
-            while (rs1.next()) {
-                cantPreg++;
-            }
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        } finally {
-            BaseDeDatos.cerrarConexiones(conn1, stmt1, rs1);
-        }
-
-        puntos = new int[cantPreg];
-
-        Connection conn2 = null;
-        Statement stmt2 = null;
-        ResultSet rs2 = null;
-        try {
-
-            conn2 = BaseDeDatos.conectar();
-            stmt2 = conn2.createStatement();
-            query = "SELECT * FROM Pregunta WHERE cod_tema ='" + this.getCod_tema() + "'";
-            rs2 = stmt2.executeQuery(query);
-
-            while (rs2.next()) {
-                puntos[i] = rs2.getInt("cod_pregunta");
-                i++;
-            }
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        } finally {
-            BaseDeDatos.cerrarConexiones(conn2, stmt2, rs2);
-        }
-
-        Connection conn3 = null;
-        Statement stmt3 = null;
-        ResultSet rs3 = null;
-
-        try {
-
-            conn3 = BaseDeDatos.conectar();
-            stmt3 = conn3.createStatement();
-            query = "SELECT * FROM Contestan WHERE correo_est='" + this.getCorr_est() + "'";
-            rs3 = stmt3.executeQuery(query);
-
-            while (rs3.next()) {
-
-                for (j = 0; j < cantPreg; j++) {
-                    if (rs3.getString("cod_pregunta").equals(String.valueOf(puntos[j]))) {
-                        aux++;
-                    }
-                }
-
-            }
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        } finally {
-            BaseDeDatos.cerrarConexiones(conn3, stmt3, rs3);
-        }
-
-        if (cantPreg == 0) {
-            ponderacion = 0;
-        } else {
-            ponderacion = (aux / cantPreg) * 100;
-        }
-
-        return ponderacion;
     }
 
     public String generarExamen() {
