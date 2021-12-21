@@ -243,7 +243,7 @@ public class Examen {
 
                 examenHTML += "<div class=\"col-auto col-sm-12 order-last\" style=\"margin-bottom: 0.5em;\">"
                         + "<div class=\"form-check\" style=\"margin-bottom: 0.5em;\">"
-                        + "<input class=\"form-check-input\" type=\"radio\" checked=\"\" value=\"" + respuesta.getIdent_opcion()+ "\" name=\"respuesta" + pregunta.getCod_pregunta() + "\">"
+                        + "<input class=\"form-check-input\" type=\"radio\" checked=\"\" value=\"" + respuesta.getIdent_opcion() + "\" name=\"respuesta" + pregunta.getCod_pregunta() + "\">"
                         + "<label class=\"form-check-label\" for=\"formCheck-1\">" + respuesta.getIdent_opcion() + ")&nbsp;" + respuesta.getOpcion_resp() + "</label>"
                         + "</div>"
                         + "</div>";
@@ -261,7 +261,7 @@ public class Examen {
         return examenHTML;
     }
 
-    public static Respuesta buscarRespuesta(String cod_pregunta,String ident_opcion) {
+    public static Respuesta buscarRespuesta(String cod_pregunta, String ident_opcion) {
         Respuesta respuesta = new Respuesta();
         List<Respuesta> lista = new ArrayList<>();
         Connection cn = null;
@@ -290,12 +290,12 @@ public class Examen {
             BaseDeDatos.cerrarConexiones(cn, stmt, rs);
         }
 
-        for(Respuesta res : lista){
-            if(res.getCod_pregunta().equals(cod_pregunta) && res.getIdent_opcion().equals(ident_opcion)){
+        for (Respuesta res : lista) {
+            if (res.getCod_pregunta().equals(cod_pregunta) && res.getIdent_opcion().equals(ident_opcion)) {
                 respuesta = res;
             }
         }
-        
+
         return respuesta;
     }
 
@@ -336,26 +336,74 @@ public class Examen {
 
     public static void subirIntento(String correo_est, String cod_pregunta, String puntos_obtenidos, String fecha) {
 
-        Connection cn = null;
-        Statement stmt = null;
+        Connection cn1 = null;
+        Statement stmt1 = null;
+        ResultSet rs = null;
+        boolean intentoExistente = false;
         String query;
 
         try {
 
-            cn = BaseDeDatos.conectar();
-            stmt = cn.createStatement();
-            query = "INSERT INTO Contestan VALUES('"
-                    + correo_est + "','"
-                    + cod_pregunta + "','"
-                    + puntos_obtenidos + "','"
-                    + fecha + "')";
+            cn1 = BaseDeDatos.conectar();
+            stmt1 = cn1.createStatement();
+            query = "SELECT * FROM Contestan WHERE corr_est ='" + correo_est + "'";
 
-            stmt.executeUpdate(query);
+            rs = stmt1.executeQuery(query);
+
+            intentoExistente = rs.next();
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
-            BaseDeDatos.cerrarConexiones(cn, stmt);
+            BaseDeDatos.cerrarConexiones(cn1, stmt1, rs);
+        }
+
+        if (!intentoExistente) {
+
+            Connection cn2 = null;
+            Statement stmt2 = null;
+
+            try {
+
+                cn2 = BaseDeDatos.conectar();
+                stmt2 = cn2.createStatement();
+                query = "INSERT INTO Contestan VALUES('"
+                        + correo_est + "','"
+                        + cod_pregunta + "','"
+                        + puntos_obtenidos + "','"
+                        + fecha + "')";
+
+                stmt2.executeUpdate(query);
+
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            } finally {
+                BaseDeDatos.cerrarConexiones(cn2, stmt2);
+            }
+
+        } else {
+
+            Connection cn3 = null;
+            Statement stmt3 = null;
+
+            try {
+
+                cn3 = BaseDeDatos.conectar();
+                stmt3 = cn3.createStatement();
+                query = "UPDATE Contestan SET"
+                        + "(cod_pregunta='" + cod_pregunta 
+                        + "',puntos_obtenidos='" + puntos_obtenidos 
+                        + "',fecha='" + fecha 
+                        + "') WHERE correo_est='" + correo_est + "'";
+
+                stmt3.executeUpdate(query);
+
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            } finally {
+                BaseDeDatos.cerrarConexiones(cn3, stmt3);
+            }
+
         }
 
     }
@@ -364,12 +412,12 @@ public class Examen {
 
         private String cod_pregunta, pregunta, imagen;
 
-        public Pregunta(){
+        public Pregunta() {
             cod_pregunta = "";
             pregunta = "";
             imagen = "";
         }
-        
+
         /**
          * @return the cod_pregunta
          */
@@ -417,14 +465,14 @@ public class Examen {
 
         private String cod_pregunta, ident_opcion, opcion_resp, respuesta, retroalimentacion;
 
-        public Respuesta(){
+        public Respuesta() {
             cod_pregunta = "";
             ident_opcion = "";
             opcion_resp = "";
             respuesta = "";
             retroalimentacion = "";
         }
-        
+
         /**
          * @return the cod_pregunta
          */
