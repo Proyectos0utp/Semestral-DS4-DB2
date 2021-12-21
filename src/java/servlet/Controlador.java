@@ -5,10 +5,12 @@
 package servlet;
 
 import entidades.Examen;
+import entidades.Examen.Respuesta;
 import entidades.Tema;
 import entidades.Usuario;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,6 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -31,6 +35,8 @@ public class Controlador extends HttpServlet {
 
     public static Usuario usuarioLogeado = new Usuario();
     public static Tema temaIngresado = new Tema();
+    long millis=System.currentTimeMillis();  
+    Date dt = new Date(millis);  
 
     private Usuario usuario = new Usuario();
 
@@ -221,23 +227,31 @@ public class Controlador extends HttpServlet {
         if (accion.equals("Finalizar")) {
 
             Examen examen = new Examen();
+            Respuesta r = new Respuesta();
             String cod_tema = request.getParameter("cod_tema");
             examen.setCod_tema(cod_tema);
             examen.setCorr_est(usuarioLogeado.getCorreo());
             examen.cargarPreguntas();
             examen.cargarRespuestas();
-            String cod_preguntas[] = (String[]) examen.getPreguntas().keySet().toArray();
+            Object cod_preguntas[] = examen.getPreguntas().keySet().toArray();
             int i = 0;
-            Map<String, String> respuestas = new HashMap<>();
-
+            Map<String,Respuesta> respuestas = examen.buscarRespuestasCorrectas();
+            mensajeAviso = "Retroalimentacion<br>";
             while (i < cod_preguntas.length) {
-                String cod_pregunta = cod_preguntas[i];
-                respuestas.put(cod_pregunta, request.getParameter("respuesta" + cod_pregunta));
+                String cod_pregunta = cod_preguntas[i].toString();
+                
+                if(respuestas.get(cod_pregunta).getIdent_opcion().equals(request.getParameter("respuesta" + cod_pregunta))) {
+                    Examen.subirIntento(usuarioLogeado.getCorreo(), cod_pregunta, "1", dt.toString());
+                } else {
+                    Examen.subirIntento(usuarioLogeado.getCorreo(), cod_pregunta, "0", dt.toString());
+                }
+                r = Examen.buscarRespuesta(cod_pregunta, request.getParameter("respuesta" + cod_pregunta));
+                mensajeAviso += "Pregunta " + (i+1) + ": " + r.getRetroalimentacion() + "<br>";
                 i++;
             }
             
-            
-
+            ventanaAMostrar = "descripcion.jsp";
+            request.setAttribute("avisoIntento", mensajeAviso);
         }
 
         //Rankings

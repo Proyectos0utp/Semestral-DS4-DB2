@@ -96,14 +96,14 @@ public class Examen {
         List<Respuesta> lista = new LinkedList<>();
         Respuesta respuesta;
         String query;
-        
+
         try {
-            
+
             cn = BaseDeDatos.conectar();
             stmt = cn.createStatement();
             query = "SELECT * FROM Respuesta WHERE cod_pregunta='" + cod_pregunta + "'";
             rs = stmt.executeQuery(query);
-            
+
             while (rs.next()) {
                 respuesta = new Respuesta();
                 respuesta.setCod_pregunta(rs.getString("cod_pregunta"));
@@ -113,32 +113,32 @@ public class Examen {
                 respuesta.setRetroalimentacion(rs.getString("retroalimentacion"));
                 lista.add(respuesta);
             }
-            
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
             BaseDeDatos.cerrarConexiones(cn, stmt, rs);
         }
-        
+
         return lista;
     }
-    
-    public void cargarRespuestas(){
-    
+
+    public void cargarRespuestas() {
+
         Iterator<String> iterador = this.getPreguntas().keySet().iterator();
-        
+
         while (iterador.hasNext()) {
             String next = iterador.next();
             this.getRespuestas().put(next, buscarRespuestas(next));
         }
-    
+
     }
 
     public int obtenerPonderacion() {
         int ponderacion = 0;
 
         String query;
-        int i = 0, j, cantPreg = 0, puntos[], respuestas = 0;
+        int i = 0, j, cantPreg = 0, puntos[], aux = 0;
 
         Connection conn1 = null;
         Statement stmt1 = null;
@@ -199,7 +199,7 @@ public class Examen {
 
                 for (j = 0; j < cantPreg; j++) {
                     if (rs3.getString("cod_pregunta").equals(String.valueOf(puntos[j]))) {
-                        respuestas++;
+                        aux++;
                     }
                 }
 
@@ -214,7 +214,7 @@ public class Examen {
         if (cantPreg == 0) {
             ponderacion = 0;
         } else {
-            ponderacion = (respuestas / cantPreg) * 100;
+            ponderacion = (aux / cantPreg) * 100;
         }
 
         return ponderacion;
@@ -242,17 +242,17 @@ public class Examen {
 
                 examenHTML += "<div class=\"col-auto col-sm-12 order-last\" style=\"margin-bottom: 0.5em;\">"
                         + "<div class=\"form-check\" style=\"margin-bottom: 0.5em;\">"
-                        + "<input class=\"form-check-input\" type=\"radio\" checked=\"\" value=\"" + respuesta.getIdent_opcion() + "\" name=\"respuesta" + pregunta.getCod_pregunta() + "\">"
-                        + "<label class=\"form-check-label\" for=\"formCheck-1\">" + respuesta.getIdent_opcion() + ")&nbsp;" + respuesta.getOpcion_resp()+ "</label>"
+                        + "<input class=\"form-check-input\" type=\"radio\" checked=\"\" value=\"" + respuesta.getRespuesta() + "\" name=\"respuesta" + pregunta.getCod_pregunta() + "\">"
+                        + "<label class=\"form-check-label\" for=\"formCheck-1\">" + respuesta.getIdent_opcion() + ")&nbsp;" + respuesta.getOpcion_resp() + "</label>"
                         + "</div>"
                         + "</div>";
 
             }
-            
-                examenHTML += "</div>"
-                        + "</div>"
-                        + "</div>"
-                        + "<br>";
+
+            examenHTML += "</div>"
+                    + "</div>"
+                    + "</div>"
+                    + "<br>";
 
             i++;
         }
@@ -260,10 +260,110 @@ public class Examen {
         return examenHTML;
     }
 
+    public static Respuesta buscarRespuesta(String cod_pregunta,String ident_opcion) {
+        Respuesta respuesta = new Respuesta();
+
+        Connection cn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        String query = "SELECT * FROM Respuesta WHERE cod_pregunta='" + cod_pregunta + "' and ident_opcion='" + ident_opcion + "'";
+
+        try {
+
+            cn = BaseDeDatos.conectar();
+            stmt = cn.createStatement();
+            rs = stmt.executeQuery(query);
+            System.out.println(cod_pregunta);
+            System.out.println(ident_opcion);
+            System.out.println(rs.next());
+            if (rs.next()) {
+                respuesta.setCod_pregunta(rs.getString("cod_pregunta"));
+                respuesta.setIdent_opcion(rs.getString("ident_opcion"));
+                respuesta.setOpcion_resp(rs.getString("opcion_resp"));
+                respuesta.setRespuesta(rs.getString("respuesta"));
+                respuesta.setRetroalimentacion(rs.getString("retroalimentacion"));
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            BaseDeDatos.cerrarConexiones(cn, stmt, rs);
+        }
+
+        return respuesta;
+    }
+
+    public Map<String, Respuesta> buscarRespuestasCorrectas() {
+        Map<String, Respuesta> map = new HashMap<>();
+
+        Connection cn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        Respuesta respuesta;
+        String query;
+
+        try {
+
+            cn = BaseDeDatos.conectar();
+            stmt = cn.createStatement();
+            query = "SELECT * FROM Respuesta WHERE respuesta='Correcto'";
+            rs = stmt.executeQuery(query);
+
+            while (rs.next()) {
+                respuesta = new Respuesta();
+                respuesta.setCod_pregunta(rs.getString("cod_pregunta"));
+                respuesta.setIdent_opcion(rs.getString("ident_opcion"));
+                respuesta.setOpcion_resp(rs.getString("opcion_resp"));
+                respuesta.setRespuesta(rs.getString("respuesta"));
+                respuesta.setRetroalimentacion(rs.getString("retroalimentacion"));
+                map.put(rs.getString("cod_pregunta"), respuesta);
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            BaseDeDatos.cerrarConexiones(cn, stmt, rs);
+        }
+
+        return map;
+    }
+
+    public static void subirIntento(String correo_est, String cod_pregunta, String puntos_obtenidos, String fecha) {
+
+        Connection cn = null;
+        Statement stmt = null;
+        String query;
+
+        try {
+
+            cn = BaseDeDatos.conectar();
+            stmt = cn.createStatement();
+            query = "INSERT INTO Contestan VALUES('"
+                    + correo_est + "','"
+                    + cod_pregunta + "','"
+                    + puntos_obtenidos + "','"
+                    + fecha + "')";
+
+            stmt.executeUpdate(query);
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            BaseDeDatos.cerrarConexiones(cn, stmt);
+        }
+
+    }
+
     public static class Pregunta {
 
         private String cod_pregunta, pregunta, imagen;
 
+        public Pregunta(){
+            cod_pregunta = "";
+            pregunta = "";
+            imagen = "";
+        }
+        
         /**
          * @return the cod_pregunta
          */
@@ -311,6 +411,14 @@ public class Examen {
 
         private String cod_pregunta, ident_opcion, opcion_resp, respuesta, retroalimentacion;
 
+        public Respuesta(){
+            cod_pregunta = "";
+            ident_opcion = "";
+            opcion_resp = "";
+            respuesta = "";
+            retroalimentacion = "";
+        }
+        
         /**
          * @return the cod_pregunta
          */

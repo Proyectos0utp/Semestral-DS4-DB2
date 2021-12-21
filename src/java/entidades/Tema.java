@@ -5,7 +5,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import procesos.BaseDeDatos;
 
 public class Tema {
@@ -14,8 +16,8 @@ public class Tema {
     private String titulo;
     private String imagen;
     private String contenido;
-    private double completado;
     private String aprendizaje;
+    
 
     public String getCodTema() {
         return codTema;
@@ -57,6 +59,9 @@ public class Tema {
         return aprendizaje;
     }
 
+    public void insertarRespuesta(){
+    }
+    
     public static List<Tema> generarListaTemasProf(String codGrupo) {
         List<Tema> lista = new ArrayList<>();
         Connection conn = null;
@@ -696,20 +701,6 @@ public class Tema {
                 + "<div class=\"col-auto col-sm-12 col-md-6 text-center order-2\"><img class=\"img-fluid\" src=\"assets//img//temas//" + this.getCodTema() + "-B.png\" width=\"350\" height=\"350\"></div>";
     
         return tag;
-    }
-    
-    /**
-     * @return the completado
-     */
-    public double getCompletado() {
-        return completado;
-    }
-
-    /**
-     * @param completado the completado to set
-     */
-    public void setCompletado(double completado) {
-        this.completado = completado;
     }
 
 }

@@ -58,6 +58,8 @@
                             out.print(Tema.estatus(tema.getCodTema(), Controlador.usuarioLogeado.getCorreo()));
                         %>
                         <br><br>
+                        ${avisoIntento}
+                        <br><br>
                         <div class="row row-cols-1 text-start text-dark">
                             <div class="col-auto col-sm-12 col-md-8 order-first" style="margin-bottom: 1em;">
                                 <p><strong><%=tema.getContenido().split("\\s")[0]%></strong>&nbsp;<%=tema.getContenido().replaceAll(tema.getContenido().split("\\s")[0], "")%><br></p>
