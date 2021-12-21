@@ -212,6 +212,11 @@ public class Controlador extends HttpServlet {
         if (accion.equals("Hacer Examen")) {
             ventanaAMostrar = "jugabilidad.jsp";
         }
+        
+        //Rankings
+        if (accion.equals("Rankings")) {
+            ventanaAMostrar = "ranking.jsp";
+        }
 
         RequestDispatcher ventana = request.getRequestDispatcher(ventanaAMostrar);
         ventana.forward(request, response);
