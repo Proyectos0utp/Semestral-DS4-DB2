@@ -242,7 +242,7 @@ public class Examen {
 
                 examenHTML += "<div class=\"col-auto col-sm-12 order-last\" style=\"margin-bottom: 0.5em;\">"
                         + "<div class=\"form-check\" style=\"margin-bottom: 0.5em;\">"
-                        + "<input class=\"form-check-input\" type=\"radio\" id=\"formCheck-1\" value=\"" + respuesta.getIdent_opcion() + "\" name=\"respuesta\">"
+                        + "<input class=\"form-check-input\" type=\"radio\" checked=\"\" value=\"" + respuesta.getIdent_opcion() + "\" name=\"respuesta" + pregunta.getCod_pregunta() + "\">"
                         + "<label class=\"form-check-label\" for=\"formCheck-1\">" + respuesta.getIdent_opcion() + ")&nbsp;" + respuesta.getOpcion_resp()+ "</label>"
                         + "</div>"
                         + "</div>";

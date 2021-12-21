@@ -4,6 +4,7 @@
  */
 package servlet;
 
+import entidades.Examen;
 import entidades.Tema;
 import entidades.Usuario;
 import java.io.IOException;
@@ -15,6 +16,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import javax.servlet.RequestDispatcher;
 import procesos.*;
 
@@ -58,7 +62,7 @@ public class Controlador extends HttpServlet {
             request.setAttribute("avisoContacto", mensajeAviso);
             ventanaAMostrar = "contacto.jsp";
         }
-        
+
         //reportar.jsp
         if (accion.equals("Reportar")) {
 
@@ -71,7 +75,7 @@ public class Controlador extends HttpServlet {
             request.setAttribute("avisoReporte", mensajeAviso);
             ventanaAMostrar = "reportar.jsp";
         }
-        
+
         //registro.jsp
         if (accion.equals("Registrarse")) {
 
@@ -101,12 +105,12 @@ public class Controlador extends HttpServlet {
         }
 
         //Registrar2
-        if (accion.equals("Finalizar")) {
+        if (accion.equals("Finalizar Registro")) {
             String query;
             try {
-                
+
                 Registrar.insertarUsuario(usuario);
-                
+
                 if (usuario.esProfesor()) {
                     Connection cn = null;
                     Statement stmt = null;
@@ -117,9 +121,9 @@ public class Controlador extends HttpServlet {
                         query = "INSERT INTO Maestro VALUES ('"
                                 + usuario.getCorreo() + "','"
                                 + request.getParameter("seleccion") + "')";
-                        
+
                         stmt.executeUpdate(query);
-                        
+
                     } catch (SQLException e) {
                         System.out.println("Error: " + e);
                         mensajeAviso = e.getMessage();
@@ -137,9 +141,9 @@ public class Controlador extends HttpServlet {
                         query = "INSERT INTO Estudiante VALUES ('"
                                 + usuario.getCorreo() + "','"
                                 + request.getParameter("seleccion") + "')";
-                        
+
                         stmt.executeUpdate(query);
-                        
+
                     } catch (SQLException e) {
                         System.out.println("Error: " + e);
                         mensajeAviso = e.getMessage();
@@ -207,12 +211,35 @@ public class Controlador extends HttpServlet {
         if (accion.contains("Aprender")) {
             ventanaAMostrar = "aprendizaje.jsp";
         }
-        
+
         //Hacer Examen
         if (accion.equals("Hacer Examen")) {
             ventanaAMostrar = "jugabilidad.jsp";
         }
-        
+
+        //Finalizar Examen
+        if (accion.equals("Finalizar")) {
+
+            Examen examen = new Examen();
+            String cod_tema = request.getParameter("cod_tema");
+            examen.setCod_tema(cod_tema);
+            examen.setCorr_est(usuarioLogeado.getCorreo());
+            examen.cargarPreguntas();
+            examen.cargarRespuestas();
+            String cod_preguntas[] = (String[]) examen.getPreguntas().keySet().toArray();
+            int i = 0;
+            Map<String, String> respuestas = new HashMap<>();
+
+            while (i < cod_preguntas.length) {
+                String cod_pregunta = cod_preguntas[i];
+                respuestas.put(cod_pregunta, request.getParameter("respuesta" + cod_pregunta));
+                i++;
+            }
+            
+            
+
+        }
+
         //Rankings
         if (accion.equals("Rankings")) {
             ventanaAMostrar = "ranking.jsp";

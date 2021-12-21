@@ -69,10 +69,11 @@
                         <hr style="color: rgba(255,255,255,0);">
                         <h1 style="color: rgb(0,0,0);"><%=tema.getTitulo()%></h1>
                         <form>
+                            <input type="hidden" name="cod_tema" value="<%=tema.getCodTema()%>">
                             <%
                                 out.print(examen.generarExamen());
                             %>
-                            <button class="btn btn-primary border rounded-0" type="button" style="color: rgb(0,0,0);background: rgba(255,255,255,0);border-color: rgb(0,0,0);width: 150px;margin-bottom: 30px;">Finalizar</button>
+                            <input class="btn btn-primary border rounded-0" type="submit" name="accion" style="color: rgb(0,0,0);background: rgba(255,255,255,0);border-color: rgb(0,0,0);width: 150px;margin-bottom: 30px;" value="Finalizar">
                         </form>
                     </div>
                 </div>

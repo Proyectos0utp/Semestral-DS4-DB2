@@ -89,7 +89,7 @@
                                     out.print("<h3>¿Tiene maestría?</h3>");
                                     out.print("<div class=\"form-check\"><input class=\"form-check-input\" type=\"radio\" name=\"seleccion\" value=\"si\"><label class=\"form-check-label\">Si</label></div>");
                                     out.print("<div class=\"form-check\"><input class=\"form-check-input\" type=\"radio\" checked=\"\" name=\"seleccion\" value=\"no\"><label class=\"form-check-label\">No</label></div>");
-                                    out.print("<br><input class=\"btn btn-primary text-center border rounded-pill border-dark\" name=\"accion\" type=\"submit\" style=\"color: rgb(0,0,0);background: rgba(255,255,255,0);width: 100px;height: 50px;margin-right: 10em;\" value=\"Finalizar\">");
+                                    out.print("<br><input class=\"btn btn-primary text-center border rounded-pill border-dark\" name=\"accion\" type=\"submit\" style=\"color: rgb(0,0,0);background: rgba(255,255,255,0);width: 100px;height: 50px;margin-right: 10em;\" value=\"Finalizar Registro\">");
                                     out.print("</form>");
                                     out.print("</div>");
                                 }
