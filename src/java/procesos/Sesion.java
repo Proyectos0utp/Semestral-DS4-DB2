@@ -111,7 +111,7 @@ public class Sesion {
         
         if(!usuario.getApellido().equals("")){
         
-            inicio = (usuario.esProfesor()) ? "adminProfCRUD.jsp" : "adminEst.jsp";
+            inicio = (usuario.esProfesor()) ? "adminProf.jsp" : "adminEst.jsp";
             
             html = ""
                     + "<nav class=\"navbar navbar-light align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0\">"
