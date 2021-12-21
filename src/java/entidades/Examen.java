@@ -6,8 +6,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
+import java.util.Queue;
 import procesos.BaseDeDatos;
 
 /**
@@ -18,10 +20,12 @@ public class Examen {
 
     private String cod_tema;
     private String corr_est;
-    private Map<Pregunta, Respuesta> enunciados;
+    private Map<String, Pregunta> preguntas;
+    private Map<String, List<Respuesta>> respuestas;
 
     public Examen() {
-        enunciados = new HashMap<>();
+        preguntas = new HashMap<>();
+        respuestas = new HashMap<>();
     }
 
     /**
@@ -73,7 +77,7 @@ public class Examen {
                 pregunta.setCod_pregunta(rs.getString("cod_pregunta"));
                 pregunta.setPregunta(rs.getString("pregunta"));
                 pregunta.setImagen(rs.getString("imagen"));
-                this.getEnunciados().put(pregunta, null);
+                this.getPreguntas().put(rs.getString("cod_pregunta"), pregunta);
             }
 
         } catch (SQLException e) {
@@ -84,51 +88,50 @@ public class Examen {
 
     }
 
-    public void cargarRespuestas() {
+    public List<Respuesta> buscarRespuestas(String cod_pregunta) {
 
         Connection cn = null;
         Statement stmt = null;
         ResultSet rs = null;
+        List<Respuesta> lista = new LinkedList<>();
         Respuesta respuesta;
-        Pregunta pregunta;
-        Iterator<Pregunta> iterador;
         String query;
-
+        
         try {
-
+            
             cn = BaseDeDatos.conectar();
             stmt = cn.createStatement();
-            query = "SELECT * FROM Respuesta";
-
+            query = "SELECT * FROM Respuesta WHERE cod_pregunta='" + cod_pregunta + "'";
             rs = stmt.executeQuery(query);
-
+            
             while (rs.next()) {
-
-                iterador = this.getEnunciados().keySet().iterator();
-
-                while (iterador.hasNext()) {
-                    pregunta = iterador.next();
-                    if (rs.getString("cod_pregunta").equals(pregunta.getCod_pregunta())) {
-
-                        respuesta = new Respuesta();
-                        respuesta.setCod_pregunta(pregunta.cod_pregunta);
-                        respuesta.setIdent_opcion(rs.getString("ident_opcion"));
-                        respuesta.setOpcion_resp(rs.getString("opcion_resp"));
-                        respuesta.setRespuesta(rs.getString("respuesta"));
-                        respuesta.setRetroalimentacion(rs.getString("retroalimentacion"));
-                        this.getEnunciados().replace(pregunta, respuesta);
-                    }
-
-                }
-
+                respuesta = new Respuesta();
+                respuesta.setCod_pregunta(rs.getString("cod_pregunta"));
+                respuesta.setIdent_opcion(rs.getString("ident_opcion"));
+                respuesta.setOpcion_resp(rs.getString("opcion_resp"));
+                respuesta.setRespuesta(rs.getString("respuesta"));
+                respuesta.setRetroalimentacion(rs.getString("retroalimentacion"));
+                lista.add(respuesta);
             }
-
+            
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
             BaseDeDatos.cerrarConexiones(cn, stmt, rs);
         }
-
+        
+        return lista;
+    }
+    
+    public void cargarRespuestas(){
+    
+        Iterator<String> iterador = this.getPreguntas().keySet().iterator();
+        
+        while (iterador.hasNext()) {
+            String next = iterador.next();
+            this.getRespuestas().put(next, buscarRespuestas(next));
+        }
+    
     }
 
     public int obtenerPonderacion() {
@@ -184,22 +187,22 @@ public class Examen {
         Connection conn3 = null;
         Statement stmt3 = null;
         ResultSet rs3 = null;
-        
+
         try {
-            
+
             conn3 = BaseDeDatos.conectar();
             stmt3 = conn3.createStatement();
             query = "SELECT * FROM Contestan WHERE correo_est='" + this.getCorr_est() + "'";
             rs3 = stmt3.executeQuery(query);
 
             while (rs3.next()) {
-               
+
                 for (j = 0; j < cantPreg; j++) {
-                    if(rs3.getString("cod_pregunta").equals(String.valueOf(puntos[j]))){
+                    if (rs3.getString("cod_pregunta").equals(String.valueOf(puntos[j]))) {
                         respuestas++;
                     }
                 }
-                
+
             }
 
         } catch (SQLException e) {
@@ -211,13 +214,53 @@ public class Examen {
         if (cantPreg == 0) {
             ponderacion = 0;
         } else {
-            ponderacion = (respuestas/cantPreg)*100;
+            ponderacion = (respuestas / cantPreg) * 100;
         }
 
         return ponderacion;
     }
 
-    private class Pregunta {
+    public String generarExamen() {
+        String examenHTML = "";
+        int i = 0;
+        Pregunta pregunta;
+        Iterator<String> aux = this.getPreguntas().keySet().iterator();
+
+        while (aux.hasNext()) {
+            pregunta = this.getPreguntas().get(aux.next());
+            examenHTML += "<br>"
+                    + "<div class=\"row row-cols-1 text-start text-dark\">"
+                    + "<div class=\"col-12 mb-4\">"
+                    + "<div class=\"row row-cols-2\">"
+                    + "<div class=\"col-auto col-sm-12 col-md-8 col-xl-12 order-first\" style=\"margin-bottom: 0.5em;\">"
+                    + "<h2 style=\"color: rgb(0,0,0);\">Pregunta " + (i + 1) + "</h2>"
+                    + "<p style=\"color: rgb(0,0,0);\">" + pregunta.getPregunta() + "</p><br>"
+                    + "</div>"
+                    + "<div class=\"col-auto col-sm-12 col-md-4 col-xl-12 text-center align-self-center order-2\" style=\"margin-bottom: 0.5em;\"><img class=\"img-fluid\" src=\"" + pregunta.getImagen() + "\"></div>";
+
+            for (Respuesta respuesta : this.getRespuestas().get(pregunta.getCod_pregunta())) {
+
+                examenHTML += "<div class=\"col-auto col-sm-12 order-last\" style=\"margin-bottom: 0.5em;\">"
+                        + "<div class=\"form-check\" style=\"margin-bottom: 0.5em;\">"
+                        + "<input class=\"form-check-input\" type=\"radio\" id=\"formCheck-1\" value=\"" + respuesta.getIdent_opcion() + "\" name=\"respuesta\">"
+                        + "<label class=\"form-check-label\" for=\"formCheck-1\">" + respuesta.getIdent_opcion() + ")&nbsp;" + respuesta.getOpcion_resp()+ "</label>"
+                        + "</div>"
+                        + "</div>";
+
+            }
+            
+                examenHTML += "</div>"
+                        + "</div>"
+                        + "</div>"
+                        + "<br>";
+
+            i++;
+        }
+
+        return examenHTML;
+    }
+
+    public static class Pregunta {
 
         private String cod_pregunta, pregunta, imagen;
 
@@ -264,7 +307,7 @@ public class Examen {
         }
     }
 
-    private class Respuesta {
+    public static class Respuesta {
 
         private String cod_pregunta, ident_opcion, opcion_resp, respuesta, retroalimentacion;
 
@@ -340,17 +383,31 @@ public class Examen {
     }
 
     /**
-     * @return the enunciados
+     * @return the preguntas
      */
-    public Map<Pregunta, Respuesta> getEnunciados() {
-        return enunciados;
+    public Map<String, Pregunta> getPreguntas() {
+        return preguntas;
     }
 
     /**
-     * @param enunciados the enunciados to set
+     * @param preguntas the preguntas to set
      */
-    public void setEnunciados(Map<Pregunta, Respuesta> enunciados) {
-        this.enunciados = enunciados;
+    public void setPreguntas(Map<String, Pregunta> preguntas) {
+        this.preguntas = preguntas;
+    }
+
+    /**
+     * @return the respuestas
+     */
+    public Map<String, List<Respuesta>> getRespuestas() {
+        return respuestas;
+    }
+
+    /**
+     * @param respuestas the respuestas to set
+     */
+    public void setRespuestas(Map<String, List<Respuesta>> respuestas) {
+        this.respuestas = respuestas;
     }
 
 }

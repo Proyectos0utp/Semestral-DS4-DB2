@@ -58,14 +58,9 @@
                             <div class="col-12 mb-4">
                                 <div class="row row-cols-2">
                                     <div class="col-auto col-sm-12 col-md-8 order-first" style="margin-bottom: 1em;">
-                                        <h2 style="color: rgb(0,0,0);"><%=tema.getTitulo()%></h2>
-                                        <p><strong><%=tema.getContenido().split("\\s")[0]%></strong>&nbsp;<%=tema.getContenido().replaceAll(tema.getContenido().split("\\s")[0], "")%><br></p>
+                                        <p><%=tema.getAprendizaje()%></p>
                                     </div>
                                     <div class="col-auto col-sm-12 col-md-4 text-center align-self-center order-first" style="margin-bottom: 1em;"><img class="img-fluid" src="assets/img/temas/<%=tema.getCodTema().concat("-A.png")%>"></div>
-                                    <div class="col-auto col-sm-12 col-md-8 order-first" style="margin-bottom: 1em;">
-                                        <h2 style="color: rgb(0,0,0);"><%=tema.getTitulo()%></h2>
-                                        <p><strong><%=tema.getContenido().split("\\s")[0]%></strong>&nbsp;<%=tema.getContenido().replaceAll(tema.getContenido().split("\\s")[0], "")%><br></p>
-                                    </div>
                                     <div class="col-auto col-sm-12 col-md-4 text-center align-self-center order-first" style="margin-bottom: 1em;"><img class="img-fluid" src="assets/img/temas/<%=tema.getCodTema().concat("-B.png")%>"></div>
                                 </div>
                             </div>
