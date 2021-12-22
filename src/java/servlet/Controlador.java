@@ -35,6 +35,7 @@ public class Controlador extends HttpServlet {
     public static Usuario usuarioLogeado = new Usuario();
     public static Tema temaIngresado = new Tema();
     public static Grupo grupoSeleccionado = new Grupo();
+    public static String buscando = "";
     LocalDate dt = LocalDate.now();
     LocalTime lt = LocalTime.now();
 
@@ -278,7 +279,7 @@ public class Controlador extends HttpServlet {
         if (accion.equals("Crear Nuevo Grupo")) {
             ventanaAMostrar = "crearGrupo.jsp";
         }
-        
+
         //Crear Nuevo Tema
         if (accion.equals("Crear Nuevo Tema")) {
             ventanaAMostrar = "crearTema.jsp";
@@ -320,15 +321,31 @@ public class Controlador extends HttpServlet {
             request.setAttribute("avisoGrupo", mensajeAviso);
             ventanaAMostrar = "crearGrupo.jsp";
         }
-        
+
         //Crear Grupo
         if (accion.equals("Crear Tema")) {
 
             Tema tema = new Tema();
-            
 
             request.setAttribute("avisoGrupo", mensajeAviso);
             ventanaAMostrar = "crearGrupo.jsp";
+        }
+
+        //Buscar tema
+        if (accion.equals("Buscar Tema")) {
+
+            if (!request.getParameter("busqueda").equals("")) {
+                buscando = request.getParameter("busqueda");
+                String grupo = usuarioLogeado.getGrupo() + "-";
+                if (Tema.buscarCoincidencia(buscando, Tema.generarListaTemasEst(Controlador.usuarioLogeado.getGrupo())).isEmpty()) {
+                    mensajeAviso = "No hubo coincidencias.";
+                }
+                
+            } else {
+                mensajeAviso = "Llene el campo de busqueda antes de buscar.";
+            }
+            request.setAttribute("avisoBusqueda", mensajeAviso);
+            ventanaAMostrar = "buscar.jsp";
         }
 
         RequestDispatcher ventana = request.getRequestDispatcher(ventanaAMostrar);

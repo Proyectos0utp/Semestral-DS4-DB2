@@ -273,16 +273,16 @@ public class Tema {
         } finally {
             BaseDeDatos.cerrarConexiones(conn, stmt, rs);
         }
-        
-        for(Tema tema : lista){
-        
+
+        for (Tema tema : lista) {
+
             tag += "<form action=\"Controlador\">"
-                + "<input type=\"hidden\" name=\"cod_tema\" value=\"" + tema.getCodTema()+ "\">"
-                + "<tr>"
-                + "<td style=\"color: rgb(0,0,0);\"><h3>" + tema.getTitulo() + "</h3></td>"
-                + "<td><input class=\"btn btn-primary border rounded-0\" type=\"submit\" name=\"accion\" style=\"color: rgb(0,0,0);background: rgba(255,255,255,0);border-color: rgb(0,0,0);width: 150px;margin-bottom: 30px;\" value=\"Administrar Tema\"></td>"
-                + "</form>";
-            
+                    + "<input type=\"hidden\" name=\"cod_tema\" value=\"" + tema.getCodTema() + "\">"
+                    + "<tr>"
+                    + "<td style=\"color: rgb(0,0,0);\"><h3>" + tema.getTitulo() + "</h3></td>"
+                    + "<td><input class=\"btn btn-primary border rounded-0\" type=\"submit\" name=\"accion\" style=\"color: rgb(0,0,0);background: rgba(255,255,255,0);border-color: rgb(0,0,0);width: 150px;margin-bottom: 30px;\" value=\"Administrar Tema\"></td>"
+                    + "</form>";
+
         }
 
         return tag;
@@ -505,6 +505,18 @@ public class Tema {
         return lista;
     }
 
+    public static List<Tema> buscarCoincidencia(String posibleTitulo, List<Tema> listaTotalTemas) {
+        List<Tema> listaTemasSeleccionados = new ArrayList<>();
+        for (Tema tema1 : listaTotalTemas) {
+            if (tema1.getTitulo().toLowerCase().contains(posibleTitulo.toLowerCase())) {
+                listaTemasSeleccionados.add(tema1);
+            }
+            
+        }
+
+        return listaTemasSeleccionados;
+    }
+
     public static List<Tema> buscarPorTitulo(String titulo) {
         List<Tema> lista = new ArrayList<>();
         Tema tema;
@@ -579,21 +591,21 @@ public class Tema {
             }
 
             if (tema.getCodTema().contains("TCN01-1")) {
-                tema.setAprendizaje("<p>¿Por qué comer saludable? Porque te ayuda a cuidar tu salud, sentirte y verte mejor, así como prevenir diversas enfermedades. Es por ello que la alimentación desempeña un rol determinante en el cuidado de la salud. Una alimentación saludable es aquella que aporta todos los nutrientes esenciales y la energía que cada persona necesita para mantenerse sana. Por eso, es necesario consumir alimentos de todos los grupos y en las cantidades adecuadas.</p>\n" +
-"<p>Los alimentos nos proporcionan la energía necesaria para mantener nuestra actividad diaria. Esta energía puede calcularse a través del calor producido por el cuerpo, que es consecuencia de la oxidación de los nutrientes y se mide en calorías.</p>\n" +
-"<h2>Grupos de comidas</h2>\n" +
-"<h3>Verduras y frutas</h3>\n" +
-"<p>Este grupo representa la mitad de la gráfica. Esto evidencia la necesidad de aumentar su consumo en la alimentación diaria. Son ricas en vitaminas, minerales, fibra, agua y fitoquímicos lo que las hacen muy beneficiosas para la salud. ¿Cuánto es la porción? Se recomiendan 3 frutas al día y 2 porciones de verduras, las cuales se pueden distribuir medio plato de verduras en el almuerzo y medio plato en la cena.</p>\n" +
-"<h3>Legumbres, cereales, papa, pan y pastas</h3>\n" +
-"<p>En este grupo se incluye papa, batata, choclo y mandioca porque la composición nutricional de estas verduras es más parecida a los cereales. Son fuente principal de energía. Para aprovechar más sus nutrientes es conveniente elegir cereales integrales.</p>\n" +
-"<h3>Leche, yogur y queso</h3>\n" +
-"<p>Este grupo es muy importante para la incorporación de calcio, así como por su aporte de proteínas, zinc, y vitaminas. Se recomienda que sean preferentemente descremados para disminuir su contenido en grasas.</p>\n" +
-"<h3>Aceites, frutas secas y semillas</h3>\n" +
-"<p>Este grupo aporta ácidos grasos esenciales comúnmente llamadas grasas buenas, así como proteínas, vitaminas, minerales y fibra.</p>\n" +
-"<h3>Opcionales: dulces y grasas</h3>\n" +
-"<p>A este grupo se lo llama “opcional” ya que no son indispensables de consumir, y cuando se los incorpora se deben elegir porciones pequeñas. Esto es debido a que aportan exceso de calorías y escasos nutrientes, su consumo de forma frecuente predispone a la obesidad, hipertensión, diabetes y enfermedades cardiovasculares, entre otras.</p>\n" +
-"<h3>Agua</h3>\n" +
-"<p>El agua tiene una ubicación central en la gráfica, debido a su importancia para la salud. La recomendación es tomar a diario 8 vasos de agua segura.</p>");
+                tema.setAprendizaje("<p>¿Por qué comer saludable? Porque te ayuda a cuidar tu salud, sentirte y verte mejor, así como prevenir diversas enfermedades. Es por ello que la alimentación desempeña un rol determinante en el cuidado de la salud. Una alimentación saludable es aquella que aporta todos los nutrientes esenciales y la energía que cada persona necesita para mantenerse sana. Por eso, es necesario consumir alimentos de todos los grupos y en las cantidades adecuadas.</p>\n"
+                        + "<p>Los alimentos nos proporcionan la energía necesaria para mantener nuestra actividad diaria. Esta energía puede calcularse a través del calor producido por el cuerpo, que es consecuencia de la oxidación de los nutrientes y se mide en calorías.</p>\n"
+                        + "<h2>Grupos de comidas</h2>\n"
+                        + "<h3>Verduras y frutas</h3>\n"
+                        + "<p>Este grupo representa la mitad de la gráfica. Esto evidencia la necesidad de aumentar su consumo en la alimentación diaria. Son ricas en vitaminas, minerales, fibra, agua y fitoquímicos lo que las hacen muy beneficiosas para la salud. ¿Cuánto es la porción? Se recomiendan 3 frutas al día y 2 porciones de verduras, las cuales se pueden distribuir medio plato de verduras en el almuerzo y medio plato en la cena.</p>\n"
+                        + "<h3>Legumbres, cereales, papa, pan y pastas</h3>\n"
+                        + "<p>En este grupo se incluye papa, batata, choclo y mandioca porque la composición nutricional de estas verduras es más parecida a los cereales. Son fuente principal de energía. Para aprovechar más sus nutrientes es conveniente elegir cereales integrales.</p>\n"
+                        + "<h3>Leche, yogur y queso</h3>\n"
+                        + "<p>Este grupo es muy importante para la incorporación de calcio, así como por su aporte de proteínas, zinc, y vitaminas. Se recomienda que sean preferentemente descremados para disminuir su contenido en grasas.</p>\n"
+                        + "<h3>Aceites, frutas secas y semillas</h3>\n"
+                        + "<p>Este grupo aporta ácidos grasos esenciales comúnmente llamadas grasas buenas, así como proteínas, vitaminas, minerales y fibra.</p>\n"
+                        + "<h3>Opcionales: dulces y grasas</h3>\n"
+                        + "<p>A este grupo se lo llama “opcional” ya que no son indispensables de consumir, y cuando se los incorpora se deben elegir porciones pequeñas. Esto es debido a que aportan exceso de calorías y escasos nutrientes, su consumo de forma frecuente predispone a la obesidad, hipertensión, diabetes y enfermedades cardiovasculares, entre otras.</p>\n"
+                        + "<h3>Agua</h3>\n"
+                        + "<p>El agua tiene una ubicación central en la gráfica, debido a su importancia para la salud. La recomendación es tomar a diario 8 vasos de agua segura.</p>");
             }
 
             if (tema.getCodTema().contains("TCN01-3")) {
@@ -618,20 +630,20 @@ public class Tema {
             }
 
             if (tema.getCodTema().contains("TCN01-4")) {
-                tema.setAprendizaje("<p>Uno de los aspectos más importantes de los seres vivientes es su capacidad de autorreproducirse. A todo organismo le llega el momento en que sus capacidades de metabolismo, crecimiento e irritabilidad se vuelven insuficientes para mantener en contra de otras fuerzas su compleja organización. El ataque de depredadores, la acción de parásitos, las épocas de hambre, otros cambios dañinos del ambiente, o simplemente aquellos procesos no bien definidos que denominamos envejecimiento, llevan finalmente a la muerte del organismo. Sin embargo, la especie sobrevive por un periodo de tiempo mayor que el periodo de vida de cualquiera de sus individuos. Esto se logra mediante la producción de nuevos individuos por parte de los individuos de mayor edad antes de que estos mueran.\n" +
-"\n" +
-"  Muchos de los principales problemas de la biología conciernen a la capacidad de los seres vivos de producir copias de sí mismos.\n" +
-"  \n" +
-"  En los seres vivos se presentan dos modos diferentes de producir cría. Uno de estos modos es la reproducción sexual; esto es, la reproducción de nuevos individuos, en los cuales se combina la información genética de las células diferentes, generalmente provenientes, a su vez, de dos padres distintos. En la mayoría de los organismos, estas células son los gametos. En el otro modo de reproducción toma parte solamente un progenitor. Se llama reproducción asexual.</p>\n" +
-"<h2>Tipos de reproducción</h2>\n" +
-"<h3>Reproducción sexual</h3>\n" +
-"<p>Es la forma de reproducción, tanto en plantas como en animales, por la que se desarrollan nuevos individuos, para ello los organismos tienen unos órganos especiales llamados gónadas en donde se forman los gametos o células reproductoras.\n" +
-"\n" +
-"  Se necesita de la intervención de dos individuos: los machos y las hembras. Las gónadas en los machos son los testículos y los gametos son los espermatozoides. En el caso de las hembras las gónadas son los ovarios y los gametos son los óvulos.</p>\n" +
-"<h3>Reproducción asexual</h3>\n" +
-"<p>es el proceso fisiológico que permite a los organismos vivos transmitir su información genética a sus descendientes sin la unión de gametos procedentes de individuos de diferente sexo para que se produzca dicha descendencia.\n" +
-"\n" +
-"  Se trata de un proceso mucho más simple y rápido que la reproducción sexual. En la siguiente lista se incluyen muchas de las características más destacadas del proceso de reproducción asexual que pueden llevar a cabo muchos seres vivos.</p>");
+                tema.setAprendizaje("<p>Uno de los aspectos más importantes de los seres vivientes es su capacidad de autorreproducirse. A todo organismo le llega el momento en que sus capacidades de metabolismo, crecimiento e irritabilidad se vuelven insuficientes para mantener en contra de otras fuerzas su compleja organización. El ataque de depredadores, la acción de parásitos, las épocas de hambre, otros cambios dañinos del ambiente, o simplemente aquellos procesos no bien definidos que denominamos envejecimiento, llevan finalmente a la muerte del organismo. Sin embargo, la especie sobrevive por un periodo de tiempo mayor que el periodo de vida de cualquiera de sus individuos. Esto se logra mediante la producción de nuevos individuos por parte de los individuos de mayor edad antes de que estos mueran.\n"
+                        + "\n"
+                        + "  Muchos de los principales problemas de la biología conciernen a la capacidad de los seres vivos de producir copias de sí mismos.\n"
+                        + "  \n"
+                        + "  En los seres vivos se presentan dos modos diferentes de producir cría. Uno de estos modos es la reproducción sexual; esto es, la reproducción de nuevos individuos, en los cuales se combina la información genética de las células diferentes, generalmente provenientes, a su vez, de dos padres distintos. En la mayoría de los organismos, estas células son los gametos. En el otro modo de reproducción toma parte solamente un progenitor. Se llama reproducción asexual.</p>\n"
+                        + "<h2>Tipos de reproducción</h2>\n"
+                        + "<h3>Reproducción sexual</h3>\n"
+                        + "<p>Es la forma de reproducción, tanto en plantas como en animales, por la que se desarrollan nuevos individuos, para ello los organismos tienen unos órganos especiales llamados gónadas en donde se forman los gametos o células reproductoras.\n"
+                        + "\n"
+                        + "  Se necesita de la intervención de dos individuos: los machos y las hembras. Las gónadas en los machos son los testículos y los gametos son los espermatozoides. En el caso de las hembras las gónadas son los ovarios y los gametos son los óvulos.</p>\n"
+                        + "<h3>Reproducción asexual</h3>\n"
+                        + "<p>es el proceso fisiológico que permite a los organismos vivos transmitir su información genética a sus descendientes sin la unión de gametos procedentes de individuos de diferente sexo para que se produzca dicha descendencia.\n"
+                        + "\n"
+                        + "  Se trata de un proceso mucho más simple y rápido que la reproducción sexual. En la siguiente lista se incluyen muchas de las características más destacadas del proceso de reproducción asexual que pueden llevar a cabo muchos seres vivos.</p>");
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -667,7 +679,7 @@ public class Tema {
             while (rs1.next()) {
 
                 for (i = 0; i < cod_preguntas.length; i++) {
-                    
+
                     if (cod_preguntas[i].toString().contains(rs1.getString("cod_pregunta"))) {
                         puntos += rs1.getInt("puntos_obtenidos");
                     }

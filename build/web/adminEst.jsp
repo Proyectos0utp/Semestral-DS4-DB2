@@ -113,8 +113,8 @@
                                             out.print("<p><strong>" + tema.getContenido().split("\\s")[0] + "</strong>&nbsp;" + tema.getContenido().replaceAll(tema.getContenido().split("\\s")[0], "") + "...<br></p>" + "<input class=\"btn btn-primary text-center border rounded-pill border-dark\" name=\"accion\" type=\"submit\" style=\"color: rgb(0,0,0);background: rgba(255,255,255,0);width: 100px;height: 50px;margin-right: 10em;\" value=\"Ingresar\"");
                                             out.print(Tema.estatus(tema.getCodTema(), Controlador.usuarioLogeado.getCorreo()));
                                             out.print("</div>");
-                                            out.print("</div><br>");
                                             out.print("</form>");
+                                            out.print("</div><br>");
                                         }
                                     %>
                                 
