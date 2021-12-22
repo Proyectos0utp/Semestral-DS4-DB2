@@ -119,10 +119,12 @@ public class Sesion {
                     + "<hr style=\"color: rgba(255,255,255,0);\"><a class=\"navbar-brand text-center d-flex justify-content-center align-items-center sidebar-brand m-0\" href=\"#\">" + "<img class=\"img-fluid\" src=\"assets/img/utp_logo_small.png\"></a>"
                     + "<hr class=\"sidebar-divider my-0\">"
                     + "<ul class=\"navbar-nav text-light\" id=\"accordionSidebar\">"
-                    + "<li class=\"nav-item\"><a class=\"nav-link\" href=\"" + inicio + "\"><span class=\"text-dark\" style=\"font-size: 20px;\">Inicio</span></a></li>"
-                    + "<li class=\"nav-item\"><a class=\"nav-link\" href=\"iniciarsesion.jsp\"><span class=\"text-dark\" style=\"font-size: 20px;\">Busqueda</span></a></li>"
-                    + "<li class=\"nav-item\"><a class=\"nav-link\" href=\"acerca_de.jsp\"><span class=\"text-dark\" style=\"font-size: 20px;\">Acerca de</span></a></li>"
-                    + "<li class=\"nav-item\"><a class=\"nav-link\" href=\"contacto.jsp\"><span class=\"text-dark\" style=\"font-size: 20px;\">Contacto</span></a></li>"
+                    + "<li class=\"nav-item\"><a class=\"nav-link\" href=\"" + inicio + "\"><span class=\"text-dark\" style=\"font-size: 20px;\">Inicio</span></a></li>";
+                    
+            html += (usuario.esProfesor()) ? "" : "<li class=\"nav-item\"><a class=\"nav-link\" href=\"buscar.jsp\"><span class=\"text-dark\" style=\"font-size: 20px;\">Busqueda</span></a></li>";
+            
+            
+            html += "<li class=\"nav-item\"><a class=\"nav-link\" href=\"acerca_de.jsp\"><span class=\"text-dark\" style=\"font-size: 20px;\">Acerca De</span></a></li>"
                     + "<li class=\"nav-item\"><a class=\"nav-link\" href=\"reportar.jsp\"><span class=\"text-dark\" style=\"font-size: 20px;\">Reportar</span></a></li>"
                     + "<li class=\"nav-item\"><a class=\"nav-link\" href=\"Controlador?accion=Cerrar Sesion\"><span class=\"text-dark\" style=\"font-size: 20px;\">Salir</span></a></li>"
                     + "</ul>"

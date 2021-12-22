@@ -11,17 +11,6 @@
 <html>
 
     <head>
-
-        <%
-
-            if (Controlador.usuarioLogeado.getNombre().equals("")) {
-                RequestDispatcher ventana = request.getRequestDispatcher("iniciarsesion.jsp");
-                request.setAttribute("avisoSesion", "Inicie sesion.");
-                ventana.forward(request, response);
-            }
-
-        %>
-
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
         <title>Reportar</title>
@@ -55,6 +44,7 @@
                                             <option value="1" selected="">Error de inicio de sesión</option>
                                             <option value="2">Error al cargar contenido</option>
                                             <option value="3">Error al realizar examen</option>
+                                            <option value="3">Otro Error</option>
                                         </optgroup>
                                     </select><br>
 

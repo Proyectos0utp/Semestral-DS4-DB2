@@ -11,17 +11,6 @@
 <html>
 
     <head>
-
-        <%
-
-            if (Controlador.usuarioLogeado.getNombre().equals("")) {
-                RequestDispatcher ventana = request.getRequestDispatcher("iniciarsesion.jsp");
-                request.setAttribute("avisoSesion", "Inicie sesion.");
-                ventana.forward(request, response);
-            }
-
-        %>
-
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
         <title>Contacto</title>
