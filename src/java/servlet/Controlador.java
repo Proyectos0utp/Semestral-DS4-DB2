@@ -398,15 +398,7 @@ public class Controlador extends HttpServlet {
             request.setAttribute("avisoBusqueda", mensajeAviso);
             ventanaAMostrar = "buscar.jsp";
         }
-        
-        //Eliminar tema
-        if (accion.equals("Eliminar Tema")) {
-            Tema.eliminarTema(request.getParameter("cod_tema"));
-            
-            mensajeAviso = "Tema borrado exitosamente.";
-            request.setAttribute("avisoTema", mensajeAviso);
-            ventanaAMostrar = "administrarGrupo.jsp";
-        }
+       
         
 
         RequestDispatcher ventana = request.getRequestDispatcher(ventanaAMostrar);

@@ -39,7 +39,7 @@
                                 <div class="row row-cols-2">
                                     <div class="col-8">
                                         <h1 style="color: rgb(0,0,0);">Bienvenido al Campus Virtual</h1>
-                                        <p><strong>Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.<br></p>
+                                        <p>El Campus Virtual es una plataforma de aprendizaje para estudiantes en donde se ofrece una una gran variedad de temas, cada uno con su sección de aprendizaje y exámenes para poner a prueba tus conocimientos. Además poseemos rankings para cada tema, así puedes comparar tu desempeño con el de tus compañeros. También contamos con un panel de administración para profesores, el cual facilita el manejo y monitoreo de sus grupos de estudiantes. Únete hoy y forma parte de nuestra gran familia de estudiantes y educadores.</p>
                                     </div>
                                     <div class="col-4 text-center m-auto"><img class="img-fluid" src="assets/img/fisc_soy_fisc.png"></div>
                                 </div>
@@ -48,7 +48,7 @@
                                 <div class="row row-cols-2">
                                     <div class="col-8">
                                         <h1 style="color: rgb(0,0,0);">¡Educación de calidad siempre a tu alcance!</h1>
-                                        <p><br>It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.<br><br></p>
+                                        <p>¡Accesa a una gran variedad de temas accesibles en todo momento y aprende a tu propia velocidad! Campus Virtual es una oportunidad para poner en marcha tu crecimiento académico, entre, aprende y pon a prueba tus conocimientos a través de nuestros exámenes.</p>
                                     </div>
                                     <div class="col-4 text-center m-auto"><img class="img-fluid" src="assets/img/fisc_logo.png"></div>
                                 </div>
