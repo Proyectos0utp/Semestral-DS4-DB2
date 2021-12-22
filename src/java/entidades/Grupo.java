@@ -23,6 +23,25 @@ public class Grupo {
     private String correo_maestro;
     private int nivel;
 
+    public void crearGrupo() throws SQLException{
+        
+        Connection cn = null;
+        Statement stmt = null;
+        String query;
+        
+        cn = BaseDeDatos.conectar();
+        stmt = cn.createStatement();
+        query = "INSERT INTO Grupo VALUES('"
+                + this.getCod_grupo() + "','"
+                + this.getCorreo_maestro()+ "',"
+                + this.getNivel()+ ")";
+        
+        stmt.executeUpdate(query);
+        
+        BaseDeDatos.cerrarConexiones(cn, stmt);
+        
+    }
+    
     public static Grupo buscarGrupo(String cod_grupo) {
         Grupo grupo = new Grupo();
 

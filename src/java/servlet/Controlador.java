@@ -35,7 +35,7 @@ public class Controlador extends HttpServlet {
     public static Usuario usuarioLogeado = new Usuario();
     public static Tema temaIngresado = new Tema();
     public static Grupo grupoSeleccionado = new Grupo();
-    LocalDate dt = LocalDate.now();  
+    LocalDate dt = LocalDate.now();
     LocalTime lt = LocalTime.now();
 
     private Usuario usuario = new Usuario();
@@ -235,23 +235,23 @@ public class Controlador extends HttpServlet {
             examen.cargarRespuestas();
             Object cod_preguntas[] = examen.getPreguntas().keySet().toArray();
             int i = 0;
-            Map<String,Respuesta> respuestas = examen.buscarRespuestasCorrectas();
+            Map<String, Respuesta> respuestas = examen.buscarRespuestasCorrectas();
             mensajeAviso = "Retroalimentacion<br>";
             while (i < cod_preguntas.length) {
                 String cod_pregunta = cod_preguntas[i].toString();
-             
+
                 String date = dt.format(DateTimeFormatter.ISO_DATE) + "T" + lt;
-                
-                if(respuestas.get(cod_pregunta).getIdent_opcion().equals(request.getParameter("respuesta" + cod_pregunta))) {
+
+                if (respuestas.get(cod_pregunta).getIdent_opcion().equals(request.getParameter("respuesta" + cod_pregunta))) {
                     Examen.subirIntento(usuarioLogeado.getCorreo(), cod_pregunta, "1", date);
                 } else {
                     Examen.subirIntento(usuarioLogeado.getCorreo(), cod_pregunta, "0", date);
                 }
                 r = Examen.buscarRespuesta(cod_pregunta, request.getParameter("respuesta" + cod_pregunta));
-                mensajeAviso += "Pregunta " + (i+1) + ": " + r.getRetroalimentacion() + "<br>";
+                mensajeAviso += "Pregunta " + (i + 1) + ": " + r.getRetroalimentacion() + "<br>";
                 i++;
             }
-            
+
             ventanaAMostrar = "descripcion.jsp";
             request.setAttribute("avisoIntento", mensajeAviso);
         }
@@ -260,28 +260,59 @@ public class Controlador extends HttpServlet {
         if (accion.equals("Rankings")) {
             ventanaAMostrar = "ranking.jsp";
         }
-        
+
         //Administrar Grupo
         if (accion.equals("Administrar Grupo")) {
             System.out.println(request.getParameter("cod_grupo"));
             grupoSeleccionado = Grupo.buscarGrupo(request.getParameter("cod_grupo"));
             ventanaAMostrar = "administrarGrupo.jsp";
         }
-        
+
         //Administrar Tema
         if (accion.equals("Administrar Tema")) {
             temaIngresado = Tema.buscarPorCodigo(request.getParameter("cod_tema"));
             ventanaAMostrar = "administrar.jsp";
         }
-        
+
         //Crear Nuevo Grupo
         if (accion.equals("Crear Nuevo")) {
             ventanaAMostrar = "crearGrupo.jsp";
         }
-        
+
         //Crear Grupo
         if (accion.equals("Crear Grupo")) {
-            
+
+            Grupo grupo = new Grupo();
+            grupo.setCod_grupo(request.getParameter("cod_grupo"));
+            grupo.setCorreo_maestro(request.getParameter("correo_maestro"));
+
+            if (!grupo.getCod_grupo().equals("") && !grupo.getCorreo_maestro().equals("") && !request.getParameter("nivel").equals("")) {
+
+                try {
+
+                    grupo.setNivel(Integer.parseInt(request.getParameter("nivel")));
+
+                    if (grupo.getNivel() > 0) {
+
+                        grupo.crearGrupo();
+                        mensajeAviso = "Grupo creado exitosamente.";
+
+                    } else {
+                        mensajeAviso = "Error, ingrese un nivel mayor a cero.";
+                    }
+
+                } catch (SQLException ex) {
+                    System.out.println(ex.getMessage());
+                    mensajeAviso = "Error, verifique los datos y reintente.";
+                } catch (NumberFormatException ex) {
+                    mensajeAviso = "Error, en el nivel solo puede ingresar numeros enteros";
+                }
+
+            } else {
+                mensajeAviso = "Debe llenar todos los campos.";
+            }
+
+            request.setAttribute("avisoGrupo", mensajeAviso);
             ventanaAMostrar = "crearGrupo.jsp";
         }
 
