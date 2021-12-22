@@ -22,6 +22,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import procesos.*;
 
@@ -322,13 +324,32 @@ public class Controlador extends HttpServlet {
             ventanaAMostrar = "crearGrupo.jsp";
         }
 
-        //Crear Grupo
+        //Crear Tema
         if (accion.equals("Crear Tema")) {
 
             Tema tema = new Tema();
 
-            request.setAttribute("avisoGrupo", mensajeAviso);
-            ventanaAMostrar = "crearGrupo.jsp";
+            if (!request.getParameter("cod_tema").equals("") && !request.getParameter("titulo").equals("") && !request.getParameter("contenido").equals("") && !request.getParameter("imagen").equals("")) {
+                
+                tema.setCodTema(request.getParameter("cod_tema"));
+                tema.setContenido(request.getParameter("contenido"));
+                tema.setImagen(request.getParameter("imagen"));
+                tema.setTitulo(request.getParameter("titulo"));
+                
+                try {
+                    tema.crearTema();
+                    mensajeAviso = "Tema creado exitosamente.";
+                } catch (SQLException ex) {
+                    System.out.println(ex.getMessage());
+                    mensajeAviso = "Error, verifique los datos y reintente.";
+                }
+                
+            } else {
+                mensajeAviso = "Debe llenar todos los campos primero.";
+            }
+            
+            request.setAttribute("avisoTema", mensajeAviso);
+            ventanaAMostrar = "crearTema.jsp";
         }
 
         //Buscar tema

@@ -511,7 +511,7 @@ public class Tema {
             if (tema1.getTitulo().toLowerCase().contains(posibleTitulo.toLowerCase())) {
                 listaTemasSeleccionados.add(tema1);
             }
-            
+
         }
 
         return listaTemasSeleccionados;
@@ -710,6 +710,26 @@ public class Tema {
                 + "<div class=\"col-auto col-sm-12 col-md-6 text-center order-2\"><img class=\"img-fluid\" src=\"assets//img//temas//" + this.getCodTema() + "-B.png\" width=\"350\" height=\"350\"></div>";
 
         return tag;
+    }
+
+    public void crearTema() throws SQLException {
+
+        Connection cn = null;
+        Statement stmt = null;
+        String query;
+
+        cn = BaseDeDatos.conectar();
+        stmt = cn.createStatement();
+        query = "INSERT INTO Tema VALUES('"
+                + this.getCodTema()+ "','"
+                + this.getTitulo()+ "','"
+                + this.getImagen()+ "','"
+                + this.getContenido()+ "')";
+
+        stmt.executeUpdate(query);
+
+        BaseDeDatos.cerrarConexiones(cn, stmt);
+
     }
 
 }

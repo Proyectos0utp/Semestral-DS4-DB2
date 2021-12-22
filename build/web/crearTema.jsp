@@ -39,58 +39,33 @@
             %>
             <div class="d-flex flex-column" id="content-wrapper">
                 <div id="content" style="margin-top: 15;">
-                    <nav class="navbar navbar-light navbar-expand-md bg-white shadow d-print-none d-md-none d-lg-none d-xl-none d-xxl-none mb-4 topbar static-top">
-                        <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button></div>
-                    </nav>
                     <div class="container-fluid">
                         <hr style="color: rgba(255,255,255,0);">
                         <h1 style="color: rgb(0,0,0);">Crear Tema</h1>
                         <hr style="color: rgba(255,255,255,0);">
                         <div class="row row-cols-1 text-center text-dark">
-                            <div class="col-auto col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 text-start order-first mb-4">
-                                <input type="text" placeholder="Codigo de tema..." style="margin-bottom: 20px;width: 300px;"><br>
-                                <input type="text" placeholder="Nombre de tema..." style="margin-bottom: 20px;width: 300px;"><br>
-                                <textarea placeholder="Contenido..." style="margin-bottom: 20px;width: 300px;" rows="10" cols="30"></textarea><br>
-                                <input type="url" placeholder="Inserte el link HTML de la imagen..." style="margin-bottom: 20px;width: 300px;"><br>
+                            <div class="col-auto col-sm-12 col-md-12 col-lg-12 col-xl-6 col-xxl-6 text-start mb-4">
+                                <form action="Controlador">
+                                    <div class="col-auto col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 text-start order-first mb-4">
+                                        <input type="text" placeholder="Codigo de tema..." name="cod_tema" style="margin-bottom: 20px;width: 300px;"><br>
+                                        <input type="text" placeholder="Nombre de tema..." name="titulo" style="margin-bottom: 20px;width: 300px;"><br>
+                                        <textarea placeholder="Contenido..." name="contenido" style="margin-bottom: 20px;width: 300px;" rows="10" cols="30"></textarea><br>
+                                        <input type="url" placeholder="Inserte el link HTML de la imagen..." name="imagen" style="margin-bottom: 20px;width: 300px;"><br>
+                                    </div>
+                                    <input class="btn btn-primary text-center border rounded-pill border-dark" type="submit" name="accion" style="color: rgb(0,0,0);background: rgba(255,255,255,0);width: 125px;height: 50px;" value="Crear Tema">
+                                </form>
+                                <br>
+                                ${avisoTema}
                             </div>
-                                <div class="col-auto col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 align-self-center mb-4">
-                                    <img class="img-fluid" src="assets/img/utp_logo_big.png"></div>
-                                <div class="col-12 align-self-center order-last mb-4" style="text-align: center;"><br><br>
-                                <h3 class="text-center">Preguntas</h3><br><span>(marque el check de la respuesta correcta)<br></span>
-                                <button class="btn btn-primary text-center border rounded-pill border-dark" type="button" style="color: rgb(0,0,0);background: rgba(255,255,255,0);width: 200px;height: 50px;">Insertar nueva pregunta</button><br><br>
-                                <div class="table-responsive border rounded-0">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th style="color: rgb(0,0,0);">Pregunta</th>
-                                                <th style="color: rgb(0,0,0);">Respuestas</th>
-                                                <th style="color: rgb(0,0,0);">Retroalimentación</th>
-                                                <th style="color: rgb(0,0,0);">Imagen</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td style="color: rgb(0,0,0);"><textarea placeholder="Pregunta..." style="margin-bottom: 20px;width: 300px;" rows="5" cols="30"></textarea></td>
-                                                <td>
-                                                    <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-1" value="A" name="respuestas"><label class="form-check-label" for="formCheck-1">A</label></div><input type="text" placeholder="respuesta...">
-                                                    <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-2" value="B" name="respuestas"><label class="form-check-label" for="formCheck-2">B</label></div><input type="text" placeholder="respuesta...">
-                                                    <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-3" value="C" name="respuestas"><label class="form-check-label" for="formCheck-3">C</label></div><input type="text" placeholder="respuesta...">
-                                                    <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-4" value="D" name="respuestas"><label class="form-check-label" for="formCheck-4">D</label></div><input type="text" placeholder="respuesta...">
-                                                </td>
-                                                <td><textarea placeholder="Retroalimentación..." style="margin-bottom: 20px;width: 300px;" rows="5" cols="30"></textarea></td>
-                                                <td><input type="url" placeholder="Inserte el link HTML de la imagen..." style="margin-bottom: 20px;"></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                            <div class="col-auto col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 align-self-center mb-4">
+                                <img class="img-fluid" src="assets/img/utp_logo_big.png">
                             </div>
-                        </div><input class="btn btn-primary text-center border rounded-pill border-dark" type="submit" name="accion" style="color: rgb(0,0,0);background: rgba(255,255,255,0);width: 100px;height: 50px;" value="Crear Tema"><br>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-        <script src="assets/js/script.min.js"></script>
+            <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+            <script src="assets/js/script.min.js"></script>
     </body>
 
 </html>
