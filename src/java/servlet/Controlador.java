@@ -262,9 +262,27 @@ public class Controlador extends HttpServlet {
         }
         
         //Administrar Grupo
-        if (accion.equals("Administrar")) {
+        if (accion.equals("Administrar Grupo")) {
+            System.out.println(request.getParameter("cod_grupo"));
             grupoSeleccionado = Grupo.buscarGrupo(request.getParameter("cod_grupo"));
             ventanaAMostrar = "administrarGrupo.jsp";
+        }
+        
+        //Administrar Tema
+        if (accion.equals("Administrar Tema")) {
+            temaIngresado = Tema.buscarPorCodigo(request.getParameter("cod_tema"));
+            ventanaAMostrar = "administrar.jsp";
+        }
+        
+        //Crear Nuevo Grupo
+        if (accion.equals("Crear Nuevo")) {
+            ventanaAMostrar = "crearGrupo.jsp";
+        }
+        
+        //Crear Grupo
+        if (accion.equals("Crear Grupo")) {
+            
+            ventanaAMostrar = "crearGrupo.jsp";
         }
 
         RequestDispatcher ventana = request.getRequestDispatcher(ventanaAMostrar);

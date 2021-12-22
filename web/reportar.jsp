@@ -9,8 +9,19 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    
+
     <head>
+
+        <%
+
+            if (Controlador.usuarioLogeado.getNombre().equals("")) {
+                RequestDispatcher ventana = request.getRequestDispatcher("iniciarsesion.jsp");
+                request.setAttribute("avisoSesion", "Inicie sesion.");
+                ventana.forward(request, response);
+            }
+
+        %>
+
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
         <title>Reportar</title>
@@ -24,8 +35,7 @@
 
     <body id="page-top">
         <div id="wrapper">
-            <%
-                out.print(Sesion.generarMenuHTML(Controlador.usuarioLogeado));
+            <%                out.print(Sesion.generarMenuHTML(Controlador.usuarioLogeado));
             %>
             <div class="d-flex flex-column" id="content-wrapper">
                 <div id="content" style="margin-top: 15;">
@@ -48,8 +58,12 @@
                                         </optgroup>
                                     </select><br>
 
-                                    <input type="text" name="nombre" placeholder="Ingrese su nombre..." <%if(!Controlador.usuarioLogeado.getNombre().equals("")){out.print("readonly");}%> value="<%=Controlador.usuarioLogeado.getNombre()%>" style="margin-bottom: 20px;width: 300px;"><br>
-                                    <input type="email" name="correo" placeholder="Ingrese su correo..." <%if(!Controlador.usuarioLogeado.getCorreo().equals("")){out.print("readonly");}%> value="<%=Controlador.usuarioLogeado.getCorreo()%>" style="margin-bottom: 20px;width: 300px;"><br>
+                                    <input type="text" name="nombre" placeholder="Ingrese su nombre..." <%if (!Controlador.usuarioLogeado.getNombre().equals("")) {
+                                            out.print("readonly");
+                                        }%> value="<%=Controlador.usuarioLogeado.getNombre()%>" style="margin-bottom: 20px;width: 300px;"><br>
+                                    <input type="email" name="correo" placeholder="Ingrese su correo..." <%if (!Controlador.usuarioLogeado.getCorreo().equals("")) {
+                                            out.print("readonly");
+                                        }%> value="<%=Controlador.usuarioLogeado.getCorreo()%>" style="margin-bottom: 20px;width: 300px;"><br>
                                     <textarea name="mensaje" placeholder="Descripción del reporte..." style="margin-bottom: 20px;width: 300px;" rows="10" cols="30"></textarea><br>
                                     <input class="btn btn-primary text-center border rounded-pill border-dark" type="submit" name="accion" style="color: rgb(0,0,0);background: rgba(255,255,255,0);width: 100px;height: 50px;margin-right: 10em;" value="Reportar">
 

@@ -59,7 +59,8 @@ public class Tema {
     public void insertarRespuesta() {
     }
 
-    public static List<Tema> generarListaTemasProf(String codGrupo) {
+    public static String generarListaTemasProf(String codGrupo) {
+        String tag = "";
         List<Tema> lista = new ArrayList<>();
         Connection conn = null;
         Statement stmt = null;
@@ -69,8 +70,8 @@ public class Tema {
 
             conn = BaseDeDatos.conectar();
             stmt = conn.createStatement();
-            String query, codTema, tableRows = "";
-            Tema tema = new Tema();
+            String query;
+            Tema tema;
 
             if (codGrupo.contains("01")) {
                 query = "SELECT * FROM Tema WHERE cod_tema LIKE 'TCN01%'";
@@ -267,17 +268,24 @@ public class Tema {
                 }
             }
 
-            for (int i = 0; i < lista.size(); i++) {
-                tableRows += (lista.get(i)) + "<tr><td style=\"color: rgb(0,0,0);\">" + lista.get(i).getTitulo() + "</td><td><button class=\"btn btn-primary border rounded-0\" type=\"button\" style=\"color: rgb(0,0,0);background: rgba(255,255,255,0);border-color: rgb(0,0,0);width: 150px;margin-bottom: 30px;\">Administrar</button></td></tr>";
-            }
-
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
             BaseDeDatos.cerrarConexiones(conn, stmt, rs);
         }
+        
+        for(Tema tema : lista){
+        
+            tag += "<form action=\"Controlador\">"
+                + "<input type=\"hidden\" name=\"cod_tema\" value=\"" + tema.getCodTema()+ "\">"
+                + "<tr>"
+                + "<td style=\"color: rgb(0,0,0);\"><h3>" + tema.getTitulo() + "</h3></td>"
+                + "<td><input class=\"btn btn-primary border rounded-0\" type=\"submit\" name=\"accion\" style=\"color: rgb(0,0,0);background: rgba(255,255,255,0);border-color: rgb(0,0,0);width: 150px;margin-bottom: 30px;\" value=\"Administrar Tema\"></td>"
+                + "</form>";
+            
+        }
 
-        return lista;
+        return tag;
     }
 
     public static List<Tema> generarListaTemasEst(String codGrupo) {

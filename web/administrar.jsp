@@ -4,6 +4,7 @@
     Author     : Polar
 --%>
 
+<%@page import="entidades.Tema"%>
 <%@page import="procesos.Sesion"%>
 <%@page import="servlet.Controlador"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -13,10 +14,17 @@
     <head>
 
         <%
+            Tema tema = Controlador.temaIngresado;
             if (Controlador.usuarioLogeado.getNombre().equals("")) {
                 RequestDispatcher ventana = request.getRequestDispatcher("iniciarsesion.jsp");
                 request.setAttribute("avisoSesion", "Inicie sesion.");
                 ventana.forward(request, response);
+            } else {
+
+                if (tema.getCodTema().equals("")) {
+                    RequestDispatcher ventana = request.getRequestDispatcher("adminEst.jsp");
+                    ventana.forward(request, response);
+                }
             }
         %>
 
@@ -46,10 +54,16 @@
                         <h1 style="color: rgb(0,0,0);">Administrar contenido</h1>
                         <hr style="color: rgba(255,255,255,0);">
                         <div class="row row-cols-1 text-center text-dark">
-                            <div class="col-auto col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 text-start order-first mb-4"><input type="text" placeholder="Codigo de tema..." style="margin-bottom: 20px;width: 300px;"><input type="text" placeholder="Nombre de tema..." style="margin-bottom: 20px;width: 300px;"><textarea placeholder="Contenido..." style="margin-bottom: 20px;width: 300px;" rows="10" cols="30"></textarea><input type="url" placeholder="Inserte el link HTML de la imagen..." style="margin-bottom: 20px;width: 300px;"></div>
-                            <div class="col-auto col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 align-self-center mb-4"><img class="img-fluid" src="http://via.placeholder.com/500x500" alt="imagen ya cargada si existe, si no aparece placeholder"></div>
-                            <div class="col-12 align-self-center order-last mb-4" style="text-align: center;">
-                                <h3 class="text-center">Preguntas</h3><span>(marque el check de la respuesta correcta)<br></span><button class="btn btn-primary text-center border rounded-pill border-dark" type="button" style="color: rgb(0,0,0);background: rgba(255,255,255,0);width: 200px;height: 50px;">Insertar nueva pregunta</button>
+                            <div class="col-auto col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 text-start order-first mb-4">
+                                <input type="text" placeholder="Codigo de tema..." style="margin-bottom: 20px;width: 300px;"><br>
+                                <input type="text" placeholder="Nombre de tema..." style="margin-bottom: 20px;width: 300px;"><br>
+                                <textarea placeholder="Contenido..." style="margin-bottom: 20px;width: 300px;" rows="10" cols="30"></textarea><br>
+                                <input type="url" placeholder="Inserte el link HTML de la imagen..." style="margin-bottom: 20px;width: 300px;"><br>
+                            </div>
+                            <div class="col-auto col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 align-self-center mb-4"><img class="img-fluid" src="https://via.placeholder.com/500x500" alt="imagen ya cargada si existe, si no aparece placeholder"></div>
+                            <div class="col-12 align-self-center order-last mb-4" style="text-align: center;"><br><br>
+                                <h3 class="text-center">Preguntas</h3><br><span>(marque el check de la respuesta correcta)<br></span>
+                                <button class="btn btn-primary text-center border rounded-pill border-dark" type="button" style="color: rgb(0,0,0);background: rgba(255,255,255,0);width: 200px;height: 50px;">Insertar nueva pregunta</button><br><br>
                                 <div class="table-responsive border rounded-0">
                                     <table class="table">
                                         <thead>
@@ -76,7 +90,7 @@
                                     </table>
                                 </div>
                             </div>
-                        </div><button class="btn btn-primary text-center border rounded-pill border-dark" type="button" style="color: rgb(0,0,0);background: rgba(255,255,255,0);width: 100px;height: 50px;">Cargar</button>
+                        </div><button class="btn btn-primary text-center border rounded-pill border-dark" type="button" style="color: rgb(0,0,0);background: rgba(255,255,255,0);width: 100px;height: 50px;">Cargar</button><br>
                     </div>
                 </div>
             </div>

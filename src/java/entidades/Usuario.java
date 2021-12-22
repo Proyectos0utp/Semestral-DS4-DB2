@@ -87,7 +87,7 @@ public class Usuario {
     public void setEsProfesor(boolean esProfesor) {
         this.esProfesor = esProfesor;
     }
-
+    
     public static String buscarNombreUsuario(String correo_usuario){
         Usuario usuario = new Usuario();
         
