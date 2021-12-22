@@ -274,7 +274,7 @@ public class Controlador extends HttpServlet {
         //Administrar Tema
         if (accion.equals("Administrar Tema")) {
             temaIngresado = Tema.buscarPorCodigo(request.getParameter("cod_tema"));
-            ventanaAMostrar = "administrar.jsp";
+            ventanaAMostrar = "modificarTema.jsp";
         }
 
         //Crear Nuevo Grupo
@@ -330,12 +330,12 @@ public class Controlador extends HttpServlet {
             Tema tema = new Tema();
 
             if (!request.getParameter("cod_tema").equals("") && !request.getParameter("titulo").equals("") && !request.getParameter("contenido").equals("") && !request.getParameter("imagen").equals("")) {
-                
+
                 tema.setCodTema(request.getParameter("cod_tema"));
                 tema.setContenido(request.getParameter("contenido"));
                 tema.setImagen(request.getParameter("imagen"));
                 tema.setTitulo(request.getParameter("titulo"));
-                
+
                 try {
                     tema.crearTema();
                     mensajeAviso = "Tema creado exitosamente.";
@@ -343,13 +343,40 @@ public class Controlador extends HttpServlet {
                     System.out.println(ex.getMessage());
                     mensajeAviso = "Error, verifique los datos y reintente.";
                 }
-                
+
             } else {
                 mensajeAviso = "Debe llenar todos los campos primero.";
             }
-            
+
             request.setAttribute("avisoTema", mensajeAviso);
             ventanaAMostrar = "crearTema.jsp";
+        }
+
+        //Actualizar Tema
+        if (accion.equals("Actualizar Tema")) {
+            Tema tema = new Tema();
+
+            if (!request.getParameter("titulo").equals("") && !request.getParameter("contenido").equals("") && !request.getParameter("imagen").equals("")) {
+
+                tema.setCodTema(request.getParameter("cod_tema"));
+                tema.setContenido(request.getParameter("contenido"));
+                tema.setImagen(request.getParameter("imagen"));
+                tema.setTitulo(request.getParameter("titulo"));
+
+                try {
+                    tema.actualizarTema();
+                    mensajeAviso = "Tema actualizado exitosamente.";
+                } catch (SQLException ex) {
+                    System.out.println(ex.getMessage());
+                    mensajeAviso = "Error, verifique los datos y reintente.";
+                }
+
+            } else {
+                mensajeAviso = "Debe llenar todos los campos primero.";
+            }
+
+            request.setAttribute("avisoTema", mensajeAviso);
+            ventanaAMostrar = "modificarTema.jsp";
         }
 
         //Buscar tema
@@ -361,7 +388,7 @@ public class Controlador extends HttpServlet {
                 if (Tema.buscarCoincidencia(buscando, Tema.generarListaTemasEst(Controlador.usuarioLogeado.getGrupo())).isEmpty()) {
                     mensajeAviso = "No hubo coincidencias.";
                 }
-                
+
             } else {
                 mensajeAviso = "Llene el campo de busqueda antes de buscar.";
             }

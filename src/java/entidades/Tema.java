@@ -721,15 +721,33 @@ public class Tema {
         cn = BaseDeDatos.conectar();
         stmt = cn.createStatement();
         query = "INSERT INTO Tema VALUES('"
-                + this.getCodTema()+ "','"
-                + this.getTitulo()+ "','"
-                + this.getImagen()+ "','"
-                + this.getContenido()+ "')";
+                + this.getCodTema() + "','"
+                + this.getTitulo() + "','"
+                + this.getImagen() + "','"
+                + this.getContenido() + "')";
 
         stmt.executeUpdate(query);
 
         BaseDeDatos.cerrarConexiones(cn, stmt);
 
+    }
+
+    public void actualizarTema() throws SQLException {
+        Connection cn = null;
+        Statement stmt = null;
+        String query;
+
+        cn = BaseDeDatos.conectar();
+        stmt = cn.createStatement();
+        query = "UPDATE Tema SET "
+                + "tema='" + this.getTitulo() + "',"
+                + "imagen='" + this.getImagen()+ "',"
+                + "contenido='" + this.getContenido()+ "' "
+                + "WHERE cod_tema='" + this.getCodTema() + "'";
+
+        stmt.executeUpdate(query);
+
+        BaseDeDatos.cerrarConexiones(cn, stmt);
     }
 
 }
