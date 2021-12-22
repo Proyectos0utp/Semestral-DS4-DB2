@@ -50,6 +50,37 @@ public class Grupo {
         return lista;
     }
 
+    public static Grupo buscarGrupo(String cod_grupo){
+        Grupo grupo = new Grupo();
+        
+        Connection cn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        String query;
+        
+        try {
+            cn = BaseDeDatos.conectar();
+            stmt = cn.createStatement();
+            query = "SELECT * FROM Grupo WHERE cod_grupo='" + cod_grupo + "'";
+            rs = stmt.executeQuery(query);
+            
+            if(rs.next()){
+                grupo.setCod_grupo(rs.getString("cod_grupo"));
+                grupo.setCorreo_maestro(rs.getString("correo_maestro"));
+                grupo.setNivel(rs.getInt("nivel"));
+            }
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            BaseDeDatos.cerrarConexiones(cn, stmt, rs);
+        }
+        
+        if(grupo.getCorreo_maestro().equals("")){System.out.println("aAAAAAAAAAAAAAAAAAAAA");}
+        
+        return grupo;
+    }
+    
     public static String buscarProfesor(String codGrupo) {
         String nombre = "";
         Connection conn = null, conn2 = null;
@@ -190,6 +221,50 @@ public class Grupo {
      */
     public void setNivel(int nivel) {
         this.nivel = nivel;
+    }
+    
+    public static String listarParaProfesor(String correo_maestro){
+        String query, tag = "";
+    
+        Connection cn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        Grupo grupo;
+        List<Grupo> grupos = new ArrayList<>();
+        
+        try {
+            
+            cn = BaseDeDatos.conectar();
+            stmt = cn.createStatement();
+            query = "SELECT * FROM Grupo WHERE correo_maestro='" + correo_maestro + "'";
+            rs = stmt.executeQuery(query);
+            
+            while (rs.next()) {
+                grupo = new Grupo();
+                grupo.setCod_grupo(rs.getString("cod_grupo"));
+                grupo.setCorreo_maestro(correo_maestro);
+                grupo.setNivel(rs.getInt("nivel"));
+                grupos.add(grupo);
+            }
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            BaseDeDatos.cerrarConexiones(cn, stmt, rs);
+        }
+        
+        for (Grupo grupo1 : grupos) {
+            
+            tag += "<tr>"
+                + "<form action=\"Controlador\">"
+                + "<input type=\"hidden\" name=\"codigo_grupo\" value=\"" + grupo1.getCod_grupo() + "\">"
+                + "<td style=\"color: rgb(0,0,0);\">" + grupo1.getCod_grupo() + "</td>"
+                + "<td><input class=\"btn btn-primary border rounded-0\" type=\"submit\" name=\"accion\" style=\"color: rgb(0,0,0);background: rgba(255,255,255,0);border-color: rgb(0,0,0);width: 150px;margin-bottom: 30px;\" value=\"Administrar\"></td>"
+                + "</form>"
+                + "</tr>";
+        }
+        
+        return tag;
     }
 
 }

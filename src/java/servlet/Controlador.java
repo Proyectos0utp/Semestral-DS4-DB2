@@ -6,6 +6,7 @@ package servlet;
 
 import entidades.Examen;
 import entidades.Examen.Respuesta;
+import entidades.Grupo;
 import entidades.Tema;
 import entidades.Usuario;
 import java.io.IOException;
@@ -33,6 +34,7 @@ public class Controlador extends HttpServlet {
 
     public static Usuario usuarioLogeado = new Usuario();
     public static Tema temaIngresado = new Tema();
+    public static Grupo grupoSeleccionado = new Grupo();
     LocalDate dt = LocalDate.now();  
     LocalTime lt = LocalTime.now();
 
@@ -257,6 +259,12 @@ public class Controlador extends HttpServlet {
         //Rankings
         if (accion.equals("Rankings")) {
             ventanaAMostrar = "ranking.jsp";
+        }
+        
+        //Administrar Grupo
+        if (accion.equals("Administrar")) {
+            grupoSeleccionado = Grupo.buscarGrupo(request.getParameter("cod_grupo"));
+            ventanaAMostrar = "administrarGrupo.jsp";
         }
 
         RequestDispatcher ventana = request.getRequestDispatcher(ventanaAMostrar);

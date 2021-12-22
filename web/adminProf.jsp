@@ -4,6 +4,7 @@
     Author     : Polar
 --%>
 
+<%@page import="entidades.Grupo"%>
 <%@page import="procesos.Sesion"%>
 <%@page import="servlet.Controlador"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -22,7 +23,7 @@
 
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-        <title>Admin Prof. CRUD</title>
+        <title>Admin-Docente</title>
         <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
         <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
@@ -38,9 +39,6 @@
             %>
             <div class="d-flex flex-column" id="content-wrapper">
                 <div id="content" style="margin-top: 15;">
-                    <nav class="navbar navbar-light navbar-expand-md bg-white shadow d-print-none d-md-none d-lg-none d-xl-none d-xxl-none mb-4 topbar static-top">
-                        <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button></div>
-                    </nav>
                     <div class="container-fluid">
                         <hr style="color: rgba(255,255,255,0);">
                         <h1 style="color: rgb(0,0,0);">Administración</h1>
@@ -50,19 +48,18 @@
                                     <div class="col-auto col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 order-first">
                                         <h3 class="text-start" style="color: rgb(0,0,0);">Grupos</h3>
                                     </div>
-                                    <div class="col-auto col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 align-self-center order-first"><button class="btn btn-primary border rounded-0" type="button" style="color: rgb(0,0,0);background: rgba(255,255,255,0);border-color: rgb(0,0,0);width: 150px;margin-bottom: 30px;">Crear Grupo</button></div>
+                                    <div class="col-auto col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 align-self-center order-first">
+                                        <form action="Controlador">
+                                            <input class="btn btn-primary border rounded-0" type="submit" name="accion" style="color: rgb(0,0,0);background: rgba(255,255,255,0);border-color: rgb(0,0,0);width: 150px;margin-bottom: 30px;" value="Crear Grupo">
+                                        </form>
+                                    </div>
                                     <div class="col-12 text-center order-first">
                                         <div class="table-responsive border-dark">
                                             <table class="table">
                                                 <tbody class="border-dark">
-                                                    <tr>
-                                                        <td style="color: rgb(0,0,0);">01</td>
-                                                        <td><button class="btn btn-primary border rounded-0" type="button" style="color: rgb(0,0,0);background: rgba(255,255,255,0);border-color: rgb(0,0,0);width: 150px;margin-bottom: 30px;">Administrar</button></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td style="color: rgb(0,0,0);">02</td>
-                                                        <td><button class="btn btn-primary border rounded-0" type="button" style="color: rgb(0,0,0);background: rgba(255,255,255,0);border-color: rgb(0,0,0);width: 150px;margin-bottom: 30px;">Administrar</button></td>
-                                                    </tr>
+                                                    <%
+                                                        out.print(Grupo.listarParaProfesor(Controlador.usuarioLogeado.getCorreo()));
+                                                    %>
                                                 </tbody>
                                             </table>
                                         </div>

@@ -4,6 +4,7 @@
     Author     : Polar
 --%>
 
+<%@page import="entidades.Grupo"%>
 <%@page import="servlet.Controlador"%>
 <%@page import="procesos.Sesion"%>
 <!DOCTYPE html>
@@ -16,6 +17,13 @@
                 RequestDispatcher ventana = request.getRequestDispatcher("iniciarsesion.jsp");
                 request.setAttribute("avisoSesion", "Inicie sesion.");
                 ventana.forward(request, response);
+            } else {
+
+                if (Controlador.grupoSeleccionado.getCod_grupo().equals("")) {
+                    RequestDispatcher ventana = request.getRequestDispatcher("adminProf.jsp");
+                    ventana.forward(request, response);
+                }
+
             }
         %>
 
