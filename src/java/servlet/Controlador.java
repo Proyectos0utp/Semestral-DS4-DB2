@@ -94,10 +94,8 @@ public class Controlador extends HttpServlet {
             usuario.setNombre(request.getParameter("nombre"));
             usuario.setApellido(request.getParameter("apellido"));
 
-            if (request.getParameter("seleccion").equals("maestro")) {
-                usuario.setEsProfesor(true);
-            }
-
+            usuario.setEsProfesor(request.getParameter("seleccion").equals("maestro"));
+            
             if (!usuario.getCorreo().equals("") && !usuario.getPassword().equals("") && !usuario.getNombre().equals("") && !usuario.getApellido().equals("") && !usuario.getCedula().equals("")) {
 
                 if (Registrar.revisarExistencia(usuario.getCorreo(), usuario.getCedula())) {
@@ -109,17 +107,17 @@ public class Controlador extends HttpServlet {
 
             } else {
                 mensajeAviso = "Llene todos los campos.";
+                ventanaAMostrar = "registro.jsp";
             }
             request.setAttribute("avisoRegistro", mensajeAviso);
         }
 
         //Registrar2
-        if (accion.equals("Finalizar Registro")) {
+        if (accion.equals("Culminar")) {
             String query;
             try {
 
                 Registrar.insertarUsuario(usuario);
-
                 if (usuario.esProfesor()) {
                     Connection cn = null;
                     Statement stmt = null;
@@ -135,8 +133,6 @@ public class Controlador extends HttpServlet {
 
                     } catch (SQLException e) {
                         System.out.println("Error: " + e);
-                        mensajeAviso = e.getMessage();
-                        ventanaAMostrar = "registro.jsp";
                     } finally {
                         BaseDeDatos.cerrarConexiones(cn, stmt);
                     }
@@ -155,8 +151,6 @@ public class Controlador extends HttpServlet {
 
                     } catch (SQLException e) {
                         System.out.println("Error: " + e);
-                        mensajeAviso = e.getMessage();
-                        ventanaAMostrar = "registro.jsp";
                     } finally {
                         BaseDeDatos.cerrarConexiones(cn, stmt);
                     }
@@ -164,6 +158,7 @@ public class Controlador extends HttpServlet {
                 }
                 mensajeAviso = "Usuario registrado exitosamente.";
             } catch (SQLException ex) {
+                System.err.println(ex.getMessage());
                 mensajeAviso = "Error al registrar.\nValide que la cedula sigue un formato adecuado y el correo tambien.";
             }
 

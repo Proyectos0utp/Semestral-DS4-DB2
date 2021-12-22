@@ -66,21 +66,15 @@
                                     out.print("<select class=\"form-select\" style=\"width: 100px;height: 35px;\" id=\"seleccion\" name=\"seleccion\">");
                                     out.print("<optgroup label=\"grupos\">");
 
-                                    for (int i = 1; i <= lista.size(); i++) {
-
-                                        if (i < 10) {
-                                            out.print("<option selected=\"\" value=\"0" + i + "\">0" + i + "</option>");
-                                        } else {
-                                            out.print("<option selected=\"\" value=\"" + i + "\">" + i + "</option>");
-                                        }
-
+                                    for (Grupo grupo : lista) {
+                                        out.print("<option selected=\"\" value=\"" + grupo.getCod_grupo() + "\">" + grupo.getCod_grupo() + "</option>");
                                     }
 
                                     out.print("</optgroup></select></td><br>");
                                     out.print("</tr></tbody>");
                                     out.print("</table>");
                                     out.print("</div><br>");
-                                    out.print("<input class=\"btn btn-primary text-center border rounded-pill border-dark\" name=\"accion\" type=\"submit\" style=\"color: rgb(0,0,0);background: rgba(255,255,255,0);width: 100px;height: 50px;margin-right: 10em;\" value=\"Finalizar\">");
+                                    out.print("<input class=\"btn btn-primary text-center border rounded-pill border-dark\" name=\"accion\" type=\"submit\" style=\"color: rgb(0,0,0);background: rgba(255,255,255,0);width: 100px;height: 50px;margin-right: 10em;\" value=\"Culminar\">");
                                     out.print("</form>");
                                     out.print("</div>");
                                 } else {
@@ -89,7 +83,7 @@
                                     out.print("<h3>¿Tiene maestría?</h3>");
                                     out.print("<div class=\"form-check\"><input class=\"form-check-input\" type=\"radio\" name=\"seleccion\" value=\"si\"><label class=\"form-check-label\">Si</label></div>");
                                     out.print("<div class=\"form-check\"><input class=\"form-check-input\" type=\"radio\" checked=\"\" name=\"seleccion\" value=\"no\"><label class=\"form-check-label\">No</label></div>");
-                                    out.print("<br><input class=\"btn btn-primary text-center border rounded-pill border-dark\" name=\"accion\" type=\"submit\" style=\"color: rgb(0,0,0);background: rgba(255,255,255,0);width: 100px;height: 50px;margin-right: 10em;\" value=\"Finalizar Registro\">");
+                                    out.print("<br><input class=\"btn btn-primary text-center border rounded-pill border-dark\" name=\"accion\" type=\"submit\" style=\"color: rgb(0,0,0);background: rgba(255,255,255,0);width: 100px;height: 50px;margin-right: 10em;\" value=\"Culminar\">");
                                     out.print("</form>");
                                     out.print("</div>");
                                 }
