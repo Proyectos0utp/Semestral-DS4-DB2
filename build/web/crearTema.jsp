@@ -14,23 +14,16 @@
     <head>
 
         <%
-            Tema tema = Controlador.temaIngresado;
             if (Controlador.usuarioLogeado.getNombre().equals("")) {
                 RequestDispatcher ventana = request.getRequestDispatcher("iniciarsesion.jsp");
                 request.setAttribute("avisoSesion", "Inicie sesion.");
                 ventana.forward(request, response);
-            } else {
-
-                if (tema.getCodTema().equals("")) {
-                    RequestDispatcher ventana = request.getRequestDispatcher("adminEst.jsp");
-                    ventana.forward(request, response);
-                }
             }
         %>
 
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-        <title>Administrar tema</title>
+        <title>Crear tema</title>
         <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
         <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
@@ -51,17 +44,17 @@
                     </nav>
                     <div class="container-fluid">
                         <hr style="color: rgba(255,255,255,0);">
-                        <h1 style="color: rgb(0,0,0);">Administrar contenido</h1>
+                        <h1 style="color: rgb(0,0,0);">Crear Tema</h1>
                         <hr style="color: rgba(255,255,255,0);">
                         <div class="row row-cols-1 text-center text-dark">
                             <div class="col-auto col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 text-start order-first mb-4">
-                                <input type="text" placeholder="Codigo de tema..." value="<%if(!tema.getCodTema().equals("")){out.print(tema.getCodTema());}%>" style="margin-bottom: 20px;width: 300px;"><br>
-                                <input type="text" placeholder="Nombre de tema..." value="<%if(!tema.getTitulo().equals("")){out.print(tema.getTitulo());}%>" style="margin-bottom: 20px;width: 300px;"><br>
-                                <textarea placeholder="Contenido..." style="margin-bottom: 20px;width: 300px;" rows="10" cols="30"><%if(!tema.getContenido().equals("")){out.print(tema.getContenido());}%></textarea><br>
-                                <input type="url" placeholder="Inserte el link HTML de la imagen..." value="<%if(!tema.getImagen().equals("")){out.print(tema.getImagen());}%>" style="margin-bottom: 20px;width: 300px;"><br>
+                                <input type="text" placeholder="Codigo de tema..." style="margin-bottom: 20px;width: 300px;"><br>
+                                <input type="text" placeholder="Nombre de tema..." style="margin-bottom: 20px;width: 300px;"><br>
+                                <textarea placeholder="Contenido..." style="margin-bottom: 20px;width: 300px;" rows="10" cols="30"></textarea><br>
+                                <input type="url" placeholder="Inserte el link HTML de la imagen..." style="margin-bottom: 20px;width: 300px;"><br>
                             </div>
                                 <div class="col-auto col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 align-self-center mb-4">
-                                    <img class="img-fluid" src="<%if(!tema.getImagen().equals("")){out.print(tema.getImagen());}else{out.print("https://via.placeholder.com/500x500");}%>" alt="imagen ya cargada si existe, si no aparece placeholder"></div>
+                                    <img class="img-fluid" src="assets/img/utp_logo_big.png"></div>
                                 <div class="col-12 align-self-center order-last mb-4" style="text-align: center;"><br><br>
                                 <h3 class="text-center">Preguntas</h3><br><span>(marque el check de la respuesta correcta)<br></span>
                                 <button class="btn btn-primary text-center border rounded-pill border-dark" type="button" style="color: rgb(0,0,0);background: rgba(255,255,255,0);width: 200px;height: 50px;">Insertar nueva pregunta</button><br><br>
@@ -91,7 +84,7 @@
                                     </table>
                                 </div>
                             </div>
-                        </div><button class="btn btn-primary text-center border rounded-pill border-dark" type="button" style="color: rgb(0,0,0);background: rgba(255,255,255,0);width: 100px;height: 50px;">Cargar</button><br>
+                        </div><input class="btn btn-primary text-center border rounded-pill border-dark" type="submit" name="accion" style="color: rgb(0,0,0);background: rgba(255,255,255,0);width: 100px;height: 50px;" value="Crear Tema"><br>
                     </div>
                 </div>
             </div>

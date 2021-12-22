@@ -52,8 +52,12 @@
                         <div class="row row-cols-1 text-start text-dark">
                             <div class="col-auto order-first">
                                 <br>
-                                <h2 class="text-start" style="color: rgb(0,0,0);">Temas</h2><br><br>
+                                <h2 class="text-start" style="color: rgb(0,0,0);">Temas</h2>
+                                <form action="Controlador">
+                                    <input class="btn btn-primary border rounded-0" type="submit" name="accion" style="color: rgb(0,0,0);background: rgba(255,255,255,0);border-color: rgb(0,0,0);width: 175px;margin-bottom: 30px;" value="Crear Nuevo Tema">
+                                </form>
                             </div>
+                            <br><br>
                             <div class="col-12 text-center order-first">
                                 <div class="table-responsive border-dark">
                                     <table class="table">

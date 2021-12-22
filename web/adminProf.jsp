@@ -47,7 +47,7 @@
                                 <br><br>
                                 <h2 class="text-start" style="color: rgb(0,0,0);">Grupos</h2>
                                 <form action="Controlador">
-                                    <input class="btn btn-primary border rounded-0" type="submit" name="accion" style="color: rgb(0,0,0);background: rgba(255,255,255,0);border-color: rgb(0,0,0);width: 150px;margin-bottom: 30px;" value="Crear Nuevo">
+                                    <input class="btn btn-primary border rounded-0" type="submit" name="accion" style="color: rgb(0,0,0);background: rgba(255,255,255,0);border-color: rgb(0,0,0);width: 175px;margin-bottom: 30px;" value="Crear Nuevo Grupo">
                                 </form>
                             </div>
 

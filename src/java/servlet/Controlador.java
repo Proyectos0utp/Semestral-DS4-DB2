@@ -275,8 +275,13 @@ public class Controlador extends HttpServlet {
         }
 
         //Crear Nuevo Grupo
-        if (accion.equals("Crear Nuevo")) {
+        if (accion.equals("Crear Nuevo Grupo")) {
             ventanaAMostrar = "crearGrupo.jsp";
+        }
+        
+        //Crear Nuevo Tema
+        if (accion.equals("Crear Nuevo Tema")) {
+            ventanaAMostrar = "crearTema.jsp";
         }
 
         //Crear Grupo
@@ -311,6 +316,16 @@ public class Controlador extends HttpServlet {
             } else {
                 mensajeAviso = "Debe llenar todos los campos.";
             }
+
+            request.setAttribute("avisoGrupo", mensajeAviso);
+            ventanaAMostrar = "crearGrupo.jsp";
+        }
+        
+        //Crear Grupo
+        if (accion.equals("Crear Tema")) {
+
+            Tema tema = new Tema();
+            
 
             request.setAttribute("avisoGrupo", mensajeAviso);
             ventanaAMostrar = "crearGrupo.jsp";
