@@ -304,24 +304,28 @@ public class Controlador extends HttpServlet {
 
                         grupo.crearGrupo();
                         mensajeAviso = "Grupo creado exitosamente.";
+                        ventanaAMostrar = "adminProf.jsp";
 
                     } else {
                         mensajeAviso = "Error, ingrese un nivel mayor a cero.";
+                        ventanaAMostrar = "crearGrupo.jsp";
                     }
 
                 } catch (SQLException ex) {
                     System.out.println(ex.getMessage());
                     mensajeAviso = "Error, verifique los datos y reintente.";
+                    ventanaAMostrar = "crearGrupo.jsp";
                 } catch (NumberFormatException ex) {
                     mensajeAviso = "Error, en el nivel solo puede ingresar numeros enteros";
+                    ventanaAMostrar = "crearGrupo.jsp";
                 }
 
             } else {
                 mensajeAviso = "Debe llenar todos los campos.";
+                ventanaAMostrar = "crearGrupo.jsp";
             }
 
             request.setAttribute("avisoGrupo", mensajeAviso);
-            ventanaAMostrar = "crearGrupo.jsp";
         }
 
         //Crear Tema
@@ -339,17 +343,19 @@ public class Controlador extends HttpServlet {
                 try {
                     tema.crearTema();
                     mensajeAviso = "Tema creado exitosamente.";
+                    ventanaAMostrar = "administrarGrupo.jsp";
                 } catch (SQLException ex) {
                     System.out.println(ex.getMessage());
                     mensajeAviso = "Error, verifique los datos y reintente.";
+                    ventanaAMostrar = "crearTema.jsp";
                 }
 
             } else {
                 mensajeAviso = "Debe llenar todos los campos primero.";
+                ventanaAMostrar = "crearTema.jsp";
             }
 
             request.setAttribute("avisoTema", mensajeAviso);
-            ventanaAMostrar = "crearTema.jsp";
         }
 
         //Actualizar Tema
@@ -366,17 +372,19 @@ public class Controlador extends HttpServlet {
                 try {
                     tema.actualizarTema();
                     mensajeAviso = "Tema actualizado exitosamente.";
+                    ventanaAMostrar = "administrarGrupo.jsp";
                 } catch (SQLException ex) {
                     System.out.println(ex.getMessage());
                     mensajeAviso = "Error, verifique los datos y reintente.";
+                    ventanaAMostrar = "modificarTema.jsp";
                 }
 
             } else {
                 mensajeAviso = "Debe llenar todos los campos primero.";
+                ventanaAMostrar = "modificarTema.jsp";
             }
 
             request.setAttribute("avisoTema", mensajeAviso);
-            ventanaAMostrar = "modificarTema.jsp";
         }
 
         //Buscar tema
@@ -395,6 +403,16 @@ public class Controlador extends HttpServlet {
             request.setAttribute("avisoBusqueda", mensajeAviso);
             ventanaAMostrar = "buscar.jsp";
         }
+        
+        //Eliminar tema
+        if (accion.equals("Eliminar Tema")) {
+            Tema.eliminarTema(request.getParameter("cod_tema"));
+            
+            mensajeAviso = "Tema borrado exitosamente.";
+            request.setAttribute("avisoTema", mensajeAviso);
+            ventanaAMostrar = "administrarGrupo.jsp";
+        }
+        
 
         RequestDispatcher ventana = request.getRequestDispatcher(ventanaAMostrar);
         ventana.forward(request, response);

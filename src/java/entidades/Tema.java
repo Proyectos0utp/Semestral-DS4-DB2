@@ -6,9 +6,31 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import procesos.BaseDeDatos;
 
 public class Tema {
+
+    public static void eliminarTema(String cod_tema) {
+        
+        Connection cn = null;
+        Statement stmt = null;
+        String query;
+
+        try {
+            cn = BaseDeDatos.conectar();
+            stmt = cn.createStatement();
+            query = "DELETE FROM Tema WHERE cod_tema='" + cod_tema + "'";
+            stmt.executeUpdate(query);
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            BaseDeDatos.cerrarConexiones(cn, stmt);
+        }
+        
+    }
 
     private String codTema;
     private String titulo;
@@ -741,8 +763,8 @@ public class Tema {
         stmt = cn.createStatement();
         query = "UPDATE Tema SET "
                 + "tema='" + this.getTitulo() + "',"
-                + "imagen='" + this.getImagen()+ "',"
-                + "contenido='" + this.getContenido()+ "' "
+                + "imagen='" + this.getImagen() + "',"
+                + "contenido='" + this.getContenido() + "' "
                 + "WHERE cod_tema='" + this.getCodTema() + "'";
 
         stmt.executeUpdate(query);

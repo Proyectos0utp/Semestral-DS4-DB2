@@ -63,6 +63,11 @@
                                     <input class="btn btn-primary text-center border rounded-pill border-dark" type="submit" name="accion" style="color: rgb(0,0,0);background: rgba(255,255,255,0);width: 175px;height: 50px;" value="Actualizar Tema">
                                 </form>
                                 <br>
+                                <form action="Controlador">
+                                    <input type="hidden" name="cod_tema" value="<%=tema.getCodTema()%>"<br>
+                                    <input class="btn btn-primary text-center border rounded-pill border-dark" type="submit" name="accion" style="color: rgb(0,0,0);background: rgba(255,255,255,0);width: 175px;height: 50px;" value="Eliminar Tema">
+                                </form>                                    
+                                <br>
                                 ${avisoTema}
                             </div>
                             <div class="col-auto col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 align-self-center mb-4">
